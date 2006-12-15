@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+    pastebin.xmlrpc.views
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    Lodge It pastebin xmlrpc interface.
+
+    :copyright: 2006 by Armin Ronacher.
+    :license: BSD
+"""
 from pygments.lexers import get_lexer_by_name, \
                             get_lexer_for_mimetype, \
                             get_lexer_for_filename

@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    pastebin.pastes.models
+    ~~~~~~~~~~~~~~~~~~~~~~
+
+    Lodge It pastebin models.
+
+    :copyright: 2006 by Armin Ronacher.
+    :license: BSD
+"""
 import sha
 import math
 import re

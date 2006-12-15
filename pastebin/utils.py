@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    pastebin.utils
+    ~~~~~~~~~~~~~~
+
+    Lodge It pastebin utilities.
+
+    :copyright: 2006 by Armin Ronacher.
+    :license: BSD
+"""
 import math
 import inspect
 import time

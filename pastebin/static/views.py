@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    pastebin.static.views
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    Lodge It pastebin static views.
+
+    :copyright: 2006 by Armin Ronacher.
+    :license: BSD
+"""
 from pastebin.utils import templated
 from django.http import HttpResponseRedirect
 from pastebin.pastes.models import KNOWN_STYLES

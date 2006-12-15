@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    pastebin.urls
+    ~~~~~~~~~~~~~
+
+    Lodge It pastebin urls.
+
+    :copyright: 2006 by Armin Ronacher.
+    :license: BSD
+"""
 from re import escape
 from django.conf import settings
 from django.conf.urls.defaults import *

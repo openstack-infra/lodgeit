@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    pastebin.pastes.views
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    Lodge It pastebin views.
+
+    :copyright: 2006 by Armin Ronacher.
+    :license: BSD
+"""
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.forms import FormWrapper
 from pastebin.utils import Pagination, templated, render_diff

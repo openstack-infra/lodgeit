@@ -1,3 +1,13 @@
+/*
+    pastebin client scripts
+    ~~~~~~~~~~~~~~~~~~~~~~~
+
+    Lodge It pastebin client scripts.
+
+    :copyright: 2006 by Armin Ronacher.
+    :license: BSD
+*/
+
 function togglePasteThread(uid) {
     if (Element.visible('paste_thread')) {
         new Effect.Fade('paste_thread');
