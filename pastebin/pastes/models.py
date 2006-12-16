@@ -174,7 +174,8 @@ class Paste(models.Model):
             self.language = 'text'
         lexer = get_lexer_by_name(self.language)
         self.code = '\n'.join(self.code.splitlines())
-        self.parsed_code = highlight(self.code, lexer, formatter)
+        self.parsed_code = highlight(self.code.decode('utf-8', 'ignore'),
+                                     lexer, formatter).encode('utf-8')
         super(Paste, self).save()
 
     def __str__(self):
