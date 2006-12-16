@@ -31,6 +31,7 @@ KNOWN_STYLES = set(STYLE_MAP)
 
 formatter = HtmlFormatter(cssclass='syntax',
                           linenos=True,
+                          encoding='utf-8',
                           linenospecial=5)
 
 
@@ -175,7 +176,7 @@ class Paste(models.Model):
         lexer = get_lexer_by_name(self.language)
         self.code = '\n'.join(self.code.splitlines())
         self.parsed_code = highlight(self.code.decode('utf-8', 'ignore'),
-                                     lexer, formatter).encode('utf-8')
+                                     lexer, formatter)
         super(Paste, self).save()
 
     def __str__(self):
