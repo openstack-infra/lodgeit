@@ -129,6 +129,8 @@ def pastes_new_paste(language, code, private=False, title='Untitled',
     
     Return 0 if something goes wrong, else an dict with the
     uid and url."""
+    if isinstance(code, unicode):
+        code = code.encode('utf-8')
     try:
         if not code.strip():
             raise ValueError()
