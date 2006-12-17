@@ -117,7 +117,8 @@ div.content h2 {
     margin: 0 0 10px 0;
     padding: 0;
     color: #19476D;
-    font-size: 30px;
+    font-size: 24px;
+    font-weight: normal;
 }
 
 div.content h3 {
