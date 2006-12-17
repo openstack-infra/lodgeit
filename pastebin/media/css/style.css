@@ -68,7 +68,7 @@ div.header h1 {
 }
 
 div.header h1 a {
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif;
     font-size: 30px;
     color: white;
     text-decoration: none;
@@ -83,7 +83,7 @@ div.header ul {
 
 div.header ul li {
     float: left;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif;
     font-size: 14px;
 }
 
@@ -159,7 +159,7 @@ div.sidebar h3 {
     background-color: #6E6E6E;
     color: #ddd;
     font-size: 17px;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif;
     letter-spacing: 2px;
 }
 
