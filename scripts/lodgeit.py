@@ -10,8 +10,8 @@
     .lodgeitrc / _lodgeitrc
     -----------------------
 
-    Under UNIX create a file called ``~/.lodgerc``, under Windows
-    create a file ``%APPDATA%/_lodgerc`` to override defaults::
+    Under UNIX create a file called ``~/.lodgeitrc``, under Windows
+    create a file ``%APPDATA%/_lodgeitrc`` to override defaults::
 
         author=Your Name
         language=default_language
