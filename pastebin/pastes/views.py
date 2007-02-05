@@ -38,14 +38,15 @@ def new_paste(request, reply=None):
         if 'tags' in data:
             del data['tags']
         errors = manipulator.get_validation_errors(data)
+        spam = False
         # negative captcha?
         if 'email' in data:
-            errors = errors or data['email']
+            spam = spam or data['email']
             del data['email']
         # spam words?
         if 'code' in data:
-            errors = errors or spam_check(data['code'])
-        if not errors:
+            spam = spam or spam_check(data['code'])
+        if not errors and not spam:
             request.session['author'] = data['author']
             manipulator.do_html2python(data)
             paste = manipulator.save(data)
