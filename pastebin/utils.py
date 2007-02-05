@@ -186,3 +186,17 @@ def get_external_url(obj):
         Site.objects.get_current().domain,
         obj.get_absolute_url()
     )
+
+
+spamwordlist = [
+    'viagra',
+    'phentermine',
+    'tramadol'
+]
+
+def spam_check(text):
+    """Simple spam checker. Returns True if text is spam."""
+    text = text.lower()
+    for word in spamwordlist:
+        if word in text:
+            return True

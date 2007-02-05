@@ -139,6 +139,11 @@ div.content dl dd {
     margin: 1px 0 3px 35px;
 }
 
+div.email {
+    /* this is our invisible form field for the negative captcha */
+    display: none; 
+}
+
 div.sidebar {
     width: 22%;
     float: right;

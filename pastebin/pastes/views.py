@@ -10,7 +10,7 @@
 """
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.forms import FormWrapper
-from pastebin.utils import Pagination, templated, render_diff
+from pastebin.utils import Pagination, templated, render_diff, spam_check
 from pastebin.pastes.models import Paste, Tag, tagify
 
 
@@ -38,6 +38,13 @@ def new_paste(request, reply=None):
         if 'tags' in data:
             del data['tags']
         errors = manipulator.get_validation_errors(data)
+        # negative captcha?
+        if 'email' in data:
+            errors = errors or data['email']
+            del data['email']
+        # spam words?
+        if 'code' in data:
+            errors = errors or spam_check(data['code'])
         if not errors:
             request.session['author'] = data['author']
             manipulator.do_html2python(data)
