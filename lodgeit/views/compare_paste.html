@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% set page_title = 'Compare Pastes' %}
+{% block body %}
+  <p>
+    Differences between the pastes
+    <a href="{{ old.url|e }}">#{{ old.paste_id }}</a> ({{ old.pub_date|datetimeformat }})
+    and <a href="{{ new.url|e }}">#{{ new.paste_id }}</a> ({{ new.pub_date|datetimeformat }}).
+  </p>
+  {% if diff.chunks %}
+    <table class="diff">
+      {%- for chunk in diff.chunks -%}
+        {% if not loop.first -%}
+          <tr class="ellipsis">
+            <th colspan="3">...</th>
+          </tr>
+        {%- endif -%}
+        {% for line in chunk %}
+          <tr class="line {{ line.action }}">
+            <th class="old_rev">{{ line.old_lineno }}</th>
+            <th class="new_rev">{{ line.new_lineno }}</th>
+            <td class="code">{{ line.line }}</td>
+          </tr>
+        {%- endfor -%}
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>The two pastes are identical.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% set page_title = 'New Paste' %}
+{% set active_page = 'new' %}
+{% block body %}
+  <form action="/" method="post" class="submitform">
+    {% if parent %}
+      <input type="hidden" name="parent" value="{{ parent.paste_id }}">
+    {% endif %}
+    <textarea name="code" rows="10" cols="80">{{ parent.code|e }}</textarea>
+    <select name="language">
+    {% for key, caption in languages|dictsort(true, 'value') -%}
+      <option value="{{ key }}"{% if parent.language == key
+        %} selected="selected"{% endif %}>{{ caption|e }}</option>
+    {% endfor %}
+    </select>
+    <input type="submit" value="Paste!">
+    <input type="button" value="▲" onclick="LodgeIt.resizeTextarea(-100)">
+    <input type="button" value="▼" onclick="LodgeIt.resizeTextarea(100)">
+  </form>
+{% endblock %}

@@ -190,7 +190,7 @@ def download_paste(uid):
     paste = xmlrpc.pastes.getPaste(uid)
     if not paste:
         fail('Paste "%s" does not exist' % uid, 5)
-    print paste['code']
+    print paste['code'].encode('utf-8')
 
 
 def create_paste(code, title, author, language, private, tags):

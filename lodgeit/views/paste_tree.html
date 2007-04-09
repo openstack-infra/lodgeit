@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% set page_title = 'Paste Tree' %}
+{% set active_page = 'all' %}
+{% block body %}
+  <p>
+    Here you can see the requested tree of paste replies. The paste you're
+    coming from is highlighted.
+  </p>
+  <ul class="paste_tree">
+  {%- for paste in [paste] recursive %}
+    <li{% if paste.paste_id == current
+      %} class="highlighted"{% endif %}><a href="{{ paste.url|e
+      }}">Paste #{{ paste.paste_id }}</a> &mdash; {{
+        paste.pub_date|datetimeformat }}
+      {%- if paste.children -%}
+        <ul>{{ loop(paste.children) }}</ul>
+      {%- endif -%}
+    </li>
+  {%- endfor %}
+  </ul>
+{% endblock %}

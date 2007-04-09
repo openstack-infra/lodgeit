@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% set page_title = 'About LodgeIt' %}
+{% set active_page = 'about' %}
+{% block body %}
+  <div class="text">
+    <h3 id="why-the-hell-another-pastebin">Why the hell another pastebin?</h3>
+    <p>
+      Good question. Basically the world doesn't need another pastebin.
+      There is <a href="http://pastie.caboo.se/">pastie</a> and
+      <a href="http://dpaste.com/">dpaste.com</a> which
+      both use kick-ass highlighting libraries for highlighting the
+      code and both have an initiutive user interface. Nevertheless there
+      are some features which are unique to lodgeit.
+    </p>
+    <h3 id="features">Features</h3>
+    <ul>
+       <li>clean user interface</li>
+       <li>different color schemes for the sourcecode</li>
+       <li>reply to pastes</li>
+       <li>diffs of different pastes</li>
+       <li>support for many python template languages</li>
+       <li>support for many scripting languages like Python and Ruby, even with
+           weird syntax (ruby *cough*)</li>
+       <li><a href="/xmlrpc/">XMLRPC support</a></li>
+       <li>persistent pastes</li>
+       <li>reply notification</li>
+       <li>valid HTML 4.0</li>
+    </ul>
+    <h3 id="request-more-languages">Request More Languages</h3>
+    <p>
+      A language is missing in the list? File a ticket in the
+      <a href="http://trac.pocoo.org/">pocoo trac</a> and we add that as soon
+      as possible.
+    </p>
+    <h3 id="software-used">Software Used</h3>
+    <ul>
+      <li><a href="http://www.sqlite.org/">sqlite3</a> as database</li>
+      <li><a href="http://pygments.pocoo.org/">pygments</a> for syntax highlighting</li>
+      <li><a href="http://www.python.org/">python</a> as scripting language</li>
+      <li><a href="http://jinja.pocoo.org/">Jinja</a> for templating</li>
+      <li><a href="http://wsgitk.pocoo.org/">wsgitk</a> for the WSGI implementation</li>
+      <li><a href="http://www.sqlalchemy.org">SQLAlchemy</a> as database layer</li>
+      <li><a href="http://www.jquery.com/">jQuery</a> for scripting</li>
+    </ul>
+    <h3 id="who">Who?</h3>
+    <p>
+      <a href="http://lucumr.pocoo.org/">mitsuhiko</a> from the pocoo
+      team is responsible for the pastebin. Pygments is a pocoo project
+      led by Georg Brandl.
+    </p>
+    <h3 id="piracy">Piracy</h3>
+    <p>
+      LodgeIt does not use user accounts because it's logging in for using a
+      pastebin is useles. However this pastebin creates unique user ids for you
+      and for 31 days. Whenever you return to the pastebin it will notify you
+      about replies to your pastes. If you don't want to have that feature you
+      can let lodgeit forget about you by
+      <a href="javascript:LodgeIt.removeCookie()">removing the cookie</a>.
+      Please note that on the next request you will get a new id.
+    </p>
+  </div>
+{% endblock %}

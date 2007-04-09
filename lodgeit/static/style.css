@@ -1,0 +1,321 @@
+/**
+ * New Lodge It Style
+ */
+
+body {
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+}
+
+div.page {
+    margin: 30px;
+    padding: 10px;
+    background-color: white;
+}
+
+h1 {
+    font-size: 40px;
+    margin: 0;
+    color: #cd0000;
+}
+
+h2 {
+    font-size: 24px;
+    margin: -5px 0 20px 20px;
+    color: #e18f00;
+}
+
+h3 {
+    font-size: 20px;
+    margin: 20px 0 0 0;
+    color: #cd0000;
+}
+
+h2 a {
+    text-decoration: none;
+}
+
+a {
+    color: #cd0000;
+}
+
+a:hover {
+    color: #e18f00;
+}
+
+div.text {
+    max-width: 700px;
+    text-align: justify;
+    padding: 10px;
+}
+
+#navigation {
+    float: right;
+    list-style: none;
+    margin: -50px 0 0 0;
+    padding: 0;
+}
+
+#navigation li {
+    float: left;
+}
+
+#navigation li a {
+    display: block;
+    padding: 5px 10px 5px 10px;
+    background-color: #333;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#navigation li a:hover {
+    background-color: #f89e00;
+}
+
+#navigation li.active a {
+    background-color: #cd0000;
+}
+
+#paste {
+    margin: 0;
+    padding: 0;
+    border: 1px solid #333;
+}
+
+#paste table, #paste tbody {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#paste td.linenos {
+    background-color: #333;
+    padding-right: 5px;
+    padding-left: 20px;
+    text-align: right;
+    color: #eee;
+}
+
+#paste td.code {
+    padding-left: 10px;
+}
+
+#paste pre {
+    margin: 0;
+    padding: 5px 0 5px 0;
+    font-family: 'Bitstream Vera Sans Mono', monospace;
+    font-size: 13px;
+}
+
+div.related,
+div.notification {
+    margin: 0 0 10px 0;
+    border: 1px solid #cd0000;
+    background-color: #333;
+    color: #fff;
+}
+
+div.related h3,
+div.notification h3 {
+    margin: 0;
+    padding: 0;
+    background-color: #cd0000;
+    font-size: 18px;
+}
+
+div.notification h3,
+div.related h3 a {
+    display: block;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+}
+
+div.related h3 a:hover {
+    background-color: #c41200;
+    color: white;
+}
+
+div.related h3 a:focus {
+    outline: none;
+}
+
+div.related p,
+div.notification p {
+    padding: 5px 10px 5px 10px;
+    margin: 0;
+}
+
+div.related a,
+div.notification a {
+    color: #ccc;
+}
+
+div.related a:hover,
+div.notification a:hover {
+    color: #aaa;
+}
+
+div.related ul {
+    margin: 0 0 10px 30px;
+    padding: 0 0 0 0;
+}
+
+div.related div.content {
+    display: none;
+}
+
+input, select, textarea {
+    border: 1px solid #333;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+    color: black;
+    background-color: #f2f2f2;
+}
+
+textarea {
+    font-family: 'Bitstream Vera Sans Mono', monospace;
+    font-size: 13px;
+    width: 100%;
+    height: 300px;
+    margin: 0 0 10px 0;
+}
+
+input[type="submit"],
+input[type="button"] {
+    background-color: #cd0000;
+    color: white;
+    cursor: pointer;
+}
+
+table.diff {
+    width: 100%;
+    border: 2px solid #ccc;
+    border-collapse: collapse;
+    empty-cells: show;
+    margin: 0;
+}
+
+table.diff th.old_rev,
+table.diff th.new_rev {
+    width: 3em;
+}
+
+table.diff tr.line th.old_rev,
+table.diff tr.line th.new_rev {
+    padding: 0.2em 0.5em 0.2em 0;
+    text-align: right;
+    font-weight: normal;
+    font-size: 0.8em;
+    background-color: #eee;
+    color: #444;
+    border: 1px solid #ccc;
+    vertical-align: top;
+}
+
+table.diff tr.ellipsis th {
+    border: 1px solid #ccc;
+    background-color: #dfdfdf;
+}
+
+table.diff tr.line td.code {
+    padding: 0.1em 0.4em 0.1em 0.4em;
+    font-family: monospace;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: pre-wrap;
+}
+
+table.diff tr.add td.code {
+    background-color: #dfd;
+}
+
+table.diff tr.del td.code {
+    background-color: #fcc;
+}
+
+table.diff tr.add td.code ins {
+    background-color: #9e9;
+    text-decoration: none;
+}
+
+table.diff tr.del td.code del {
+    background-color: #e99;
+    text-decoration: none;
+}
+
+ul.paste_list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.paste_list p {
+    margin: 0;
+    padding: 0;
+}
+
+ul.paste_list pre {
+    margin: 4px 10px 4px 30px;
+    padding: 4px;
+    font-family: 'Bitstream Vera Sans Mono', monospace;
+    font-size: 13px;
+}
+
+ul.paste_list li {
+    margin: 10px 0 0 0;
+    padding: 5px 0 5px 10px;
+}
+
+ul.paste_list li.even {
+    background-color: #eee;
+}
+
+ul.paste_list li.odd {
+    background-color: #ddd;
+}
+
+div.pagination {
+    margin: 10px;
+    text-align: right;
+}
+
+ul.paste_tree {
+    margin: 0 0 0 20px;
+    padding: 0;
+}
+
+ul.paste_tree li {
+    padding: 0;
+}
+
+ul.paste_tree li.highlighted {
+    background-color: #eee;
+}
+
+ul.paste_tree li.highlighted ul {
+    background-color: white;
+}
+
+ul.paste_tree li.highlighted > a {
+    font-weight: bold;
+}
+
+ul.paste_tree ul {
+    padding: 0 0 0 24px;
+    margin: 0;
+}
+
+ul.paste_tree,
+ul.paste_tree ul {
+    list-style: circle;
+}
