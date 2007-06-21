@@ -8,7 +8,7 @@
     :copyright: 2007 by Armin Ronacher.
     :license: BSD
 """
-from wsgitk.routing import automap
+from lodgeit._magic import automap
 
 
 @automap

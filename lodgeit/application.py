@@ -11,8 +11,8 @@
 import os
 import sqlalchemy
 from datetime import datetime, timedelta
-from wsgitk.wrappers import BaseRequest, BaseResponse
-from wsgitk.static import StaticExports
+from werkzeug.wrappers import BaseRequest, BaseResponse
+from werkzeug.utils import SharedDataMiddleware
 from jinja import Environment, PackageLoader
 
 from lodgeit.urls import urlmap
@@ -69,6 +69,7 @@ class Request(BaseRequest):
     `user_hash` and sets `first_visit` to `True` if it's a new user.
     It also stores the engine and dbsession on it.
     """
+    charset = 'utf-8'
 
     def __init__(self, environ, engine):
         self.engine = engine
@@ -80,7 +81,7 @@ class Request(BaseRequest):
         self.user_hash = ''
         self.first_visit = False
         if 'user_hash' in self.cookies:
-            self.user_hash = self.cookies['user_hash'].value
+            self.user_hash = self.cookies['user_hash']
         if not self.user_hash:
             self.user_hash = generate_user_hash()
             self.first_visit = True
@@ -90,6 +91,7 @@ class Response(BaseResponse):
     """
     Subclass the response object for later extension.
     """
+    charset = 'utf-8'
 
 
 class PageNotFound(Exception):
@@ -140,7 +142,7 @@ def make_app(dburi):
     """
     static_path = os.path.join(os.path.dirname(__file__), 'static')
     app = LodgeIt(dburi)
-    app = StaticExports(app, {
+    app = SharedDataMiddleware(app, {
         '/static':      static_path
     })
     return app

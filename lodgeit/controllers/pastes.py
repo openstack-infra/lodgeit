@@ -28,9 +28,9 @@ class PasteController(BaseController):
         """
         pastes = self.dbsession.query(Paste)
         if self.request.method == 'POST':
-            code = self.request.POST.get('code')
-            language = self.request.POST.get('language')
-            parent = self.request.POST.get('parent')
+            code = self.request.form.get('code')
+            language = self.request.form.get('language')
+            parent = self.request.form.get('parent')
             if parent is not None:
                 parent = pastes.selectfirst(Paste.c.paste_id == parent)
             if code and language:
@@ -39,13 +39,21 @@ class PasteController(BaseController):
                 self.dbsession.flush()
                 return redirect(paste.url)
 
-        parent = self.request.GET.get('reply_to')
+        parent = self.request.args.get('reply_to')
         if parent is not None:
-            parent = pastes.selectfirst(Paste.c.paste_id == parent)
+            parent_paste = pastes.selectfirst(Paste.c.paste_id == parent)
+            parent = parent_paste.paste_id
+            code = parent_paste.code
+            language = parent_paste.language
+        else:
+            code = ''
+            language = 'text'
 
         return render_template(self.request, 'new_paste.html',
             languages=LANGUAGES,
-            parent=parent
+            parent=parent,
+            code=code,
+            language=language
         )
 
     def show_paste(self, paste_id):
@@ -106,8 +114,8 @@ class PasteController(BaseController):
         """
         # redirect for the compare form box
         if old_id is new_id is None:
-            old_id = self.request.POST.get('old', '-1').lstrip('#')
-            new_id = self.request.POST.get('new', '-1').lstrip('#')
+            old_id = self.request.form.get('old', '-1').lstrip('#')
+            new_id = self.request.form.get('new', '-1').lstrip('#')
             return redirect('/compare/%s/%s' % (old_id, new_id))
         pastes = self.dbsession.query(Paste)
         old = pastes.selectfirst(Paste.c.paste_id == old_id)
@@ -125,7 +133,7 @@ class PasteController(BaseController):
         Minimal view that updates the style session cookie. Redirects
         back to the page the user is coming from.
         """
-        style_name = self.request.POST.get('style')
+        style_name = self.request.form.get('style')
         resp = redirect(self.request.environ.get('HTTP_REFERER') or '/')
         if style_name in STYLES:
             resp.set_cookie('style', style_name)

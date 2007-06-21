@@ -4,12 +4,12 @@
 {% block body %}
   <form action="/" method="post" class="submitform">
     {% if parent %}
-      <input type="hidden" name="parent" value="{{ parent.paste_id }}">
+      <input type="hidden" name="parent" value="{{ paste_id }}">
     {% endif %}
-    <textarea name="code" rows="10" cols="80">{{ parent.code|e }}</textarea>
+    <textarea name="code" rows="10" cols="80">{{ code|e }}</textarea>
     <select name="language">
     {% for key, caption in languages|dictsort(true, 'value') -%}
-      <option value="{{ key }}"{% if parent.language == key
+      <option value="{{ key }}"{% if language == key
         %} selected="selected"{% endif %}>{{ caption|e }}</option>
     {% endfor %}
     </select>

@@ -34,6 +34,7 @@ LANGUAGES = {
     'csharp':           'C#',
     'css':              'CSS',
     'smarty':           'Smarty',
+    'html':             'HTML',
     'html+php':         'PHP',
     'html+genshi':      'Genshi Templates',
     'js':               'JavaScript',
@@ -45,7 +46,9 @@ LANGUAGES = {
     'ruby':             'Ruby',
     'rhtml':            'eRuby / rhtml',
     'tex':              'TeX / LaTeX',
-    'xml':              'XML'
+    'xml':              'XML',
+    'rst':              'reStructuredText',
+    'irc':              'IRC Logs'
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
