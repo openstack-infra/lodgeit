@@ -71,7 +71,7 @@ def get_style(request):
     else:
         style_name = request.cookies.get('style')
         if style_name:
-            style_name = style_name.value
+            style_name = style_name
         else:
             style_name = 'pastie'
     try:
