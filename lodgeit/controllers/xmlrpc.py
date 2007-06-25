@@ -28,16 +28,14 @@ class XmlRpcController(BaseController):
                 self.request.environ['SERVER_NAME']
         )
 
+
 @exported('pastes.newPaste')
 def pastes_new_paste(request, language, code, parent_id=None):
     """Create a new paste."""
     paste = Paste(code, language, parent_id)
     request.dbsession.save(paste)
     request.dbsession.flush()
-    return {
-        'paste_id':     paste.paste_id,
-        'url':          paste.url
-    }
+    return paste.paste_id
 
 
 @exported('pastes.getPaste')
