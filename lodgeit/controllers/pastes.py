@@ -30,9 +30,11 @@ class PasteController(BaseController):
         if self.request.method == 'POST':
             code = self.request.form.get('code')
             language = self.request.form.get('language')
-            parent = self.request.form.get('parent')
-            if parent is not None:
-                parent = pastes.selectfirst(Paste.c.paste_id == parent)
+            try:
+                parent = pastes.selectfirst(Paste.c.paste_id ==
+                    int(self.request.args.get('reply_to')))
+            except (KeyError, ValueError, TypeError):
+                parent = None
             if code and language:
                 paste = Paste(code, language, parent, self.request.user_hash)
                 self.dbsession.save(paste)
