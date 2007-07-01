@@ -12,7 +12,6 @@ import time
 import difflib
 import sqlalchemy as meta
 from random import random
-from time import time
 from hashlib import sha1
 from datetime import datetime
 
@@ -35,7 +34,7 @@ pastes = meta.Table('pastes', metadata,
 
 
 def generate_user_hash():
-    return sha1('%s|%s' % (random(), time())).hexdigest()
+    return sha1('%s|%s' % (random(), time.time())).hexdigest()
 
 
 class Paste(object):
