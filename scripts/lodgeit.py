@@ -187,6 +187,7 @@ def download_paste(uid):
 
 def create_paste(code, language, filename, mimetype):
     xmlrpc = get_xmlrpc_service()
+    print language, filename, mimetype
     rv = xmlrpc.pastes.newPaste(language, code, filename, mimetype)
     if not rv:
         fail('Could not commit paste. Something went wrong', 4)
@@ -281,7 +282,7 @@ if __name__ == '__main__':
     filename = args and args[0] or ''
     if not opts.language:
         opts.language = ''
-        mimetype = get_mimetype(data, filename)
+        mimetype = get_mimetype(data, filename) or ''
 
     # create paste
     code = make_utf8(data, opts.encoding)
