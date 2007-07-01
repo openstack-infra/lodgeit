@@ -32,14 +32,14 @@ class XmlRpcController(BaseController):
 
 @exported('pastes.newPaste')
 def pastes_new_paste(request, language, code, parent_id=None,
-                     filename=None, mimetype=None):
+                     filename='', mimetype=''):
     """
     Create a new paste. Return the new ID.
 
     `language` can be None, in which case the language will be
     guessed from `filename` and/or `mimetype`.
     """
-    if language is None:
+    if not language:
         language = get_language_for(filename or '', mimetype or '')
     paste = Paste(code, language, parent_id)
     request.dbsession.save(paste)

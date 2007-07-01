@@ -277,10 +277,10 @@ if __name__ == '__main__':
     #        opts.title = args[0]
     #    else:
     #        opts.title = ''
-    mimetype = None
-    filename = args and args[0] or None
+    mimetype = ''
+    filename = args and args[0] or ''
     if not opts.language:
-        opts.language = None
+        opts.language = ''
         mimetype = get_mimetype(data, filename)
 
     # create paste
