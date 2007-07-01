@@ -278,6 +278,7 @@ if __name__ == '__main__':
     #    else:
     #        opts.title = ''
     mimetype = None
+    filename = args and args[0] or None
     if not opts.language:
         opts.language = None
         mimetype = get_mimetype(data, filename)
