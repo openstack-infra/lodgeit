@@ -5,7 +5,7 @@
 
     The XMLRPC controller
 
-    :copyright: 2007 by Armin Ronacher.
+    :copyright: 2007 by Armin Ronacher, Georg Brandl.
     :license: BSD
 """
 import sqlalchemy as meta
@@ -14,7 +14,8 @@ from lodgeit.application import render_template
 from lodgeit.controllers import BaseController
 from lodgeit.database import Paste
 from lodgeit.lib.xmlrpc import xmlrpc, exported
-from lodgeit.lib.highlighting import STYLES, LANGUAGES, get_style
+from lodgeit.lib.highlighting import STYLES, LANGUAGES, get_style, \
+    get_language_for
 
 
 class XmlRpcController(BaseController):
@@ -30,8 +31,16 @@ class XmlRpcController(BaseController):
 
 
 @exported('pastes.newPaste')
-def pastes_new_paste(request, language, code, parent_id=None):
-    """Create a new paste."""
+def pastes_new_paste(request, language, code, parent_id=None,
+                     filename=None, mimetype=None):
+    """
+    Create a new paste. Return the new ID.
+
+    `language` can be None, in which case the language will be
+    guessed from `filename` and/or `mimetype`.
+    """
+    if language is None:
+        language = get_language_for(filename or '', mimetype or '')
     paste = Paste(code, language, parent_id)
     request.dbsession.save(paste)
     request.dbsession.flush()
@@ -40,7 +49,13 @@ def pastes_new_paste(request, language, code, parent_id=None):
 
 @exported('pastes.getPaste')
 def pastes_get_paste(request, paste_id):
-    """Get all known information about a paste by a given paste id."""
+    """
+    Get all known information about a paste by a given paste id.
+
+    Return a dictionary with these keys:
+    `paste_id`, `code`, `parsed_code`, `pub_date`, `language`,
+    `parent_id`, `url`.
+    """
     paste = request.dbsession.query(Paste).selectfirst(Paste.c.paste_id ==
                                                        paste_id)
     if paste is None:
@@ -50,7 +65,9 @@ def pastes_get_paste(request, paste_id):
 
 @exported('pastes.getRecent')
 def pastes_get_recent(request, amount=5):
-    """Return the last amount pastes."""
+    """
+    Return information dict (see `getPaste`) about the last `amount` pastes.
+    """
     amount = min(amount, 20)
     return [x.to_dict() for x in
             request.dbsession.query(Paste).select(
@@ -61,7 +78,9 @@ def pastes_get_recent(request, amount=5):
 
 @exported('pastes.getLast')
 def pastes_get_last(request):
-    """Get the most recent paste."""
+    """
+    Get information dict (see `getPaste`) for the most recent paste.
+    """
     rv = pastes_get_recent(request, 1)
     if rv:
         return rv[0]
@@ -70,19 +89,25 @@ def pastes_get_last(request):
 
 @exported('pastes.getLanguages')
 def pastes_get_languages(request):
-    """Get a list of supported languages."""
+    """
+    Get a list of supported languages.
+    """
     return LANGUAGES.items()
 
 
 @exported('styles.getStyles')
 def styles_get_styles(request):
-    """Get a list of supported styles."""
+    """
+    Get a list of supported styles.
+    """
     return STYLES.items()
 
 
 @exported('styles.getStylesheet')
 def styles_get_stylesheet(request, name):
-    """Return the stylesheet for a given style."""
+    """
+    Return the stylesheet for a given style.
+    """
     return get_style(name)
 
 

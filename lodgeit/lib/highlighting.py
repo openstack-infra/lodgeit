@@ -11,6 +11,7 @@
 import pygments
 from pygments.util import ClassNotFound
 from pygments.lexers import get_lexer_by_name
+from pygments.lexers import get_lexer_for_filename, get_lexer_for_mimetype
 from pygments.styles import get_all_styles
 from pygments.formatters import HtmlFormatter
 
@@ -79,6 +80,24 @@ def get_style(request):
     except ClassNotFound:
         return style_name, ''
     return style_name, f.get_style_defs(('#paste', '.syntax'))
+
+
+def get_language_for(filename, mimetype):
+    """
+    Get language for filename and mimetype
+    """
+    # XXX: this instantiates a lexer just to get at its aliases
+    try:
+        lexer = get_lexer_for_mimetype(mimetype)
+    except ClassNotFound:
+        try:
+            lexer = get_lexer_for_filename(filename)
+        except ClassNotFound:
+            return 'text'
+    for alias in lexer.aliases:
+        if alias in LANGUAGES:
+            return alias
+    return 'text'
 
 
 formatter = HtmlFormatter(linenos=True, cssclass='syntax', style='pastie')
