@@ -34,7 +34,7 @@ LANGUAGES = {
     'cpp':              'C++',
     'csharp':           'C#',
     'css':              'CSS',
-    'd',                'D',
+    'd':                'D',
     'smarty':           'Smarty',
     'html':             'HTML',
     'html+php':         'PHP',
