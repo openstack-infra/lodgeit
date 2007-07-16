@@ -24,6 +24,7 @@
         {% if paste.parent or paste.children %}
           <li><a href="/tree/{{ paste.paste_id }}">show paste tree</a></li>
         {% endif %}
+        <li><a href="/raw/{{ paste.paste_id }}">download paste</a></li>
         <li>compare with paste <form action="/compare" method="post">
           <input type="hidden" name="old" value="{{ paste.paste_id }}">
           <input type="text" name="new" value="#">

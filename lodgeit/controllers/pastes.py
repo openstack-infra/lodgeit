@@ -10,7 +10,8 @@
 """
 import sqlalchemy as meta
 
-from lodgeit.application import render_template, redirect, PageNotFound
+from lodgeit.application import render_template, redirect, PageNotFound, \
+     Response
 from lodgeit.controllers import BaseController
 from lodgeit.database import Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
@@ -58,7 +59,7 @@ class PasteController(BaseController):
             language=language
         )
 
-    def show_paste(self, paste_id):
+    def show_paste(self, paste_id, raw=False):
         """
         Show an existing paste.
         """
@@ -66,6 +67,9 @@ class PasteController(BaseController):
         paste = pastes.selectfirst(Paste.c.paste_id == paste_id)
         if paste is None:
             raise PageNotFound()
+        if raw:
+            return Response(paste.code, mimetype='text/plain; charset=utf-8')
+
         style, css = get_style(self.request)
         return render_template(self.request, 'show_paste.html',
             paste=paste,
@@ -73,6 +77,12 @@ class PasteController(BaseController):
             css=css,
             styles=STYLES
         )
+
+    def raw_paste(self, paste_id):
+        """
+        Show an existing paste in raw mode.
+        """
+        return show_paste(paste_id, raw=True)
 
     def show_tree(self, paste_id):
         """

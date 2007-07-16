@@ -16,6 +16,7 @@ def urlmap():
     # paste interface
     root > 'pastes/new_paste'
     root / 'show' / int('paste_id') > 'pastes/show_paste'
+    root / 'raw' / int('paste_id') > 'pastes/raw_paste'
     root / 'compare' / int('new_id') / int('old_id') > 'pastes/compare_paste'
     root / 'tree' / int('paste_id') > 'pastes/show_tree'
 
