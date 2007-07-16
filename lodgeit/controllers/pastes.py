@@ -82,7 +82,7 @@ class PasteController(BaseController):
         """
         Show an existing paste in raw mode.
         """
-        return show_paste(paste_id, raw=True)
+        return self.show_paste(paste_id, raw=True)
 
     def show_tree(self, paste_id):
         """
