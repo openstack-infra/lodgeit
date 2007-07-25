@@ -328,3 +328,7 @@ ul.paste_tree,
 ul.paste_tree ul {
     list-style: circle;
 }
+
+input#webpage {
+    display: none;
+}

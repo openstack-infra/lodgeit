@@ -16,6 +16,7 @@ from lodgeit.controllers import BaseController
 from lodgeit.database import Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
+from lodgeit.lib.antispam import is_spam
 
 
 class PasteController(BaseController):
@@ -36,7 +37,11 @@ class PasteController(BaseController):
                     int(self.request.args.get('reply_to')))
             except (KeyError, ValueError, TypeError):
                 parent = None
-            if code and language:
+            spam = self.request.form.get('webpage') or is_spam(code, language)
+            if spam:
+                return Response('Paste Blocked', status=403,
+                                mimetype='text/plain')
+            elif code and language:
                 paste = Paste(code, language, parent, self.request.user_hash)
                 self.dbsession.save(paste)
                 self.dbsession.flush()
