@@ -171,10 +171,6 @@ div.related ul {
     padding: 0 0 0 0;
 }
 
-div.related div.content {
-    display: none;
-}
-
 input, select, textarea {
     border: 1px solid #0b4553;
     font-family: 'Trebuchet MS', sans-serif;

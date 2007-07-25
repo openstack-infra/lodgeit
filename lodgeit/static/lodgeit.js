@@ -22,6 +22,9 @@ var LodgeIt = {
     }
     submitform.hide();
     textarea.css('height', '1px');
+
+    /* hide all related blocks if in js mode */
+    $('div.related div.content').hide();
     
     /**
      * links marked with "autoclose" inside the related div
