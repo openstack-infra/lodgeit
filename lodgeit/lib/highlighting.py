@@ -35,6 +35,7 @@ LANGUAGES = {
     'csharp':           'C#',
     'css':              'CSS',
     'd':                'D',
+    'minid':            'MiniD',
     'smarty':           'Smarty',
     'html':             'HTML',
     'html+php':         'PHP',
