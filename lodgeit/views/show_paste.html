@@ -10,7 +10,7 @@
         <li><a class="autoclose" href="/?reply_to={{ paste.paste_id }}">reply to this paste</a></li>
         {% if paste.parent %}
           <li><a class="autoclose" href="/compare/{{ paste.paste_id }}/{{
-              paste.parent.paste_id }}">compare it with the parent paste</a></li>
+              paste.parent.paste_id }}/">compare it with the parent paste</a></li>
           <li><a class="autoclose" href="{{ paste.parent.url|e }}">look at the parent paste</a></li>
         {% endif %}
         {% if paste.children %}
@@ -22,15 +22,15 @@
           </li>
         {% endif %}
         {% if paste.parent or paste.children %}
-          <li><a href="/tree/{{ paste.paste_id }}">show paste tree</a></li>
+          <li><a href="/tree/{{ paste.paste_id }}/">show paste tree</a></li>
         {% endif %}
-        <li><a href="/raw/{{ paste.paste_id }}">download paste</a></li>
-        <li>compare with paste <form action="/compare" method="post">
+        <li><a href="/raw/{{ paste.paste_id }}/">download paste</a></li>
+        <li>compare with paste <form action="/compare/" method="post">
           <input type="hidden" name="old" value="{{ paste.paste_id }}">
           <input type="text" name="new" value="#">
           <input type="submit" value="compare">
         </form></li>
-        <li>select different colorscheme <form action="/colorscheme" method="post">
+        <li>select different colorscheme <form action="/colorscheme/" method="post">
           <select name="style">
           {% for key, caption in styles|dictsort %}
             <option value="{{ key }}"{% if key == style

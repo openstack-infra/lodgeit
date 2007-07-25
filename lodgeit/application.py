@@ -13,6 +13,7 @@ import sqlalchemy
 from datetime import datetime, timedelta
 from werkzeug.wrappers import BaseRequest, BaseResponse
 from werkzeug.utils import SharedDataMiddleware
+from werkzeug.routing import NotFound, RequestRedirect
 from jinja import Environment, PackageLoader
 
 from lodgeit.urls import urlmap
@@ -118,22 +119,23 @@ class LodgeIt(object):
         Minimal WSGI application for request dispatching.
         """
         req = Request(environ, self.engine)
-        rv = urlmap.test(environ.get('PATH_INFO', ''))
+        urls = urlmap.bind_to_environ(environ)
         try:
-            if rv is None:
-                raise PageNotFound()
-            handler = get_controller(rv[0], req)
-            response = handler(**rv[1])
-        except PageNotFound:
+            endpoint, args = urls.match(req.path)
+            handler = get_controller(endpoint, req)
+            resp = handler(**args)
+        except NotFound:
             handler = get_controller(self.not_found[0], req)
-            response = handler(**self.not_found[1])
-        # on first visit we send out the cookie
-        if req.first_visit:
-            response.set_cookie('user_hash', req.user_hash,
-                expires=datetime.utcnow() + timedelta(days=31)
-            )
+            resp = handler(**self.not_found[1])
+        except RequestRedirect, err:
+            resp = redirect(err.new_url)
+        else:
+            if req.first_visit:
+                resp.set_cookie('user_hash', req.user_hash,
+                    expires=datetime.utcnow() + timedelta(days=31)
+                )
         # call the response as WSGI app
-        return response(environ, start_response)
+        return resp(environ, start_response)
 
 
 def make_app(dburi):

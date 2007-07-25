@@ -55,7 +55,7 @@ class Paste(object):
 
     @property
     def url(self):
-        return '/show/%d' % self.paste_id
+        return '/show/%d/' % self.paste_id
 
     def compare_to(self, other, context_lines=4, template=False):
         udiff = u'\n'.join(difflib.unified_diff(

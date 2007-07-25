@@ -8,28 +8,29 @@
     :copyright: 2007 by Armin Ronacher.
     :license: BSD
 """
-from lodgeit._magic import automap
+from werkzeug.routing import Map, Rule
 
+urlmap = Map(
+    [
+        # paste interface
+        Rule('/', endpoint='pastes/new_paste'),
+        Rule('/show/<int:paste_id>/', endpoint='pastes/show_paste'),
+        Rule('/raw/<int:paste_id>/', endpoint='pastes/raw_paste'),
+        Rule('/compare/', endpoint='pastes/compare_paste'),
+        Rule('/compare/<int:new_id>/<int:old_id>/', endpoint='pastes/compare_paste'),
+        Rule('/tree/<int:paste_id>/', endpoint='pastes/show_tree'),
 
-@automap
-def urlmap():
-    # paste interface
-    root > 'pastes/new_paste'
-    root / 'show' / int('paste_id') > 'pastes/show_paste'
-    root / 'raw' / int('paste_id') > 'pastes/raw_paste'
-    root / 'compare' / int('new_id') / int('old_id') > 'pastes/compare_paste'
-    root / 'tree' / int('paste_id') > 'pastes/show_tree'
+        # paste list
+        Rule('/all/', endpoint='pastes/show_all'),
+        Rule('/all/<int:page>/', endpoint='pastes/pastes_show_all'),
 
-    # paste list
-    root / 'all' > 'pastes/show_all'
-    root / 'all' / int('page') > 'pastes/show_all'
+        # xmlrpc
+        Rule('/xmlrpc/', endpoint='xmlrpc/handle_request'),
 
-    # xmlrpc
-    root / 'xmlrpc' > 'xmlrpc/handle_request'
+        # static pages
+        Rule('/about/', endpoint='static/about'),
 
-    # static pages
-    root / 'about' > 'static/about'
-
-    # redirect pages
-    root / 'compare' > 'pastes/compare_paste'
-    root / 'colorscheme' > 'pastes/set_colorscheme'
+        # colorscheme
+        Rule('/colorscheme/', endpoint='pastes/set_colorscheme'),
+    ],
+)
