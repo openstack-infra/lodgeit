@@ -2,9 +2,16 @@
 {% set page_title = 'New Paste' %}
 {% set active_page = 'new' %}
 {% block body %}
+  {%- if error %}
+    <div class="notification">
+      <h3>Error While Pasting</h3>
+      <p>Could not submit your paste because {{ error|e }}.</p>
+      <p><a href="javascript:LodgeIt.hideNotification()">hide this message</a></p>
+    </div>
+  {%- endif %}
   <form action="/" method="post" class="submitform">
     {% if parent %}
-      <input type="hidden" name="parent" value="{{ paste_id }}">
+      <input type="hidden" name="parent" value="{{ parent.paste_id }}">
     {% endif %}
     <textarea name="code" rows="10" cols="80">{{ code|e }}</textarea>
     <select name="language">

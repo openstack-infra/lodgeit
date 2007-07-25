@@ -19,6 +19,9 @@ from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.antispam import is_spam
 
 
+MAX_LINE_LENGTH = 300
+
+
 class PasteController(BaseController):
     """
     Provides all the handler callback for paste related stuff.
@@ -28,7 +31,10 @@ class PasteController(BaseController):
         """
         The 'create a new paste' view.
         """
+        code = error = ''
+        language = 'text'
         pastes = self.dbsession.query(Paste)
+
         if self.request.method == 'POST':
             code = self.request.form.get('code')
             language = self.request.form.get('language')
@@ -39,29 +45,31 @@ class PasteController(BaseController):
                 parent = None
             spam = self.request.form.get('webpage') or is_spam(code, language)
             if spam:
-                return Response('Paste Blocked', status=403,
-                                mimetype='text/plain')
-            elif code and language:
+                error = 'contains spam'
+            for line in code.splitlines():
+                if len(line) > MAX_LINE_LENGTH:
+                    error = ('your paste contains lines longer than %d '
+                             'chars') % MAX_LINE_LENGTH
+                    break
+            if code and language and not error:
                 paste = Paste(code, language, parent, self.request.user_hash)
                 self.dbsession.save(paste)
                 self.dbsession.flush()
                 return redirect(paste.url)
 
-        parent = self.request.args.get('reply_to')
-        if parent is not None:
-            parent_paste = pastes.selectfirst(Paste.c.paste_id == parent)
-            parent = parent_paste.paste_id
-            code = parent_paste.code
-            language = parent_paste.language
         else:
-            code = ''
-            language = 'text'
+            parent = self.request.args.get('reply_to')
+            if parent is not None:
+                parent = pastes.selectfirst(Paste.c.paste_id == parent)
+                code = parent.code
+                language = parent.language
 
         return render_template(self.request, 'new_paste.html',
             languages=LANGUAGES,
             parent=parent,
             code=code,
-            language=language
+            language=language,
+            error=error
         )
 
     def show_paste(self, paste_id, raw=False):
