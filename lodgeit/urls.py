@@ -22,7 +22,7 @@ urlmap = Map(
 
         # paste list
         Rule('/all/', endpoint='pastes/show_all'),
-        Rule('/all/<int:page>/', endpoint='pastes/pastes_show_all'),
+        Rule('/all/<int:page>/', endpoint='pastes/show_all'),
 
         # xmlrpc
         Rule('/xmlrpc/', endpoint='xmlrpc/handle_request'),

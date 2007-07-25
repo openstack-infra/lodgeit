@@ -3,7 +3,9 @@
  */
 
 body {
-    background-color: #333;
+    background-color: #021317;
+    background-image: url(pagebg.png);
+    background-repeat: repeat-x;
     margin: 0;
     padding: 0;
     font-family: 'Trebuchet MS', sans-serif;
@@ -14,12 +16,14 @@ div.page {
     margin: 30px;
     padding: 10px;
     background-color: white;
+    background-image: url(background.png);
+    background-repeat: repeat-x;
 }
 
 h1 {
     font-size: 40px;
     margin: 0;
-    color: #cd0000;
+    color: #083944;
 }
 
 h2 {
@@ -31,7 +35,7 @@ h2 {
 h3 {
     font-size: 20px;
     margin: 20px 0 0 0;
-    color: #cd0000;
+    color: #136276;
 }
 
 h2 a {
@@ -39,7 +43,7 @@ h2 a {
 }
 
 a {
-    color: #cd0000;
+    color: #136276;
 }
 
 a:hover {
@@ -78,7 +82,7 @@ div.text {
 }
 
 #navigation li.active a {
-    background-color: #cd0000;
+    background-color: #136276;
 }
 
 #paste {
@@ -116,7 +120,7 @@ div.text {
 div.related,
 div.notification {
     margin: 0 0 10px 0;
-    border: 1px solid #cd0000;
+    border: 1px solid #136276;
     background-color: #333;
     color: #fff;
 }
@@ -125,7 +129,7 @@ div.related h3,
 div.notification h3 {
     margin: 0;
     padding: 0;
-    background-color: #cd0000;
+    background-color: #136276;
     font-size: 18px;
 }
 
@@ -138,7 +142,7 @@ div.related h3 a {
 }
 
 div.related h3 a:hover {
-    background-color: #c41200;
+    background-color: #1d89a4;
     color: white;
 }
 
@@ -172,7 +176,7 @@ div.related div.content {
 }
 
 input, select, textarea {
-    border: 1px solid #333;
+    border: 1px solid #0b4553;
     font-family: 'Trebuchet MS', sans-serif;
     font-size: 15px;
     color: black;
@@ -189,9 +193,14 @@ textarea {
 
 input[type="submit"],
 input[type="button"] {
-    background-color: #cd0000;
+    background-color: #136276;
     color: white;
     cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background-color: #1d89a4;
 }
 
 table.diff {
@@ -277,11 +286,11 @@ ul.paste_list li {
 }
 
 ul.paste_list li.even {
-    background-color: #eee;
+    background-color: #e0f2f3;
 }
 
 ul.paste_list li.odd {
-    background-color: #ddd;
+    background-color: #c8e6e7;
 }
 
 div.pagination {

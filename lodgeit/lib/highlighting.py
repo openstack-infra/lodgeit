@@ -55,6 +55,8 @@ LANGUAGES = {
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
 
+DEFAULT_STYLE = 'friendly'
+
 
 def highlight(code, language):
     """
@@ -75,7 +77,7 @@ def get_style(request):
         if style_name:
             style_name = style_name
         else:
-            style_name = 'pastie'
+            style_name = DEFAULT_STYLE
     try:
         f = HtmlFormatter(style=style_name)
     except ClassNotFound:
