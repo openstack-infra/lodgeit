@@ -182,13 +182,13 @@ def download_paste(uid):
     paste = xmlrpc.pastes.getPaste(uid)
     if not paste:
         fail('Paste "%s" does not exist' % uid, 5)
-    print paste['code']
+    print paste['code'].encode('utf-8')
 
 
 def create_paste(code, language, filename, mimetype):
     xmlrpc = get_xmlrpc_service()
     print language, filename, mimetype
-    rv = xmlrpc.pastes.newPaste(language, code, filename, mimetype)
+    rv = xmlrpc.pastes.newPaste(language, code, None, filename, mimetype)
     if not rv:
         fail('Could not commit paste. Something went wrong', 4)
     return rv

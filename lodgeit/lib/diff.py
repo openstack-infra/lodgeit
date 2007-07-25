@@ -9,7 +9,6 @@
     :license: BSD
 """
 import re
-from lodgeit.application import jinja_environment
 from cgi import escape
 
 
