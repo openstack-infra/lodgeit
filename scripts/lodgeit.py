@@ -13,9 +13,7 @@
     Under UNIX create a file called ``~/.lodgerc``, under Windows
     create a file ``%APPDATA%/_lodgerc`` to override defaults::
 
-        author=Your Name
         language=default_language
-        private=true/false
         clipboard=true/false
         open_browser=true/false
         encoding=fallback_charset
@@ -44,9 +42,7 @@ def fail(msg, code):
 def load_default_settings():
     """Load the defaults from the lodgeitrc file."""
     settings = {
-        'author':       None,
         'language':     None,
-        'private':      False,
         'clipboard':    True,
         'open_browser': False,
         'encoding':     'iso-8859-15'
@@ -66,7 +62,7 @@ def load_default_settings():
                 if len(p) == 2:
                     key = p[0].strip().lower()
                     if key in settings:
-                        if key in ('private', 'clipboard', 'open_browser'):
+                        if key in ('clipboard', 'open_browser'):
                             settings[key] = p[1].strip().lower() in \
                                             ('true', '1', 'on', 'yes')
                         else:
@@ -108,7 +104,8 @@ def get_xmlrpc_service():
         _xmlrpc_service
     except NameError:
         try:
-            _xmlrpc_service = xmlrpclib.ServerProxy(SERVICE_URL+'xmlrpc/')
+            _xmlrpc_service = xmlrpclib.ServerProxy(SERVICE_URL + 'xmlrpc/',
+                                                    allow_none=True)
         except:
             fail('Could not connect to Pastebin', -1)
     return _xmlrpc_service
@@ -141,12 +138,6 @@ def open_webbrowser(url):
     """Open a new browser window."""
     import webbrowser
     webbrowser.open(url)
-
-
-def get_unix_username():
-    """Return the current unix username"""
-    import getpass
-    return getpass.getuser()
 
 
 def language_exists(language):
@@ -187,7 +178,6 @@ def download_paste(uid):
 
 def create_paste(code, language, filename, mimetype):
     xmlrpc = get_xmlrpc_service()
-    print language, filename, mimetype
     rv = xmlrpc.pastes.newPaste(language, code, None, filename, mimetype)
     if not rv:
         fail('Could not commit paste. Something went wrong', 4)
@@ -203,14 +193,8 @@ if __name__ == '__main__':
 
     parser.add_option('-v', '--version', action='store_true',
                       help='Print script version')
-    #parser.add_option('-t', '--title',
-    #                  help='Title of the paste (default is FILE if given)')
-    #parser.add_option('-a', '--author', default=settings['author'],
-    #                  help='Name of the author (default is UNIX username)')
     parser.add_option('-l', '--language', default=settings['language'],
                       help='Used syntax highlighter for the file')
-    #parser.add_option('-p', '--private', default=settings['private'],
-    #                  action='store_true', help='Paste as private')
     parser.add_option('-e', '--encoding', default=settings['encoding'],
                       help='Specify the encoding of a file (default is '
                            'utf-8 or guessing if available)')
@@ -222,7 +206,6 @@ if __name__ == '__main__':
                       action='store_true',
                       default=settings['open_browser'],
                       help='Open the paste in a web browser')
-    #parser.add_option('--tags', help='List of comma separated tags')
     parser.add_option('--languages', action='store_true', default=False,
                       help='Retrieve a list of supported languages')
     parser.add_option('--download', metavar='UID',
@@ -248,11 +231,6 @@ if __name__ == '__main__':
         download_paste(opts.download)
         sys.exit()
 
-    #if opts.tags:
-    #    opts.tags = [t.strip() for t in opts.tags.split(',')]
-    #else:
-    #    opts.tags = []
-
     # check language if given
     if opts.language and not language_exists(opts.language):
         fail('Language %s is not supported', 3)
@@ -271,13 +249,6 @@ if __name__ == '__main__':
         fail('Aborted, paste file was empty', 4)
 
     # fill with default settings
-    #if not opts.author:
-    #    opts.author = get_unix_username()
-    #if not opts.title:
-    #    if args:
-    #        opts.title = args[0]
-    #    else:
-    #        opts.title = ''
     mimetype = ''
     filename = args and args[0] or ''
     if not opts.language:
