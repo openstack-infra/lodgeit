@@ -20,6 +20,10 @@ div.page {
     background-repeat: repeat-x;
 }
 
+div.footer {
+    clear: both;
+}
+
 h1 {
     font-size: 40px;
     margin: 0;
@@ -53,7 +57,7 @@ a:hover {
 div.text {
     max-width: 700px;
     text-align: justify;
-    padding: 10px;
+    padding: 0 10px 0 10px;
 }
 
 #navigation {
@@ -327,4 +331,68 @@ ul.paste_tree ul {
 
 input#webpage {
     display: none;
+}
+
+ul#help-navigation {
+    margin: 10px;
+    padding: 10px;
+    float: right;
+    border: 1px solid #2eabb0;
+    background-color: #cae9ea;
+    list-style: none;
+}
+
+pre.sample, tt {
+    font-size: 0.9em;
+    background-color: #cae9ea;
+}
+
+pre.sample {
+    border: 1px solid #2eabb0;
+    padding: 3px;
+    margin: 5px 10px 5px 10px;
+}
+
+img.standalone {
+    display: block;
+    margin: 5px auto 5px auto;
+}
+
+ul.xmlrpc-method-list {
+    list-style: none;
+    margin: 10px 0 10px 0;
+    padding: 0;
+}
+
+ul.xmlrpc-method-list li {
+    margin: 5px 10px 5px 10px;
+    padding: 5px;
+    border: 1px solid #2eabb0;
+}
+
+ul.xmlrpc-method-list li.even {
+    background-color: #d8e9ea;
+}
+
+ul.xmlrpc-method-list li.odd {
+    background-color: #ecf9f9;
+}
+
+ul.xmlrpc-method-list li p {
+    margin: 0;
+    padding: 0;
+}
+
+ul.xmlrpc-method-list li p.signature {
+    color: #224e50;
+}
+
+ul.xmlrpc-method-list li p.signature em {
+    color: black;
+    font-style: normal;
+}
+
+ul.xmlrpc-method-list li p.docstring {
+    padding: 5px 0 0 20px;
+    font-size: 0.95em;
 }

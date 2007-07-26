@@ -33,11 +33,15 @@ class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
 
     def get_public_methods(self):
         if not hasattr(self, '_public_methods'):
+            # make sure all callbacks are registered
+            import lodgeit.controllers.xmlrpc
             result = []
             for name, f in self.funcs.iteritems():
                 if name.startswith('system.'):
                     continue
                 args, varargs, varkw, defaults = inspect.getargspec(f)
+                if args and args[0] == 'request':
+                    args = args[1:]
                 result.append({
                     'name':         name,
                     'doc':          inspect.getdoc(f) or '',

@@ -1,0 +1,31 @@
+{% extends "help/layout.html" %}
+{% block help_body %}
+  <h3>Creating New Pastes</h3>
+  <p>
+    If you use the web interface to create new pastes the process is
+    straightforward. All you have to do is to click on the <a href="/">new</a>
+    tab and fill in the text field. Additionally you should select a proper
+    highlighter from the list below to make it easier to read your paste.
+  </p>
+  <img src="/static/help/new_paste.png" class="standalone" alt="screenshot of the form">
+  <p>
+    After you have finished just hit "paste" to submit the paste.
+  </p>
+  <h3>Replying to Pastes</h3>
+  <p>
+    Another way of creating a new paste is to reply to an existing paste.
+    When looking at a paste click on the "Paste Details" link to open the
+    paste menu. From there select the "reply to this paste" link.
+  </p>
+  <img src="/static/help/reply_to_paste.png" class="standalone" alt="screenshot of the paste detail box">
+  <p>
+    A new editor window will open with the contents of the old paste. Just
+    do your changes and click "paste" to submit them.
+  </p>
+  <p>
+    If you use the reply feature a link to the parent paste is created
+    automatically. This allows you to compare those two pastes with one
+    click to find changes easily. For information about the diff view
+    head over to the <a href="/help/advanced/">advanced features</a> page.
+  </p>
+{% endblock %}

@@ -40,7 +40,7 @@ class PasteController(BaseController):
             language = self.request.form.get('language')
             try:
                 parent = pastes.selectfirst(Paste.c.paste_id ==
-                    int(self.request.args.get('reply_to')))
+                    int(self.request.form.get('parent')))
             except (KeyError, ValueError, TypeError):
                 parent = None
             spam = self.request.form.get('webpage') or is_spam(code, language)
@@ -152,6 +152,17 @@ class PasteController(BaseController):
             new=new,
             diff=old.compare_to(new, template=True)
         )
+
+    def unidiff_paste(self, new_id=None, old_id=None):
+        """
+        Render an udiff for the two pastes.
+        """
+        pastes = self.dbsession.query(Paste)
+        old = pastes.selectfirst(Paste.c.paste_id == old_id)
+        new = pastes.selectfirst(Paste.c.paste_id == new_id)
+        if old is None or new is None:
+            raise PageNotFound()
+        return Response(old.compare_to(new), mimetype='text/plain')
 
     def set_colorscheme(self):
         """

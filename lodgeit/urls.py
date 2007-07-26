@@ -18,6 +18,7 @@ urlmap = Map(
         Rule('/raw/<int:paste_id>/', endpoint='pastes/raw_paste'),
         Rule('/compare/', endpoint='pastes/compare_paste'),
         Rule('/compare/<int:new_id>/<int:old_id>/', endpoint='pastes/compare_paste'),
+        Rule('/unidiff/<int:new_id>/<int:old_id>/', endpoint='pastes/unidiff_paste'),
         Rule('/tree/<int:paste_id>/', endpoint='pastes/show_tree'),
 
         # paste list
@@ -29,6 +30,8 @@ urlmap = Map(
 
         # static pages
         Rule('/about/', endpoint='static/about'),
+        Rule('/help/', endpoint='static/help'),
+        Rule('/help/<topic>/', endpoint='static/help'),
 
         # colorscheme
         Rule('/colorscheme/', endpoint='pastes/set_colorscheme'),

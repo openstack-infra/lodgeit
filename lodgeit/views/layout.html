@@ -20,7 +20,8 @@
       {%- for href, id, caption in [
         ('/', 'new', 'New'),
         ('/all/', 'all', 'All'),
-        ('/about/', 'about', 'About')
+        ('/about/', 'about', 'About'),
+        ('/help/', 'help', '?')
       ] %}
         <li{% if active_page == id %} class="active"{%
           endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
@@ -56,6 +57,7 @@
           </div>
         {% endif -%}
         {% block body %}{% endblock -%}
+        <div class="footer"></div>
       </div>
     </div>
   </body>

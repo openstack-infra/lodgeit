@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% set page_title = 'Help' %}
+{% set active_page = 'help' %}
+{% block body %}
+  <ul id="help-navigation">
+  {%- for topic, title in help_topics %}
+    <li{% if current_topic == topic %} class="active"{% endif
+      %}><a href="/help/{{ topic|e }}/">{{ title|e }}</a></li>
+  {%- endfor %}
+  </ul>
+  <div class="text">
+    {% block help_body %}{% endblock %}
+  </div>
+{% endblock %}

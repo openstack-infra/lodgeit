@@ -23,11 +23,7 @@ class XmlRpcController(BaseController):
     def handle_request(self):
         if self.request.method == 'POST':
             return xmlrpc.handle_request(self.request)
-        return render_template(self.request, 'xmlrpc.html',
-            methods=xmlrpc.get_public_methods(),
-            interface_url='http://%s/xmlrpc/' %
-                self.request.environ['SERVER_NAME']
-        )
+        return render_template(self.request, 'xmlrpc.html')
 
 
 @exported('pastes.newPaste')
@@ -61,6 +57,19 @@ def pastes_get_paste(request, paste_id):
     if paste is None:
         return False
     return paste.to_xmlrpc_dict()
+
+
+@exported('pastes.getDiff')
+def pastes_get_diff(request, old_id, new_id):
+    """
+    Compare the two pastes and return an unified diff.
+    """
+    paste = request.dbsession.query(Paste)
+    old = pastes.selectfirst(Paste.c.paste_id == old_id)
+    new = pastes.selectfirst(Paste.c.paste_id == new_id)
+    if old is None or new is None:
+        return False
+    return old.compare_to(new)
 
 
 @exported('pastes.getRecent')
