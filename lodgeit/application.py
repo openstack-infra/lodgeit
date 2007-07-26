@@ -23,9 +23,9 @@ from lodgeit.database import metadata, generate_user_hash, Paste
 
 #: jinja environment for all the templates
 jinja_environment = Environment(loader=PackageLoader('lodgeit', 'views',
-    use_memcache=True,
-    cache_folder='/tmp',
-    auto_reload=True
+    #use_memcache=True,
+    #cache_folder='/tmp',
+    #auto_reload=True
 ))
 
 

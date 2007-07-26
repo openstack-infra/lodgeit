@@ -8,10 +8,13 @@
     :copyright: 2007 by Armin Ronacher.
     :license: BSD
 """
+import re
 import inspect
 from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
 
 from lodgeit.application import Response
+
+_strip_re = re.compile(r'[\x00-\x08\x0B-\x1F]')
 
 
 class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
@@ -58,3 +61,7 @@ def exported(name):
         xmlrpc.register_function(f, name)
         return f
     return proxy
+
+
+def strip_control_chars(s):
+    return _strip_re.sub('', s)

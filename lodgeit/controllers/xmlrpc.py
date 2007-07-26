@@ -60,7 +60,7 @@ def pastes_get_paste(request, paste_id):
                                                        paste_id)
     if paste is None:
         return False
-    return paste.to_dict()
+    return paste.to_xmlrpc_dict()
 
 
 @exported('pastes.getRecent')
@@ -69,7 +69,7 @@ def pastes_get_recent(request, amount=5):
     Return information dict (see `getPaste`) about the last `amount` pastes.
     """
     amount = min(amount, 20)
-    return [x.to_dict() for x in
+    return [x.to_xmlrpc_dict() for x in
             request.dbsession.query(Paste).select(
         order_by=[meta.desc(Paste.c.pub_date)],
         limit=amount

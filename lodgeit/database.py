@@ -42,7 +42,7 @@ class Paste(object):
     def __init__(self, code, language, parent=None, user_hash=None):
         if language not in LANGUAGES:
             raise ValueError('unsupported language %r' % language)
-        self.code = code
+        self.code = u'\n'.join(code.splitlines())
         self.language = language
         self.rehighlight()
         if isinstance(parent, Paste):
@@ -75,11 +75,12 @@ class Paste(object):
     def rehighlight(self):
         self.parsed_code = highlight(self.code, self.language)
 
-    def to_dict(self):
+    def to_xmlrpc_dict(self):
+        from lodgeit.lib.xmlrpc import strip_control_chars
         return {
             'paste_id':         self.paste_id,
-            'code':             self.code,
-            'parsed_code':      self.parsed_code,
+            'code':             strip_control_chars(self.code),
+            'parsed_code':      strip_control_chars(self.parsed_code),
             'pub_date':         int(time.mktime(self.pub_date.timetuple())),
             'language':         self.language,
             'parent_id':        self.parent_id,
