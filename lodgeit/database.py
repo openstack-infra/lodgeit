@@ -11,6 +11,7 @@
 import time
 import difflib
 import sqlalchemy as meta
+from cgi import escape
 from random import random
 from hashlib import sha1
 from datetime import datetime
@@ -41,7 +42,7 @@ class Paste(object):
 
     def __init__(self, code, language, parent=None, user_hash=None):
         if language not in LANGUAGES:
-            raise ValueError('unsupported language %r' % language)
+            language = 'text'
         self.code = u'\n'.join(code.splitlines())
         self.language = language
         self.rehighlight()
@@ -95,7 +96,7 @@ class Paste(object):
                 self.parsed_code.rindex('</pre>')
             ].strip('\n').splitlines()
         except IndexError:
-            code = ''.strip('\n').splitlines()
+            code = self.code.strip('\n').splitlines()
         code = '\n'.join(code[:5] + ['...'])
         return '<pre class="syntax">%s</pre>' % code
 

@@ -51,7 +51,9 @@ LANGUAGES = {
     'tex':              'TeX / LaTeX',
     'xml':              'XML',
     'rst':              'reStructuredText',
-    'irc':              'IRC Logs'
+    'irc':              'IRC Logs',
+    'diff':             'Unified Diff',
+    'vim':              'Vim Scripts'
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
