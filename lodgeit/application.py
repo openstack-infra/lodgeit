@@ -60,7 +60,7 @@ def redirect(url, code=302):
     return Response('Page Moved to %s' % url,
                     headers=[('Location', url),
                              ('Content-Type', 'text/plain')],
-                    status=302)
+                    status=code)
 
 
 class Request(BaseRequest):
