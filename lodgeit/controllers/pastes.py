@@ -16,7 +16,6 @@ from lodgeit.controllers import BaseController
 from lodgeit.database import Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
-from lodgeit.lib.antispam import is_spam
 
 
 MAX_LINE_LENGTH = 300
@@ -43,7 +42,8 @@ class PasteController(BaseController):
                     int(self.request.form.get('parent')))
             except (KeyError, ValueError, TypeError):
                 parent = None
-            spam = self.request.form.get('webpage') or is_spam(code, language)
+            spam = self.request.form.get('webpage') or \
+                   self.app.antispam.is_spam(code, language)
             if spam:
                 error = 'contains spam'
             for line in code.splitlines():

@@ -16,6 +16,7 @@ class BaseController(object):
 
     def __init__(self, req):
         self.request = req
+        self.app = req.app
         self.engine = req.engine
         self.dbsession = req.dbsession
 

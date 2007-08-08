@@ -34,6 +34,19 @@ pastes = meta.Table('pastes', metadata,
 )
 
 
+spam_rules = meta.Table('spam_rules', metadata,
+    meta.Column('rule_id', meta.Integer, primary_key=True),
+    meta.Column('rule', meta.Unicode)
+)
+
+
+spamsync_sources = meta.Table('spamsync_sources', metadata,
+    meta.Column('source_id', meta.Integer, primary_key=True),
+    meta.Column('url', meta.Unicode),
+    meta.Column('last_update', meta.DateTime)
+)
+
+
 def generate_user_hash():
     return sha1('%s|%s' % (random(), time.time())).hexdigest()
 

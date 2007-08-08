@@ -19,6 +19,7 @@ from jinja import Environment, PackageLoader
 from lodgeit.urls import urlmap
 from lodgeit.controllers import get_controller
 from lodgeit.database import metadata, generate_user_hash, Paste
+from lodgeit.lib.antispam import AntiSpam
 
 
 #: jinja environment for all the templates
@@ -71,9 +72,10 @@ class Request(BaseRequest):
     """
     charset = 'utf-8'
 
-    def __init__(self, environ, engine):
-        self.engine = engine
-        self.dbsession = sqlalchemy.create_session(engine)
+    def __init__(self, environ, app):
+        self.app = app
+        self.engine = app.engine
+        self.dbsession = sqlalchemy.create_session(app.engine)
         super(Request, self).__init__(environ)
 
         # check the user hash. an empty cookie is considered
@@ -112,12 +114,14 @@ class LodgeIt(object):
         self.engine = sqlalchemy.create_engine(dburi)
         #: make sure all tables exist.
         metadata.create_all(self.engine)
+        #: create a new antispam instance
+        self.antispam = AntiSpam(self)
 
     def __call__(self, environ, start_response):
         """
         Minimal WSGI application for request dispatching.
         """
-        req = Request(environ, self.engine)
+        req = Request(environ, self)
         urls = urlmap.bind_to_environ(environ)
         try:
             endpoint, args = urls.match(req.path)

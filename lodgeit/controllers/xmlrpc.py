@@ -120,4 +120,49 @@ def styles_get_stylesheet(request, name):
     return get_style(name)
 
 
+@exported('antispam.addRule', hidden=True)
+def antispam_add_rule(request, rule):
+    request.app.antispam.add_rule(rule)
+
+
+@exported('antispam.removeRule', hidden=True)
+def antispam_remove_rule(request, rule):
+    request.app.antispam.remove_rule(rule)
+
+
+@exported('antispam.getRules', hidden=True)
+def antispam_get_rules(request):
+    return sorted(request.app.antispam.get_rules())
+
+
+@exported('antispam.hasRule', hidden=True)
+def antispam_has_rule(request, rule):
+    return request.app.antispam.rule_exists(rule)
+
+
+@exported('antispam.addSyncSource', hidden=True)
+def antispam_add_sync_source(request, url):
+    request.app.antispam.add_sync_source(url)
+
+
+@exported('antispam.removeSyncSource', hidden=True)
+def antispam_remove_sync_source(request, url):
+    request.app.antispam.remove_sync_source(url)
+
+
+@exported('antispam.getSyncSources', hidden=True)
+def antispam_get_sync_sources(request):
+    return sorted(request.app.antispam.get_sync_sources())
+
+
+@exported('antispam.hasSyncSource', hidden=True)
+def antispam_has_sync_source(request, url):
+    return url in request.app.antispam.get_sync_sources()
+
+
+@exported('antispam.triggerSync', hidden=True)
+def antispam_trigger_sync(request):
+    request.app.antispam.sync_sources()
+
+
 controller = XmlRpcController

@@ -21,13 +21,14 @@ class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
 
     def __init__(self):
         SimpleXMLRPCDispatcher.__init__(self, True, 'utf-8')
+        self.funcs['system.listMethods'] = self.list_methods
+
+    def list_methods(self, request):
+        return [x['name'] for x in self.get_public_methods()]
 
     def handle_request(self, request):
         def dispatch(method_name, params):
-            method = self.funcs[method_name]
-            if method_name.startswith('system.'):
-                return method(*params)
-            return method(request, *params)
+            return self.funcs[method_name](request, *params)
         response = self._marshaled_dispatch(request.data, dispatch)
         return Response(response, mimetype='text/xml')
 
@@ -38,6 +39,8 @@ class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
             result = []
             for name, f in self.funcs.iteritems():
                 if name.startswith('system.'):
+                    continue
+                if f.hidden:
                     continue
                 args, varargs, varkw, defaults = inspect.getargspec(f)
                 if args and args[0] == 'request':
@@ -56,13 +59,13 @@ class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
 
 
 xmlrpc = XMLRPCRequestHandler()
-xmlrpc.register_introspection_functions()
 
 
-def exported(name):
+def exported(name, hidden=False):
     """Make a function external available via xmlrpc."""
     def proxy(f):
         xmlrpc.register_function(f, name)
+        f.hidden = hidden
         return f
     return proxy
 

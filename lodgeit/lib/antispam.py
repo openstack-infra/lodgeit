@@ -11,14 +11,11 @@
 import re
 import urllib
 import time
-from os import path
-from tempfile import gettempdir
+from datetime import datetime, timedelta
+from lodgeit.database import spam_rules, spamsync_sources
 
-DOWNLOAD_URL = 'http://moinmaster.wikiwikiweb.de/BadContent?action=raw'
+
 UPDATE_INTERVAL = 60 * 60 * 24 * 7
-
-
-_antispam = None
 
 
 class AntiSpam(object):
@@ -27,49 +24,111 @@ class AntiSpam(object):
     updated from the moin moin server) and checks strings against it.
     """
 
-    def __init__(self, bad_content_file):
-        self.bad_content_file = bad_content_file
-        lines = None
+    def __init__(self, app):
+        self.engine = app.engine
+        self._rules = {}
+        self.sync_with_db()
 
-        if not path.exists(self.bad_content_file):
-            last_change = 0
-        else:
-            last_change = path.getmtime(self.bad_content_file)
+    def add_sync_source(self, url):
+        """Add a new sync source."""
+        self.engine.execute(spamsync_sources.insert(), url=url)
 
-        if last_change + UPDATE_INTERVAL < time.time():
+    def remove_sync_source(self, url):
+        """Remove a sync soruce."""
+        self.engine.execute(spamsync_sources.delete(
+                                spamsync_sources.c.url == url))
+
+    def get_sync_sources(self):
+        """Get a list of all spamsync sources."""
+        return set(x.url for x in self.engine.execute(
+                   spamsync_sources.select()))
+
+    def add_rule(self, rule, noinsert=False):
+        """Add a new rule to the database."""
+        if rule not in self._rules and rule:
             try:
-                f = urllib.urlopen(DOWNLOAD_URL)
-                data = f.read()
+                regex = re.compile(rule)
             except:
-                pass
-            else:
-                lines = [l.strip() for l in data.splitlines()
-                              if not l.startswith('#')]
-                f = file(bad_content_file, 'w')
-                try:
-                    f.write('\n'.join(lines))
-                finally:
-                    f.close()
-                last_change = int(time.time())
+                return
+            self._rules[rule] = regex
+            if not noinsert:
+                self.engine.execute(spam_rules.insert(), rule=rule)
 
-        if lines is None:
-            f = file(bad_content_file)
-            try:
-                lines = [l.strip() for l in f]
-            finally:
-                f.close()
-        self.rules = [re.compile(rule) for rule in lines if rule]
+    def remove_rule(self, rule):
+        """Remove a rule from the database."""
+        self._rules.pop(rule, None)
+        self.engine.execute(spam_rules.delete(spam_rules.c.rule == rule))
 
-    def is_spam(self, fields):
-        for regex in self.rules:
+    def get_rules(self):
+        """Get a list of all spam rules."""
+        return set(self._rules)
+
+    def rule_exists(self, rule):
+        """Check if a rule exists."""
+        return rule in self._rules
+
+    def sync_with_db(self, force_write=False):
+        """Sync with the database."""
+        # compile rules from the database and save them on the instance
+        processed = set()
+        for row in self.engine.execute(spam_rules.select()):
+            if row.rule in processed:
+                continue
+            processed.add(row.rule)
+            self.add_rule(row.rule, noinsert=True)
+
+        # delete out of date rules if we don't force writing
+        if not force_write:
+            to_delete = []
+            for rule in set(self._rules) - processed:
+                del self._rules[rule]
+                to_delete.append(rule)
+            self.engine.execute(spam_rules.delete(
+                spam_rules.c.rule.in_(*to_delete)))
+
+        # otherwise add the rules to the database
+        else:
+            for rule in set(self._rules) - processed:
+                self.engine.execute(spam_rules.insert(),
+                                        rule=rule)
+
+    def sync_sources(self):
+        """Trigger the syncing."""
+        for source in self.get_sync_sources():
+            self.sync_source(source)
+        self.sync_with_db(force_write=True)
+
+    def sycn_old_sources(self):
+        """Sync all older sources."""
+        update_after = datetime.utcnow() - timedelta(seconds=UPDATE_INTERVAL)
+        q = (spamsync_sources.c.last_update == None) | \
+            (spamsync_sources.c.last_update < update_after)
+        sources = list(self.engine.execute(spamsync_sources.select(q)))
+        if sources:
+            for source in sources:
+                self.sync_source(source.url)
+            self.sync_with_db(force_write=True)
+
+    def sync_source(self, url):
+        """Sync one source."""
+        self.load_rules(url)
+        q = spamsync_sources.c.url == url
+        self.engine.execute(spamsync_sources.update(q),
+                            last_update=datetime.utcnow())
+
+    def load_rules(self, url):
+        """Load some rules from an URL."""
+        try:
+            lines = urllib.urlopen(url).read().splitlines()
+        except:
+            return
+        for line in lines:
+            self.add_rule(line.strip(), noinsert=True)
+
+    def is_spam(self, *fields):
+        """Check if one of the fields provides contains spam."""
+        for regex in self._rules.itervalues():
             for field in fields:
                 if regex.search(field) is not None:
                     return True
         return False
-
-
-def is_spam(*fields):
-    global _antispam
-    if _antispam is None:
-        _antispam = AntiSpam(path.join(gettempdir(), 'lodgeit_antispam.db'))
-    return _antispam.is_spam(fields)
