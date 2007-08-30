@@ -5,6 +5,8 @@
  * but hey. now it's web2.0!!!!111
  */
 var LodgeIt = {
+
+  _toggleLock : false,
   
   init : function() {
     /**
@@ -79,7 +81,12 @@ var LodgeIt = {
    * slide-toggle the related links box
    */
   toggleRelatedBox : function() {
-    $('div.related div.content').slideToggle(500);
+    if (!this._toggleLock) {
+      this._toggleLock = true;
+      $('div.related div.content').slideToggle(500, function() {
+        LodgeIt._toggleLock = false;
+      });
+    }
   },
 
   /**
