@@ -131,6 +131,9 @@ class PasteController(BaseController):
         if not pastes and page != 1:
             raise PageNotFound()
 
+        for paste in pastes:
+            paste.rehighlight()
+
         return render_template(self.request, 'show_all.html',
             pastes=pastes,
             pagination=generate_pagination(page, 10,
