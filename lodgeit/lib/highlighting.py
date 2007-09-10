@@ -61,11 +61,12 @@ STYLES = dict((x, x.title()) for x in get_all_styles())
 DEFAULT_STYLE = 'friendly'
 
 
-def highlight(code, language):
+def highlight(code, language, linenos):
     """
     Highlight a given code to HTML
     """
     lexer = get_lexer_by_name(language)
+    formatter = HtmlFormatter(linenos=linenos, cssclass='syntax', style='pastie')
     return pygments.highlight(code, lexer, formatter)
 
 
@@ -104,6 +105,3 @@ def get_language_for(filename, mimetype):
         if alias in LANGUAGES:
             return alias
     return 'text'
-
-
-formatter = HtmlFormatter(linenos=True, cssclass='syntax', style='pastie')

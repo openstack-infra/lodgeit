@@ -58,7 +58,6 @@ class Paste(object):
             language = 'text'
         self.code = u'\n'.join(code.splitlines())
         self.language = language
-        self.rehighlight()
         if isinstance(parent, Paste):
             self.parent = parent
         elif parent is not None:
@@ -86,8 +85,8 @@ class Paste(object):
             return rv and rv[0] or None
         return udiff
 
-    def rehighlight(self):
-        self.parsed_code = highlight(self.code, self.language)
+    def rehighlight(self, linenos=True):
+        self.parsed_code = highlight(self.code, self.language, linenos)
 
     def to_xmlrpc_dict(self):
         from lodgeit.lib.xmlrpc import strip_control_chars

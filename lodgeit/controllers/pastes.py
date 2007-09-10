@@ -76,6 +76,7 @@ class PasteController(BaseController):
         """
         Show an existing paste.
         """
+        linenos = self.request.args.get('linenos') != 'False'
         pastes = self.dbsession.query(Paste)
         paste = pastes.selectfirst(Paste.c.paste_id == paste_id)
         if paste is None:
@@ -84,11 +85,15 @@ class PasteController(BaseController):
             return Response(paste.code, mimetype='text/plain; charset=utf-8')
 
         style, css = get_style(self.request)
+
+        paste.rehighlight(linenos)
+
         return render_template(self.request, 'show_paste.html',
             paste=paste,
             style=style,
             css=css,
-            styles=STYLES
+            styles=STYLES,
+            linenos=linenos,
         )
 
     def raw_paste(self, paste_id):
