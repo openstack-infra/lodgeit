@@ -39,11 +39,11 @@
           </select>
           <input type="submit" value="change">
         </form></li>
-        <li><a href="?linenos={{ not linenos }}" onclick="LodgeIt.toggleLineNumbers(); return false;">toggle line numbers</a></li>
+        <li><a href="?linenos={{ linenos and 'no' or 'yes' }}" onclick="LodgeIt.toggleLineNumbers(); return false;">toggle line numbers</a></li>
       </ul>
     </div>
   </div>
-  <div id="paste">
+  <div id="paste"{% if not linenos %} class="code" {% endif %}>
     {{ paste.parsed_code }}
   </div>
 {% endblock %}

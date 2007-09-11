@@ -110,7 +110,7 @@ div.text {
     color: #eee;
 }
 
-#paste td.code {
+#paste .code, #paste.code {
     padding-left: 10px;
 }
 

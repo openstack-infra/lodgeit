@@ -76,7 +76,7 @@ class PasteController(BaseController):
         """
         Show an existing paste.
         """
-        linenos = self.request.args.get('linenos') != 'False'
+        linenos = self.request.args.get('linenos') != 'no'
         pastes = self.dbsession.query(Paste)
         paste = pastes.selectfirst(Paste.c.paste_id == paste_id)
         if paste is None:
