@@ -47,6 +47,7 @@ LANGUAGES = {
     'haskell':          'Haskell',
     'scheme':           'Scheme',
     'ruby':             'Ruby',
+    'perl':             'Perl',
     'rhtml':            'eRuby / rhtml',
     'tex':              'TeX / LaTeX',
     'xml':              'XML',
