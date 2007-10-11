@@ -54,7 +54,7 @@ LANGUAGES = {
     'rst':              'reStructuredText',
     'irc':              'IRC Logs',
     'diff':             'Unified Diff',
-    'vim':              'Vim Scripts'
+    'vim':              'Vim Scripts',
     'ocaml':            'OCaml',
     'sql':              'SQL',
     'squidconf':        'SquidConf',
