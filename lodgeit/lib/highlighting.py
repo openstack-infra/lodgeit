@@ -55,6 +55,10 @@ LANGUAGES = {
     'irc':              'IRC Logs',
     'diff':             'Unified Diff',
     'vim':              'Vim Scripts'
+    'ocaml':            'OCaml',
+    'sql':              'SQL',
+    'squidconf':        'SquidConf',
+    'sourceslist':      'sources.list'
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
