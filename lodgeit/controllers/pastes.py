@@ -42,8 +42,8 @@ class PasteController(BaseController):
                     int(self.request.form.get('parent')))
             except (KeyError, ValueError, TypeError):
                 parent = None
-            spam = self.request.form.get('webpage') or \
-                   self.app.antispam.is_spam(code, language)
+            spam = self.request.form.get('webpage')# or \
+                   #self.app.antispam.is_spam(code, language)
             if spam:
                 error = 'contains spam'
             for line in code.splitlines():
@@ -118,6 +118,7 @@ class PasteController(BaseController):
         """
         Paginated list of pages.
         """
+        raise PageNotFound()
         def link(page):
             if page == 1:
                 return '/all/'

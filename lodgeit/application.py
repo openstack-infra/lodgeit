@@ -138,7 +138,11 @@ class LodgeIt(object):
                     expires=datetime.utcnow() + timedelta(days=31)
                 )
         # call the response as WSGI app
-        return resp(environ, start_response)
+        try:
+            return resp(environ, start_response)
+        except PageNotFound:
+            handler = get_controller(self.not_found[0], req)
+            return handler(**self.not_found[1])(environ, start_response)
 
 
 def make_app(dburi):
