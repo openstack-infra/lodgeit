@@ -59,7 +59,7 @@ class PasteController(BaseController):
 
         else:
             parent = self.request.args.get('reply_to')
-            if parent is not None:
+            if parent is not None and parent.isdigit():
                 parent = pastes.selectfirst(Paste.c.paste_id == parent)
                 code = parent.code
                 language = parent.language
