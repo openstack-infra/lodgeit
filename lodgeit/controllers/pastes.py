@@ -46,11 +46,6 @@ class PasteController(BaseController):
                    #self.app.antispam.is_spam(code, language)
             if spam:
                 error = 'contains spam'
-            for line in code.splitlines():
-                if len(line) > MAX_LINE_LENGTH:
-                    error = ('your paste contains lines longer than %d '
-                             'chars') % MAX_LINE_LENGTH
-                    break
             if code and language and not error:
                 paste = Paste(code, language, parent, self.request.user_hash)
                 self.dbsession.save(paste)
