@@ -71,4 +71,4 @@ def exported(name, hidden=False):
 
 
 def strip_control_chars(s):
-    return _strip_re.sub('', s)
+    return _strip_re.sub('', s or '')
