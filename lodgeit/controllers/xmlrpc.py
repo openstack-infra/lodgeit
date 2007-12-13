@@ -5,7 +5,7 @@
 
     The XMLRPC controller
 
-    :copyright: 2007 by Armin Ronacher, Georg Brandl.
+    :copyright: 2007 by Armin Ronacher, Georg Brandl, Christopher Grebs.
     :license: BSD
 """
 from lodgeit.utils import ctx, render_template

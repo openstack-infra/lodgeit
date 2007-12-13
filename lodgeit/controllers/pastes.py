@@ -5,7 +5,7 @@
 
     The paste controller
 
-    :copyright: 2007 by Armin Ronacher.
+    :copyright: 2007 by Armin Ronacher, Christopher Grebs.
     :license: BSD
 """
 from lodgeit.utils import redirect, PageNotFound, Response, \
