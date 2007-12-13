@@ -12,7 +12,7 @@ import re
 import urllib
 import time
 from datetime import datetime, timedelta
-from lodgeit.database import spam_rules, spamsync_sources
+from lodgeit.database import db, spam_rules, spamsync_sources
 
 
 UPDATE_INTERVAL = 60 * 60 * 24 * 7
@@ -24,23 +24,22 @@ class AntiSpam(object):
     updated from the moin moin server) and checks strings against it.
     """
 
-    def __init__(self, app):
-        self.engine = app.engine
+    def __init__(self):
         self._rules = {}
         self.sync_with_db()
 
     def add_sync_source(self, url):
         """Add a new sync source."""
-        self.engine.execute(spamsync_sources.insert(), url=url)
+        db.session.execute(spamsync_sources.insert(), url=url)
 
     def remove_sync_source(self, url):
         """Remove a sync soruce."""
-        self.engine.execute(spamsync_sources.delete(
-                                spamsync_sources.c.url == url))
+        db.session.execute(spamsync_sources.delete(
+                           spamsync_sources.c.url == url))
 
     def get_sync_sources(self):
         """Get a list of all spamsync sources."""
-        return set(x.url for x in self.engine.execute(
+        return set(x.url for x in db.session.execute(
                    spamsync_sources.select()))
 
     def add_rule(self, rule, noinsert=False):
@@ -52,12 +51,12 @@ class AntiSpam(object):
                 return
             self._rules[rule] = regex
             if not noinsert:
-                self.engine.execute(spam_rules.insert(), rule=rule)
+                db.session.execute(spam_rules.insert(), rule=rule)
 
     def remove_rule(self, rule):
         """Remove a rule from the database."""
         self._rules.pop(rule, None)
-        self.engine.execute(spam_rules.delete(spam_rules.c.rule == rule))
+        db.session.execute(spam_rules.delete(spam_rules.c.rule == rule))
 
     def get_rules(self):
         """Get a list of all spam rules."""
@@ -71,7 +70,7 @@ class AntiSpam(object):
         """Sync with the database."""
         # compile rules from the database and save them on the instance
         processed = set()
-        for row in self.engine.execute(spam_rules.select()):
+        for row in db.session.execute(spam_rules.select()):
             if row.rule in processed:
                 continue
             processed.add(row.rule)
@@ -83,14 +82,14 @@ class AntiSpam(object):
             for rule in set(self._rules) - processed:
                 del self._rules[rule]
                 to_delete.append(rule)
-            self.engine.execute(spam_rules.delete(
-                spam_rules.c.rule.in_(*to_delete)))
+            db.session.execute(spam_rules.delete(
+                spam_rules.c.rule.in_(to_delete)))
 
         # otherwise add the rules to the database
         else:
             for rule in set(self._rules) - processed:
-                self.engine.execute(spam_rules.insert(),
-                                        rule=rule)
+                db.session.execute(spam_rules.insert(),
+                                   rule=rule)
 
     def sync_sources(self):
         """Trigger the syncing."""
@@ -103,7 +102,7 @@ class AntiSpam(object):
         update_after = datetime.utcnow() - timedelta(seconds=UPDATE_INTERVAL)
         q = (spamsync_sources.c.last_update == None) | \
             (spamsync_sources.c.last_update < update_after)
-        sources = list(self.engine.execute(spamsync_sources.select(q)))
+        sources = list(db.session.execute(spamsync_sources.select(q)))
         if sources:
             for source in sources:
                 self.sync_source(source.url)
@@ -113,8 +112,8 @@ class AntiSpam(object):
         """Sync one source."""
         self.load_rules(url)
         q = spamsync_sources.c.url == url
-        self.engine.execute(spamsync_sources.update(q),
-                            last_update=datetime.utcnow())
+        db.session.execute(spamsync_sources.update(q),
+                          last_update=datetime.utcnow())
 
     def load_rules(self, url):
         """Load some rules from an URL."""

@@ -11,8 +11,8 @@
 import re
 import inspect
 from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
+from lodgeit.utils import ctx, Response
 
-from lodgeit.application import Response
 
 _strip_re = re.compile(r'[\x00-\x08\x0B-\x1F]')
 
@@ -26,10 +26,10 @@ class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
     def list_methods(self, request):
         return [x['name'] for x in self.get_public_methods()]
 
-    def handle_request(self, request):
+    def handle_request(self):
         def dispatch(method_name, params):
-            return self.funcs[method_name](request, *params)
-        response = self._marshaled_dispatch(request.data, dispatch)
+            return self.funcs[method_name](*params)
+        response = self._marshaled_dispatch(ctx.request.data, dispatch)
         return Response(response, mimetype='text/xml')
 
     def get_public_methods(self):

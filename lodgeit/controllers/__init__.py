@@ -11,18 +11,13 @@
 
 class BaseController(object):
     """
-    Base controller. add some stuff to the dict on instanciation
+    Base controller class. This does nothing *yet* but
+    maybe is usefull later.
     """
 
-    def __init__(self, req):
-        self.request = req
-        self.app = req.app
-        self.engine = req.engine
-        self.dbsession = req.dbsession
 
-
-def get_controller(name, req):
+def get_controller(name):
     cname, hname = name.split('/')
     module = __import__('lodgeit.controllers.' + cname, None, None, [''])
-    controller = module.controller(req)
+    controller = module.controller()
     return getattr(controller, hname)

@@ -10,30 +10,28 @@
 """
 from werkzeug.routing import Map, Rule
 
-urlmap = Map(
-    [
-        # paste interface
-        Rule('/', endpoint='pastes/new_paste'),
-        Rule('/show/<int:paste_id>/', endpoint='pastes/show_paste'),
-        Rule('/raw/<int:paste_id>/', endpoint='pastes/raw_paste'),
-        Rule('/compare/', endpoint='pastes/compare_paste'),
-        Rule('/compare/<int:new_id>/<int:old_id>/', endpoint='pastes/compare_paste'),
-        Rule('/unidiff/<int:new_id>/<int:old_id>/', endpoint='pastes/unidiff_paste'),
-        Rule('/tree/<int:paste_id>/', endpoint='pastes/show_tree'),
+urlmap = Map([
+    # paste interface
+    Rule('/', endpoint='pastes/new_paste'),
+    Rule('/show/<int:paste_id>/', endpoint='pastes/show_paste'),
+    Rule('/raw/<int:paste_id>/', endpoint='pastes/raw_paste'),
+    Rule('/compare/', endpoint='pastes/compare_paste'),
+    Rule('/compare/<int:new_id>/<int:old_id>/', endpoint='pastes/compare_paste'),
+    Rule('/unidiff/<int:new_id>/<int:old_id>/', endpoint='pastes/unidiff_paste'),
+    Rule('/tree/<int:paste_id>/', endpoint='pastes/show_tree'),
 
-        # paste list
-        Rule('/all/', endpoint='pastes/show_all'),
-        Rule('/all/<int:page>/', endpoint='pastes/show_all'),
+    # paste list
+    Rule('/all/', endpoint='pastes/show_all'),
+    Rule('/all/<int:page>/', endpoint='pastes/show_all'),
 
-        # xmlrpc
-        Rule('/xmlrpc/', endpoint='xmlrpc/handle_request'),
+    # xmlrpc
+    Rule('/xmlrpc/', endpoint='xmlrpc/handle_request'),
 
-        # static pages
-        Rule('/about/', endpoint='static/about'),
-        Rule('/help/', endpoint='static/help'),
-        Rule('/help/<topic>/', endpoint='static/help'),
+    # static pages
+    Rule('/about/', endpoint='static/about'),
+    Rule('/help/', endpoint='static/help'),
+    Rule('/help/<topic>/', endpoint='static/help'),
 
-        # colorscheme
-        Rule('/colorscheme/', endpoint='pastes/set_colorscheme'),
-    ],
-)
+    # colorscheme
+    Rule('/colorscheme/', endpoint='pastes/set_colorscheme'),
+])

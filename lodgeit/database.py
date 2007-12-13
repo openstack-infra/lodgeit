@@ -10,45 +10,63 @@
 """
 import time
 import difflib
-import sqlalchemy as meta
+from types import ModuleType
+import sqlalchemy
+from sqlalchemy import orm
+from sqlalchemy.orm.scoping import ScopedSession
 from cgi import escape
-from random import random
-from hashlib import sha1
 from datetime import datetime
-
+from lodgeit.utils import _local_manager, ctx
 from lodgeit.lib.highlighting import highlight, LANGUAGES
 
-metadata = meta.MetaData()
+
+def session_factory():
+    return orm.create_session(bind=ctx.application.engine)
+
+session = ScopedSession(session_factory, scopefunc=_local_manager.get_ident)
+
+#: create a fake module for easy access to database session methods
+db = ModuleType('db')
+key = value = mod = None
+for mod in sqlalchemy, orm:
+    for key, value in mod.__dict__.iteritems():
+        if key in mod.__all__:
+            setattr(db, key, value)
+del key, mod, value
+
+db.__doc__ = __doc__
+for name in 'delete', 'save', 'flush', 'execute', 'begin', 'query', \
+            'commit', 'rollback', 'clear', 'refresh', 'expire':
+    setattr(db, name, getattr(session, name))
+db.session = session
 
 
-pastes = meta.Table('pastes', metadata,
-    meta.Column('paste_id', meta.Integer, primary_key=True),
-    meta.Column('code', meta.Unicode),
-    meta.Column('parsed_code', meta.Unicode),
-    meta.Column('parent_id', meta.Integer, meta.ForeignKey('pastes.paste_id'),
+metadata = db.MetaData()
+
+pastes = db.Table('pastes', metadata,
+    db.Column('paste_id', db.Integer, primary_key=True),
+    db.Column('code', db.Unicode),
+    db.Column('parsed_code', db.Unicode),
+    db.Column('parent_id', db.Integer, db.ForeignKey('pastes.paste_id'),
                 nullable=True),
-    meta.Column('pub_date', meta.DateTime),
-    meta.Column('language', meta.Unicode(30)),
-    meta.Column('user_hash', meta.Unicode(40), nullable=True),
-    meta.Column('handled', meta.Boolean, nullable=False)
+    db.Column('pub_date', db.DateTime),
+    db.Column('language', db.Unicode(30)),
+    db.Column('user_hash', db.Unicode(40), nullable=True),
+    db.Column('handled', db.Boolean, nullable=False)
 )
 
 
-spam_rules = meta.Table('spam_rules', metadata,
-    meta.Column('rule_id', meta.Integer, primary_key=True),
-    meta.Column('rule', meta.Unicode)
+spam_rules = db.Table('spam_rules', metadata,
+    db.Column('rule_id', db.Integer, primary_key=True),
+    db.Column('rule', db.Unicode)
 )
 
 
-spamsync_sources = meta.Table('spamsync_sources', metadata,
-    meta.Column('source_id', meta.Integer, primary_key=True),
-    meta.Column('url', meta.Unicode),
-    meta.Column('last_update', meta.DateTime)
+spamsync_sources = db.Table('spamsync_sources', metadata,
+    db.Column('source_id', db.Integer, primary_key=True),
+    db.Column('url', db.Unicode),
+    db.Column('last_update', db.DateTime)
 )
-
-
-def generate_user_hash():
-    return sha1('%s|%s' % (random(), time.time())).hexdigest()
 
 
 class Paste(object):
@@ -113,36 +131,36 @@ class Paste(object):
         return '<pre class="syntax">%s</pre>' % code
 
     @staticmethod
-    def fetch_replies(req):
+    def fetch_replies():
         """
-        Get the new replies for the owern of a request and flag them
+        Get the new replies for the ower of a request and flag them
         as handled.
         """
-        s = meta.select([pastes.c.paste_id],
-            pastes.c.user_hash == req.user_hash
+        s = db.select([pastes.c.paste_id],
+            Paste.user_hash == ctx.request.user_hash
         )
-        paste_list = req.dbsession.query(Paste).select(
-            (Paste.c.parent_id.in_(s)) &
-            (Paste.c.handled == False) &
-            (Paste.c.user_hash != req.user_hash),
-            order_by=[meta.desc(Paste.c.pub_date)]
-        )
+
+        paste_list = db.session.query(Paste).filter(db.and_(
+            Paste.parent_id.in_(s),
+            Paste.handled == False,
+            Paste.user_hash != ctx.request.user_hash,
+        )).order_by(pastes.c.paste_id.desc()).all()
+
         to_mark = [p.paste_id for p in paste_list]
-        req.engine.execute(pastes.update(pastes.c.paste_id.in_(*to_mark)),
-            handled=True
-        )
+        db.execute(pastes.update(pastes.c.paste_id.in_(to_mark),
+                                 values={'handled': True}))
         return paste_list
 
     @staticmethod
-    def count(con):
-        s = meta.select([meta.func.count(pastes.c.paste_id)])
-        return con.execute(s).fetchone()[0]
+    def count():
+        s = db.select([db.func.count(pastes.c.paste_id)])
+        return db.execute(s).fetchone()[0]
 
     @staticmethod
-    def resolve_root(sess, paste_id):
-        q = sess.query(Paste)
+    def resolve_root(paste_id):
+        pastes = db.query(Paste)
         while True:
-            paste = q.selectfirst(Paste.c.paste_id == paste_id)
+            paste = pastes.filter(Paste.c.paste_id == paste_id).first()
             if paste is None:
                 return
             if paste.parent_id is None:
@@ -150,10 +168,10 @@ class Paste(object):
             paste_id = paste.parent_id
 
 
-meta.mapper(Paste, pastes, properties={
-    'children': meta.relation(Paste,
+db.mapper(Paste, pastes, properties={
+    'children': db.relation(Paste,
         primaryjoin=pastes.c.parent_id==pastes.c.paste_id,
         cascade='all',
-        backref=meta.backref('parent', remote_side=[pastes.c.paste_id])
+        backref=db.backref('parent', remote_side=[pastes.c.paste_id])
     )
 })
