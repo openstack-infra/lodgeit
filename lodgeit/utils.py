@@ -9,7 +9,10 @@
     :license: BSD
 """
 import time
-from hashlib import sha1
+try:
+    from hashlib import sha1
+except:
+    from sha import new as sha1
 from random import random
 from types import ModuleType
 from werkzeug import Local, LocalManager, LocalProxy, BaseRequest, \

@@ -8,6 +8,7 @@
     :copyright: 2007 by Armin Ronacher.
     :license: BSD
 """
+import sys
 import re
 import inspect
 from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
@@ -20,7 +21,12 @@ _strip_re = re.compile(r'[\x00-\x08\x0B-\x1F]')
 class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
 
     def __init__(self):
-        SimpleXMLRPCDispatcher.__init__(self, True, 'utf-8')
+        #: Python 2.5 requires some arguments like `allow_none`
+        #: and the encoding. Python 2.4 and 2.3 doesn't.
+        if sys.version_info[:2] < (2, 5):
+            SimpleXMLRPCDispatcher.__init__(self)
+        else:
+            SimpleXMLRPCDispatcher.__init__(self, True, 'utf-8')
         self.funcs['system.listMethods'] = self.list_methods
 
     def list_methods(self, request):
