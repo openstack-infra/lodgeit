@@ -144,7 +144,7 @@ def language_exists(language):
     """Check if a language alias exists."""
     xmlrpc = get_xmlrpc_service()
     langs = xmlrpc.pastes.getLanguages()
-    return language in langs
+    return language in [x[0] for x in langs]
 
 
 def get_mimetype(data, filename):
@@ -233,7 +233,7 @@ if __name__ == '__main__':
 
     # check language if given
     if opts.language and not language_exists(opts.language):
-        fail('Language %s is not supported', 3)
+        fail('Language %s is not supported' % opts.language, 3)
 
     # load file
     try:
