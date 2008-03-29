@@ -10,15 +10,15 @@
     .lodgeitrc / _lodgeitrc
     -----------------------
 
-    Under UNIX create a file called ``~/.lodgerc``, under Windows
-    create a file ``%APPDATA%/_lodgerc`` to override defaults::
+    Under UNIX create a file called ``~/.lodgeitrc``, under Windows
+    create a file ``%APPDATA%/_lodgeitrc`` to override defaults::
 
         language=default_language
         clipboard=true/false
         open_browser=true/false
         encoding=fallback_charset
 
-    :authors: 2007 Georg Brandl <georg@python.org>,
+    :authors: 2007-2008 Georg Brandl <georg@python.org>,
               2006 Armin Ronacher <armin.ronacher@active-4.com>,
               2006 Matt Good <matt@matt-good.net>,
               2005 Raphael Slinckx <raphael@slinckx.net>
