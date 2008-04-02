@@ -47,6 +47,7 @@ LANGUAGES = {
     'haskell':          'Haskell',
     'scheme':           'Scheme',
     'ruby':             'Ruby',
+    'irb':              'Interactive Ruby',
     'perl':             'Perl',
     'rhtml':            'eRuby / rhtml',
     'tex':              'TeX / LaTeX',
@@ -58,7 +59,11 @@ LANGUAGES = {
     'ocaml':            'OCaml',
     'sql':              'SQL',
     'squidconf':        'SquidConf',
-    'sourceslist':      'sources.list'
+    'sourceslist':      'sources.list',
+    'erlang':           'Erlang',
+    'vim':              'Vim',
+    'dylan':            'Dylan',
+    'gas':              'GAS'
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
