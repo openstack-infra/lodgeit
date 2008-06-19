@@ -56,12 +56,6 @@ pastes = db.Table('pastes', metadata,
 )
 
 
-spam_rules = db.Table('spam_rules', metadata,
-    db.Column('rule_id', db.Integer, primary_key=True),
-    db.Column('rule', db.String)
-)
-
-
 
 class Paste(object):
 

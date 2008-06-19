@@ -40,9 +40,8 @@ class PasteController(BaseController):
                     int(ctx.request.form.get('parent'))).first()
             except (KeyError, ValueError, TypeError):
                 parent = None
-            spam = ctx.request.form.get('webpage')
-            #TODO: use AntiSpam again
-            # or \ #self.app.antispam.is_spam(code, language)
+            spam = ctx.request.form.get('webpage') or \
+                   ctx.application.antispam.is_spam(code)
             if spam:
                 error = 'contains spam'
             if code and language and not error:
