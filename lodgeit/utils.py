@@ -19,7 +19,7 @@ from werkzeug import Local, LocalManager, LocalProxy, BaseRequest, \
     BaseResponse
 from werkzeug.routing import NotFound, RequestRedirect
 
-from jinja import Environment, PackageLoader
+from jinja2 import Environment, PackageLoader
 
 
 #: context locals

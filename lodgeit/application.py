@@ -6,6 +6,7 @@
     the WSGI application
 
     :copyright: 2007 by Armin Ronacher, Christopher Grebs.
+                2008 by Christopher Grebs.
     :license: BSD
 """
 import os
