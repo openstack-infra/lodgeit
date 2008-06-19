@@ -16,9 +16,9 @@ from werkzeug import SharedDataMiddleware, ClosingIterator
 from lodgeit.utils import _local_manager, ctx, jinja_environment, \
     Request, generate_user_hash, NotFound, RequestRedirect, redirect
 from lodgeit.database import metadata, db, Paste
-from lodgeit.lib.antispam import AntiSpam
 from lodgeit.urls import urlmap
 from lodgeit.controllers import get_controller
+
 
 
 class LodgeIt(object):
@@ -34,8 +34,6 @@ class LodgeIt(object):
         metadata.create_all(self.engine)
         #: bind the application to the current context local
         self.bind_to_context()
-        #: create a new AntiSpam instance
-        self.antispam = AntiSpam()
 
     def bind_to_context(self):
         ctx.application = self

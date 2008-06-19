@@ -9,6 +9,7 @@
     :license: BSD
 """
 import time
+from os import path
 try:
     from hashlib import sha1
 except:
@@ -19,7 +20,7 @@ from werkzeug import Local, LocalManager, LocalProxy, BaseRequest, \
     BaseResponse
 from werkzeug.routing import NotFound, RequestRedirect
 
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 
 
 #: context locals
@@ -35,18 +36,15 @@ ctx.application = LocalProxy(_local, 'application')
 ctx.request = LocalProxy(_local, 'request')
 
 #: jinja environment for all the templates
-jinja_environment = Environment(loader=PackageLoader('lodgeit', 'views',
-    use_memcache=False,
-    auto_reload=False
-))
+jinja_environment = Environment(loader=FileSystemLoader(
+    path.join(path.dirname(__file__), 'views')))
 
-def datetimeformat():
+
+def datetimeformat(obj):
     """
     Helper filter for the template
     """
-    def wrapped(env, ctx, value):
-        return value.strftime('%Y-%m-%d %H:%M')
-    return wrapped
+    return obj.strftime('%Y-%m-%d %H:%M')
 
 jinja_environment.filters['datetimeformat'] = datetimeformat
 

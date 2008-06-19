@@ -45,28 +45,22 @@ metadata = db.MetaData()
 
 pastes = db.Table('pastes', metadata,
     db.Column('paste_id', db.Integer, primary_key=True),
-    db.Column('code', db.Unicode),
-    db.Column('parsed_code', db.Unicode),
+    db.Column('code', db.String),
+    db.Column('parsed_code', db.String),
     db.Column('parent_id', db.Integer, db.ForeignKey('pastes.paste_id'),
                 nullable=True),
     db.Column('pub_date', db.DateTime),
-    db.Column('language', db.Unicode(30)),
-    db.Column('user_hash', db.Unicode(40), nullable=True),
+    db.Column('language', db.String(30)),
+    db.Column('user_hash', db.String(40), nullable=True),
     db.Column('handled', db.Boolean, nullable=False)
 )
 
 
 spam_rules = db.Table('spam_rules', metadata,
     db.Column('rule_id', db.Integer, primary_key=True),
-    db.Column('rule', db.Unicode)
+    db.Column('rule', db.String)
 )
 
-
-spamsync_sources = db.Table('spamsync_sources', metadata,
-    db.Column('source_id', db.Integer, primary_key=True),
-    db.Column('url', db.Unicode),
-    db.Column('last_update', db.DateTime)
-)
 
 
 class Paste(object):
