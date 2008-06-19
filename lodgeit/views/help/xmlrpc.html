@@ -26,7 +26,7 @@
   <h3>Methods</h3>
   <ul class="xmlrpc-method-list">
   {% for method in xmlrpc_methods %}
-    <li class="{% cycle 'even', 'odd' %}"><p class="signature"><strong>{{
+    <li class="{{ loop.cycle('even', 'odd') }}"><p class="signature"><strong>{{
       method.name|escape }}</strong><em>{{ method.signature|escape }}</em></p>
         <p class="docstring">{{ method.doc|e }}</p></li>
   {% endfor %}
