@@ -34,9 +34,10 @@ class AntiSpam(object):
     """
 
     def check_for_link_spam(self, code):
+        """It's spam if more than 30% of the text are links."""
         lengths = (x.span() for x in LINK_RE.finditer(code))
         return percentize(sum(i[1]-i[0] for i in lengths),
-                          len(code)) > 50
+                          len(code)) > 30
 
     def is_spam(self, code):
         """Check if one of the fields provides contains spam."""
