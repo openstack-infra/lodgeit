@@ -7,7 +7,7 @@
     PyCAPTCHA by Micah Dowty and was originally used in inyoka.
 
 
-    :copyright: Copyright 2007 by Armin Ronacher, Micah Dowty.
+    :copyright: Copyright 2007-2008 by Armin Ronacher, Micah Dowty.
     :license: GNU GPL.
 """
 import random

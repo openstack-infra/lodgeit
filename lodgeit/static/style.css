@@ -3,9 +3,7 @@
  */
 
 body {
-    background-color: #021317;
-    background-image: url(pagebg.png);
-    background-repeat: repeat-x;
+    background: #C1DAE0;
     margin: 0;
     padding: 0;
     font-family: 'Trebuchet MS', sans-serif;
@@ -14,10 +12,9 @@ body {
 
 div.page {
     margin: 30px;
-    padding: 10px;
-    background-color: white;
-    background-image: url(background.png);
-    background-repeat: repeat-x;
+    padding: 14px;
+    background: white url(background.png) repeat-x;
+    border: 5px solid #A0CAD4;
 }
 
 div.footer {
@@ -74,7 +71,7 @@ div.text {
 #navigation li a {
     display: block;
     padding: 5px 10px 5px 10px;
-    background-color: #333;
+    background-color: #84BCCA;
     text-decoration: none;
     color: white;
     font-size: 16px;
@@ -92,7 +89,7 @@ div.text {
 #paste {
     margin: 0;
     padding: 0;
-    border: 1px solid #333;
+    border: 1px solid #84BCCA;
 }
 
 #paste table, #paste tbody {
@@ -107,7 +104,7 @@ div.text {
 }
 
 #paste td.linenos {
-    background-color: #333;
+    background-color: #84BCCA;
     padding-right: 5px;
     padding-left: 20px;
     text-align: right;
@@ -128,16 +125,16 @@ div.text {
 div.related,
 div.notification {
     margin: 0 0 10px 0;
-    border: 1px solid #136276;
-    background-color: #333;
-    color: #fff;
+    border: 1px solid #84BCCA;
+    background-color: #D5E9EE;
+    color: #103842;
 }
 
 div.related h3,
 div.notification h3 {
     margin: 0;
     padding: 0;
-    background-color: #136276;
+    background-color: #84BCCA;
     font-size: 18px;
 }
 
@@ -150,9 +147,7 @@ div.related h3 a {
 }
 
 div.notification div.captcha {
-    background-color: #222;
     margin: 10px;
-    padding: 10px;
 }
 
 div.notification div.captcha p {
@@ -181,12 +176,12 @@ div.notification p {
 
 div.related a,
 div.notification a {
-    color: #ccc;
+    color: #136276;
 }
 
 div.related a:hover,
 div.notification a:hover {
-    color: #aaa;
+    color: #1d89a4;
 }
 
 div.related ul {
@@ -195,11 +190,15 @@ div.related ul {
 }
 
 input, select, textarea {
-    border: 1px solid #0b4553;
+    border: 1px solid #A0CAD4;
     font-family: 'Trebuchet MS', sans-serif;
     font-size: 15px;
     color: black;
-    background-color: #f2f2f2;
+    background-color: #FAFEFF;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: 1px solid #41A0B8;
 }
 
 textarea {

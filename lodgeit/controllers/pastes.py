@@ -20,9 +20,6 @@ from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
 
 
-MAX_LINE_LENGTH = 300
-
-
 class PasteController(BaseController):
     """Provides all the handler callback for paste related stuff."""
 
@@ -172,5 +169,6 @@ class PasteController(BaseController):
     def show_captcha(self):
         """Show a captcha."""
         return Captcha().get_response(set_cookie=True)
+
 
 controller = PasteController
