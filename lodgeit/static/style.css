@@ -149,6 +149,21 @@ div.related h3 a {
     text-decoration: none;
 }
 
+div.notification div.captcha {
+    background-color: #222;
+    margin: 10px;
+    padding: 10px;
+}
+
+div.notification div.captcha p {
+    padding: 0;
+}
+
+div.notification div.captcha img {
+    display: block;
+    margin: 8px 0 8px 0;
+}
+
 div.related h3 a:hover {
     background-color: #1d89a4;
     color: white;

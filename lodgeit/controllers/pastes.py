@@ -16,6 +16,7 @@ from lodgeit.controllers import BaseController
 from lodgeit.database import session, Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
+from lodgeit.lib.captcha import check_hashed_solution, Captcha
 
 
 MAX_LINE_LENGTH = 300
@@ -29,6 +30,7 @@ class PasteController(BaseController):
         code = error = ''
         language = 'text'
         pastes = session.query(Paste)
+        show_captcha = False
 
         if ctx.request.method == 'POST':
             code = ctx.request.form.get('code')
@@ -41,7 +43,14 @@ class PasteController(BaseController):
             spam = ctx.request.form.get('webpage') or \
                    ctx.application.antispam.is_spam(code)
             if spam:
-                error = 'contains spam'
+                error = 'your paste contains spam'
+                captcha = ctx.request.form.get('captcha')
+                if captcha:
+                    if check_hashed_solution(captcha):
+                        error = None
+                    else:
+                        error += ' and the CAPTCHA solution was incorrect'
+                show_captcha = True
             if code and language and not error:
                 paste = Paste(code, language, parent, ctx.request.user_hash)
                 session.save(paste)
@@ -60,7 +69,8 @@ class PasteController(BaseController):
             parent=parent,
             code=code,
             language=language,
-            error=error
+            error=error,
+            show_captcha=show_captcha
         )
 
     def show_paste(self, paste_id, raw=False):
@@ -122,9 +132,7 @@ class PasteController(BaseController):
         )
 
     def compare_paste(self, new_id=None, old_id=None):
-        """
-        Render a diff view for two pastes.
-        """
+        """Render a diff view for two pastes."""
         # redirect for the compare form box
         if old_id is new_id is None:
             old_id = ctx.request.form.get('old', '-1').lstrip('#')
@@ -142,9 +150,7 @@ class PasteController(BaseController):
         )
 
     def unidiff_paste(self, new_id=None, old_id=None):
-        """
-        Render an udiff for the two pastes.
-        """
+        """Render an udiff for the two pastes."""
         pastes = session.query(Paste)
         old = pastes.filter(Paste.c.paste_id == old_id).first()
         new = pastes.filter(Paste.c.paste_id == new_id).first()
@@ -153,8 +159,7 @@ class PasteController(BaseController):
         return Response(old.compare_to(new), mimetype='text/plain')
 
     def set_colorscheme(self):
-        """
-        Minimal view that updates the style session cookie. Redirects
+        """Minimal view that updates the style session cookie. Redirects
         back to the page the user is coming from.
         """
         style_name = ctx.request.form.get('style')
@@ -162,5 +167,9 @@ class PasteController(BaseController):
         if style_name in STYLES:
             resp.set_cookie('style', style_name)
         return resp
+
+    def show_captcha(self):
+        """Show a captcha."""
+        return Captcha().get_response(set_cookie=True)
 
 controller = PasteController

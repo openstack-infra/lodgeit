@@ -2,23 +2,31 @@
 {% set page_title = 'New Paste' %}
 {% set active_page = 'new' %}
 {% block body %}
+  <form action="/" method="post" class="submitform">
   {%- if error %}
     <div class="notification">
       <h3>Error While Pasting</h3>
       <p>Could not submit your paste because {{ error|e }}.</p>
+      {%- if show_captcha %}
+      <div class="captcha">
+        <p>Please fill out the CAPTCHA to proceed:</p>
+        <img src="/_captcha.png" alt="a captcha you can't see.  Sorry :(">
+        <input type="text" name="captcha" size="20">
+      </div>
+      {%- else %}
       <p><a href="javascript:LodgeIt.hideNotification()">hide this message</a></p>
+      {%- endif %}
     </div>
   {%- endif %}
-  <form action="/" method="post" class="submitform">
     {% if parent %}
       <input type="hidden" name="parent" value="{{ parent.paste_id }}">
     {% endif %}
     <textarea name="code" rows="10" cols="80">{{ code|e }}</textarea>
     <select name="language">
-    {% for key, caption in languages|dictsort(true, 'value') -%}
+    {%- for key, caption in languages|dictsort(true, 'value') -%}
       <option value="{{ key }}"{% if language == key
         %} selected="selected"{% endif %}>{{ caption|e }}</option>
-    {% endfor %}
+    {%- endfor %}
     </select>
     <input type="text" value="webpage" id="webpage">
     <input type="submit" value="Paste!">

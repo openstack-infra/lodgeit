@@ -24,11 +24,12 @@ from lodgeit.controllers import get_controller
 from lodgeit.lib.antispam import AntiSpam
 
 
-
 class LodgeIt(object):
     """The WSGI Application"""
 
-    def __init__(self, dburi):
+    def __init__(self, dburi, secret_key):
+        #: the secret key used by the captcha
+        self.secret_key = secret_key
         #: name of the error handler
         self.not_found = ('static/not_found', {})
         self.engine = sqlalchemy.create_engine(dburi)
@@ -67,10 +68,10 @@ class LodgeIt(object):
                                [_local_manager.cleanup, session.remove])
 
 
-def make_app(dburi, debug=False, shell=False):
+def make_app(dburi, secret_key, debug=False, shell=False):
     """Apply the used middlewares and create the application."""
     static_path = os.path.join(os.path.dirname(__file__), 'static')
-    app = LodgeIt(dburi)
+    app = LodgeIt(dburi, secret_key)
     if debug:
         app.engine.echo = True
     if not shell:

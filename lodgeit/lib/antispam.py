@@ -24,7 +24,7 @@ LINK_RE = re.compile(r'%s[^\s\'"]+\S' % _url_pattern)
 
 
 def percentize(matched, length):
-    return matched * 100.0 / length
+    return matched * 100.0 / (length or 1)
 
 
 class AntiSpam(object):
@@ -36,7 +36,7 @@ class AntiSpam(object):
     def check_for_link_spam(self, code):
         lengths = (x.span() for x in LINK_RE.finditer(code))
         return percentize(sum(i[1]-i[0] for i in lengths),
-                          len(code) or 1) > 50
+                          len(code)) > 50
 
     def is_spam(self, code):
         """Check if one of the fields provides contains spam."""
