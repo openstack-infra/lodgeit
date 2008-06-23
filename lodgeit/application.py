@@ -12,10 +12,13 @@
 import os
 import sqlalchemy
 from datetime import datetime, timedelta
+
 from werkzeug import SharedDataMiddleware, ClosingIterator
+from werkzeug.exceptions import HTTPException, NotFound
+
 from lodgeit.utils import _local_manager, ctx, jinja_environment, \
-    Request, generate_user_hash, NotFound, RequestRedirect, redirect
-from lodgeit.database import metadata, db, Paste
+     Request, generate_user_hash
+from lodgeit.database import metadata, session, Paste
 from lodgeit.urls import urlmap
 from lodgeit.controllers import get_controller
 from lodgeit.lib.antispam import AntiSpam
@@ -23,9 +26,7 @@ from lodgeit.lib.antispam import AntiSpam
 
 
 class LodgeIt(object):
-    """
-    The WSGI Application
-    """
+    """The WSGI Application"""
 
     def __init__(self, dburi):
         #: name of the error handler
@@ -41,9 +42,7 @@ class LodgeIt(object):
         ctx.application = self
 
     def __call__(self, environ, start_response):
-        """
-        Minimal WSGI application for request dispatching.
-        """
+        """Minimal WSGI application for request dispatching."""
         #: bind the application to the new context local
         self.bind_to_context()
         request = Request(environ)
@@ -56,8 +55,8 @@ class LodgeIt(object):
         except NotFound:
             handler = get_controller(self.not_found[0])
             resp = handler(**self.not_found[1])
-        except RequestRedirect, err:
-            resp = redirect(err.new_url)
+        except HTTPException, e:
+            resp = e.get_response(environ)
         else:
             if request.first_visit:
                 resp.set_cookie('user_hash', request.user_hash,
@@ -65,13 +64,11 @@ class LodgeIt(object):
                 )
 
         return ClosingIterator(resp(environ, start_response),
-                               [_local_manager.cleanup, db.session.remove])
+                               [_local_manager.cleanup, session.remove])
 
 
 def make_app(dburi, debug=False, shell=False):
-    """
-    Apply the used middlewares and create the application.
-    """
+    """Apply the used middlewares and create the application."""
     static_path = os.path.join(os.path.dirname(__file__), 'static')
     app = LodgeIt(dburi)
     if debug:

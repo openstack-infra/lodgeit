@@ -12,7 +12,10 @@ import sys
 import re
 import inspect
 from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
-from lodgeit.utils import ctx, Response
+
+from werkzeug import Response
+
+from lodgeit.utils import ctx
 
 
 _strip_re = re.compile(r'[\x00-\x08\x0B-\x1F]')

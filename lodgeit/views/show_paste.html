@@ -43,7 +43,7 @@
       </ul>
     </div>
   </div>
-  <div id="paste"{% if not linenos %} class="code" {% endif %}>
+  <div id="paste" class="code{% if not linenos %} nolinenos{% endif %}">
     {{ paste.parsed_code }}
   </div>
 {% endblock %}

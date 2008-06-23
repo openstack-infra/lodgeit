@@ -28,8 +28,7 @@ def percentize(matched, length):
 
 
 class AntiSpam(object):
-    """
-    Class for fighting against that damn spammers. It's working not with
+    """Class for fighting against that damn spammers. It's working not with
     a flat file with some bad-content but with some other hopefully more
     effective methods.
     """

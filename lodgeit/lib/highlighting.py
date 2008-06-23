@@ -71,19 +71,15 @@ STYLES = dict((x, x.title()) for x in get_all_styles())
 DEFAULT_STYLE = 'friendly'
 
 
-def highlight(code, language, linenos):
-    """
-    Highlight a given code to HTML
-    """
+def highlight(code, language):
+    """Highlight a given code to HTML"""
     lexer = get_lexer_by_name(language)
-    formatter = HtmlFormatter(linenos=linenos, cssclass='syntax', style='pastie')
+    formatter = HtmlFormatter(linenos=True, cssclass='syntax', style='pastie')
     return pygments.highlight(code, lexer, formatter)
 
 
 def get_style(request):
-    """
-    Style for a given request
-    """
+    """Style for a given request"""
     if isinstance(request, basestring):
         style_name = request
     else:
@@ -100,9 +96,7 @@ def get_style(request):
 
 
 def get_language_for(filename, mimetype):
-    """
-    Get language for filename and mimetype
-    """
+    """Get language for filename and mimetype"""
     # XXX: this instantiates a lexer just to get at its aliases
     try:
         lexer = get_lexer_for_mimetype(mimetype)

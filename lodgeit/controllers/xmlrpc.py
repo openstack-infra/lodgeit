@@ -10,10 +10,10 @@
 """
 from lodgeit.utils import ctx, render_template
 from lodgeit.controllers import BaseController
-from lodgeit.database import db, Paste
+from lodgeit.database import session, Paste
 from lodgeit.lib.xmlrpc import xmlrpc, exported
 from lodgeit.lib.highlighting import STYLES, LANGUAGES, get_style, \
-    get_language_for
+     get_language_for
 
 
 class XmlRpcController(BaseController):
@@ -27,8 +27,7 @@ class XmlRpcController(BaseController):
 @exported('pastes.newPaste')
 def pastes_new_paste(language, code, parent_id=None,
                      filename='', mimetype=''):
-    """
-    Create a new paste. Return the new ID.
+    """Create a new paste. Return the new ID.
 
     `language` can be None, in which case the language will be
     guessed from `filename` and/or `mimetype`.
@@ -36,21 +35,20 @@ def pastes_new_paste(language, code, parent_id=None,
     if not language:
         language = get_language_for(filename or '', mimetype or '')
     paste = Paste(code, language, parent_id)
-    db.session.save(paste)
-    db.session.flush()
+    session.save(paste)
+    session.flush()
     return paste.paste_id
 
 
 @exported('pastes.getPaste')
 def pastes_get_paste(paste_id):
-    """
-    Get all known information about a paste by a given paste id.
+    """Get all known information about a paste by a given paste id.
 
     Return a dictionary with these keys:
     `paste_id`, `code`, `parsed_code`, `pub_date`, `language`,
     `parent_id`, `url`.
     """
-    paste = db.session.query(Paste).filter(Paste.c.paste_id ==
+    paste = session.query(Paste).filter(Paste.c.paste_id ==
                                           paste_id).first()
     if paste is None:
         return False
@@ -59,10 +57,8 @@ def pastes_get_paste(paste_id):
 
 @exported('pastes.getDiff')
 def pastes_get_diff(old_id, new_id):
-    """
-    Compare the two pastes and return an unified diff.
-    """
-    pastes = db.session.query(Paste)
+    """Compare the two pastes and return an unified diff."""
+    pastes = session.query(Paste)
     old = pastes.filter(Paste.c.paste_id == old_id).first()
     new = pastes.filter(Paste.c.paste_id == new_id).first()
     if old is None or new is None:
@@ -72,21 +68,19 @@ def pastes_get_diff(old_id, new_id):
 
 @exported('pastes.getRecent')
 def pastes_get_recent(amount=5):
-    """
-    Return information dict (see `getPaste`) about the last `amount` pastes.
+    """Return information dict (see `getPaste`) about the last
+    `amount` pastes.
     """
     amount = min(amount, 20)
     return [x.to_xmlrpc_dict() for x in
-            db.session.query(Paste).order_by(
+            session.query(Paste).order_by(
                 Paste.pub_date.desc()
             ).limit(amount)]
 
 
 @exported('pastes.getLast')
 def pastes_get_last():
-    """
-    Get information dict (see `getPaste`) for the most recent paste.
-    """
+    """Get information dict (see `getPaste`) for the most recent paste."""
     rv = pastes_get_recent(1)
     if rv:
         return rv[0]
@@ -95,25 +89,19 @@ def pastes_get_last():
 
 @exported('pastes.getLanguages')
 def pastes_get_languages():
-    """
-    Get a list of supported languages.
-    """
+    """Get a list of supported languages."""
     return LANGUAGES.items()
 
 
 @exported('styles.getStyles')
 def styles_get_styles():
-    """
-    Get a list of supported styles.
-    """
+    """Get a list of supported styles."""
     return STYLES.items()
 
 
 @exported('styles.getStylesheet')
 def styles_get_stylesheet(name):
-    """
-    Return the stylesheet for a given style.
-    """
+    """Return the stylesheet for a given style."""
     return get_style(name)
 
 

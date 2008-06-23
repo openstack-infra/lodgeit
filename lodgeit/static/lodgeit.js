@@ -93,12 +93,7 @@ var LodgeIt = {
    * fade the line numbers in and out
    */
   toggleLineNumbers : function() {
-    $('#paste td.linenos').each(function() {
-      var state = $(this).is(':hidden') ? 'show' : 'hide';
-      $(this).animate({
-        opacity: state
-      }, 200);
-    });
+    $('#paste').toggleClass('nolinenos');
   },
 
   /**

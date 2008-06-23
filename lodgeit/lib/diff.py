@@ -13,24 +13,18 @@ from cgi import escape
 
 
 def prepare_udiff(udiff):
-    """
-    Prepare an udiff for a template
-    """
-    renderer = DiffRenderer(udiff)
-    return renderer.prepare()
+    """Prepare an udiff for a template"""
+    return DiffRenderer(udiff).prepare()
 
 
 class DiffRenderer(object):
-    """
-    Give it a unified diff and it renders you a beautiful
+    """Give it a unified diff and it renders you a beautiful
     html diff :-)
     """
     _chunk_re = re.compile(r'@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@')
 
     def __init__(self, udiff):
-        """
-        :param udiff:   a text in udiff format
-        """
+        """:param udiff:   a text in udiff format"""
         self.lines = [escape(line) for line in udiff.splitlines()]
 
     def _extract_rev(self, line1, line2):
@@ -44,9 +38,7 @@ class DiffRenderer(object):
         return None, None, None
 
     def _highlight_line(self, line, next):
-        """
-        Highlight inline changes in both lines.
-        """
+        """Highlight inline changes in both lines."""
         start = 0
         limit = min(len(line['line']), len(next['line']))
         while start < limit and line['line'][start] == next['line'][start]:
@@ -74,9 +66,7 @@ class DiffRenderer(object):
             do(next)
 
     def _parse_udiff(self):
-        """
-        Parse the diff an return data for the template.
-        """
+        """Parse the diff an return data for the template."""
         lineiter = iter(self.lines)
         files = []
         try:

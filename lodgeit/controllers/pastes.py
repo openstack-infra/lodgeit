@@ -5,13 +5,15 @@
 
     The paste controller
 
-    :copyright: 2007 by Armin Ronacher, Christopher Grebs.
+    :copyright: 2007-2008 by Armin Ronacher, Christopher Grebs.
     :license: BSD
 """
-from lodgeit.utils import redirect, PageNotFound, Response, \
-    ctx, render_template
+from werkzeug import redirect, Response
+from werkzeug.exceptions import NotFound
+
+from lodgeit.utils import ctx, render_template
 from lodgeit.controllers import BaseController
-from lodgeit.database import db, Paste
+from lodgeit.database import session, Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
 
@@ -20,17 +22,13 @@ MAX_LINE_LENGTH = 300
 
 
 class PasteController(BaseController):
-    """
-    Provides all the handler callback for paste related stuff.
-    """
+    """Provides all the handler callback for paste related stuff."""
 
     def new_paste(self):
-        """
-        The 'create a new paste' view.
-        """
+        """The 'create a new paste' view."""
         code = error = ''
         language = 'text'
-        pastes = db.session.query(Paste)
+        pastes = session.query(Paste)
 
         if ctx.request.method == 'POST':
             code = ctx.request.form.get('code')
@@ -46,8 +44,8 @@ class PasteController(BaseController):
                 error = 'contains spam'
             if code and language and not error:
                 paste = Paste(code, language, parent, ctx.request.user_hash)
-                db.session.save(paste)
-                db.session.flush()
+                session.save(paste)
+                session.flush()
                 return redirect(paste.url)
 
         else:
@@ -66,21 +64,16 @@ class PasteController(BaseController):
         )
 
     def show_paste(self, paste_id, raw=False):
-        """
-        Show an existing paste.
-        """
+        """Show an existing paste."""
         linenos = ctx.request.args.get('linenos') != 'no'
-        pastes = db.session.query(Paste)
+        pastes = session.query(Paste)
         paste = pastes.filter(Paste.c.paste_id == paste_id).first()
         if paste is None:
-            raise PageNotFound()
+            raise NotFound()
         if raw:
             return Response(paste.code, mimetype='text/plain; charset=utf-8')
 
         style, css = get_style(ctx.request)
-
-        paste.rehighlight(linenos)
-
         return render_template('show_paste.html',
             paste=paste,
             style=style,
@@ -90,38 +83,33 @@ class PasteController(BaseController):
         )
 
     def raw_paste(self, paste_id):
-        """
-        Show an existing paste in raw mode.
-        """
+        """Show an existing paste in raw mode."""
         return self.show_paste(paste_id, raw=True)
 
     def show_tree(self, paste_id):
-        """
-        Display the tree of some related pastes.
-        """
+        """Display the tree of some related pastes."""
         paste = Paste.resolve_root(paste_id)
         if paste is None:
-            raise PageNotFound()
+            raise NotFound()
         return render_template('paste_tree.html',
             paste=paste,
             current=paste_id
         )
 
     def show_all(self, page=1):
-        """
-        Paginated list of pages.
-        """
-        raise PageNotFound() #XXX: activate again?
+        """Paginated list of pages."""
+        raise NotFound()
+
         def link(page):
             if page == 1:
                 return '/all/'
             return '/all/%d' % page
 
-        pastes = db.session.query(Paste).order_by(
+        pastes = session.query(Paste).order_by(
             Paste.c.pub_date.desc()
        ).limit(10).offset(10*(page-1))
         if not pastes and page != 1:
-            raise PageNotFound()
+            raise NotFound()
 
         for paste in pastes:
             paste.rehighlight()
@@ -142,11 +130,11 @@ class PasteController(BaseController):
             old_id = ctx.request.form.get('old', '-1').lstrip('#')
             new_id = ctx.request.form.get('new', '-1').lstrip('#')
             return redirect('/compare/%s/%s' % (old_id, new_id))
-        pastes = db.session.query(Paste)
+        pastes = session.query(Paste)
         old = pastes.filter(Paste.c.paste_id == old_id).first()
         new = pastes.filter(Paste.c.paste_id == new_id).first()
         if old is None or new is None:
-            raise PageNotFound()
+            raise NotFound()
         return render_template('compare_paste.html',
             old=old,
             new=new,
@@ -157,11 +145,11 @@ class PasteController(BaseController):
         """
         Render an udiff for the two pastes.
         """
-        pastes = db.session.query(Paste)
+        pastes = session.query(Paste)
         old = pastes.filter(Paste.c.paste_id == old_id).first()
         new = pastes.filter(Paste.c.paste_id == new_id).first()
         if old is None or new is None:
-            raise PageNotFound()
+            raise NotFound()
         return Response(old.compare_to(new), mimetype='text/plain')
 
     def set_colorscheme(self):

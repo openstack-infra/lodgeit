@@ -102,6 +102,10 @@ div.text {
     border-spacing: 0;
 }
 
+#paste td.code {
+    padding-left: 10px;
+}
+
 #paste td.linenos {
     background-color: #333;
     padding-right: 5px;
@@ -110,8 +114,8 @@ div.text {
     color: #eee;
 }
 
-#paste .code, #paste.code {
-    padding-left: 10px;
+#paste.nolinenos td.linenos {
+    display: none;
 }
 
 #paste pre {

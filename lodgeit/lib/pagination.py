@@ -17,8 +17,7 @@ def generate_pagination(page, per_page, total, link_builder=None,
                         commata=',\n', ellipsis=' ...\n', threshold=3,
                         prev_link=True, next_link=True,
                         gray_prev_link=True, gray_next_link=True):
-    """
-    Generates a pagination.
+    """Generates a pagination.
 
     :param page:            current page number
     :param per_page:        items per page

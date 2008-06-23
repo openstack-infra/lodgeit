@@ -5,10 +5,12 @@
 
     Static stuff.
 
-    :copyright: 2007 by Armin Ronacher.
+    :copyright: 2007-2008 by Armin Ronacher.
     :license: BSD
 """
-from lodgeit.utils import ctx, PageNotFound, render_template
+from werkzeug.exceptions import NotFound
+
+from lodgeit.utils import ctx, render_template
 from lodgeit.controllers import BaseController
 from lodgeit.lib.xmlrpc import xmlrpc
 
@@ -37,7 +39,7 @@ class StaticController(BaseController):
         elif topic in known_help_pages:
             tmpl_name = 'help/%s.html' % topic
         else:
-            raise PageNotFound()
+            raise NotFound()
         return render_template(
             tmpl_name,
             help_topics=HELP_PAGES,
