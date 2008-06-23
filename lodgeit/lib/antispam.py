@@ -10,9 +10,8 @@
     :license: BSD
 """
 import re
-import urllib
-import time
-from datetime import datetime, timedelta
+from operator import sub
+from itertools import starmap
 
 
 _url_pattern = (
@@ -20,25 +19,15 @@ _url_pattern = (
     r'(?:mailto|telnet|s?news|sips?|skype):)'
 )
 
-LINK_RE = re.compile(r'%s[^\s\'"]+\S' % _url_pattern)
+_link_re = re.compile(r'%s[^\s\'"]+\S' % _url_pattern)
 
 
-def percentize(matched, length):
-    return matched * 100.0 / (length or 1)
+def check_for_link_spam(code):
+    """It's spam if more than 30% of the text are links."""
+    spans = (x.span() for x in _link_re.finditer(code))
+    return (sum(starmap(sub, spans)) * -100) / (len(code) or 1) > 30
 
 
-class AntiSpam(object):
-    """Class for fighting against that damn spammers. It's working not with
-    a flat file with some bad-content but with some other hopefully more
-    effective methods.
-    """
-
-    def check_for_link_spam(self, code):
-        """It's spam if more than 30% of the text are links."""
-        lengths = (x.span() for x in LINK_RE.finditer(code))
-        return percentize(sum(i[1]-i[0] for i in lengths),
-                          len(code)) > 30
-
-    def is_spam(self, code):
-        """Check if one of the fields provides contains spam."""
-        return self.check_for_link_spam(code)
+def is_spam(code):
+    """Check if the code provided contains spam."""
+    return check_for_link_spam(code)

@@ -14,6 +14,7 @@ from werkzeug.exceptions import NotFound
 from lodgeit.utils import ctx, render_template
 from lodgeit.controllers import BaseController
 from lodgeit.database import session, Paste
+from lodgeit.lib import antispam
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
@@ -41,7 +42,7 @@ class PasteController(BaseController):
             except (KeyError, ValueError, TypeError):
                 parent = None
             spam = ctx.request.form.get('webpage') or \
-                   ctx.application.antispam.is_spam(code)
+                   antispam.is_spam(code)
             if spam:
                 error = 'your paste contains spam'
                 captcha = ctx.request.form.get('captcha')

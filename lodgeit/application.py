@@ -21,7 +21,6 @@ from lodgeit.utils import _local_manager, ctx, jinja_environment, \
 from lodgeit.database import metadata, session, Paste
 from lodgeit.urls import urlmap
 from lodgeit.controllers import get_controller
-from lodgeit.lib.antispam import AntiSpam
 
 
 class LodgeIt(object):
@@ -37,7 +36,6 @@ class LodgeIt(object):
         metadata.create_all(self.engine)
         #: bind the application to the current context local
         self.bind_to_context()
-        self.antispam = AntiSpam()
 
     def bind_to_context(self):
         ctx.application = self
