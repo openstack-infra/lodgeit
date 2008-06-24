@@ -30,19 +30,23 @@ class PasteController(BaseController):
         pastes = session.query(Paste)
         show_captcha = False
 
+        # prefix all form fields with the a portion of the user hash
+        # this should fight some stupid bots
+        prefix = ctx.request.cookies.get('user_hash', '')[2:14]
+        getform = lambda x: ctx.request.form.get(prefix + x)
+
         if ctx.request.method == 'POST':
-            code = ctx.request.form.get('code')
-            language = ctx.request.form.get('language')
+            code = getform('code')
+            language = getform('language')
             try:
                 parent = pastes.filter(Paste.paste_id ==
-                    int(ctx.request.form.get('parent'))).first()
-            except (KeyError, ValueError, TypeError):
+                    int(getform('parent'))).first()
+            except (ValueError, TypeError):
                 parent = None
-            spam = ctx.request.form.get('webpage') or \
-                   antispam.is_spam(code)
+            spam = ctx.request.form.get('webpage') or antispam.is_spam(code)
             if spam:
                 error = 'your paste contains spam'
-                captcha = ctx.request.form.get('captcha')
+                captcha = getform('captcha')
                 if captcha:
                     if check_hashed_solution(captcha):
                         error = None
@@ -68,7 +72,8 @@ class PasteController(BaseController):
             code=code,
             language=language,
             error=error,
-            show_captcha=show_captcha
+            show_captcha=show_captcha,
+            prefix=prefix
         )
 
     def show_paste(self, paste_id, raw=False):

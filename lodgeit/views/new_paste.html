@@ -11,7 +11,7 @@
       <div class="captcha">
         <p>Please fill out the CAPTCHA to proceed:</p>
         <img src="/_captcha.png" alt="a captcha you can't see.  Sorry :(">
-        <input type="text" name="captcha" size="20">
+        <input type="text" name="{{ prefix }}captcha" size="20">
       </div>
       {%- else %}
       <p><a href="javascript:LodgeIt.hideNotification()">hide this message</a></p>
@@ -19,16 +19,16 @@
     </div>
   {%- endif %}
     {% if parent %}
-      <input type="hidden" name="parent" value="{{ parent.paste_id }}">
+      <input type="hidden" name="{{ prefix }}parent" value="{{ parent.paste_id }}">
     {% endif %}
-    <textarea name="code" rows="10" cols="80">{{ code|e }}</textarea>
-    <select name="language">
+    <textarea name="{{ prefix }}code" rows="10" cols="80">{{ code|e }}</textarea>
+    <select name="{{ prefix }}language">
     {%- for key, caption in languages|dictsort(true, 'value') -%}
       <option value="{{ key }}"{% if language == key
         %} selected="selected"{% endif %}>{{ caption|e }}</option>
     {%- endfor %}
     </select>
-    <input type="text" value="webpage" id="webpage">
+    <input type="text" value="webpage" name="webpage" id="webpage">
     <input type="submit" value="Paste!">
     <input type="button" value="▲" onclick="LodgeIt.resizeTextarea(-100)">
     <input type="button" value="▼" onclick="LodgeIt.resizeTextarea(100)">
