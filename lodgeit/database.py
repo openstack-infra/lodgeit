@@ -29,14 +29,14 @@ metadata = MetaData()
 
 pastes = Table('pastes', metadata,
     Column('paste_id', Integer, primary_key=True),
-    Column('private_id', String(40), unique=True, nullable=True),
     Column('code', Text),
     Column('parent_id', Integer, ForeignKey('pastes.paste_id'),
            nullable=True),
     Column('pub_date', DateTime),
     Column('language', String(30)),
     Column('user_hash', String(40), nullable=True),
-    Column('handled', Boolean, nullable=False)
+    Column('handled', Boolean, nullable=False),
+    Column('private_id', String(40), unique=True, nullable=True)
 )
 
 
