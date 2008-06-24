@@ -5,7 +5,7 @@
 
     The URL mapping.
 
-    :copyright: 2007 by Armin Ronacher.
+    :copyright: 2007-2008 by Armin Ronacher.
     :license: BSD
 """
 from werkzeug.routing import Map, Rule
@@ -13,12 +13,12 @@ from werkzeug.routing import Map, Rule
 urlmap = Map([
     # paste interface
     Rule('/', endpoint='pastes/new_paste'),
-    Rule('/show/<int:paste_id>/', endpoint='pastes/show_paste'),
-    Rule('/raw/<int:paste_id>/', endpoint='pastes/raw_paste'),
+    Rule('/show/<identifier>/', endpoint='pastes/show_paste'),
+    Rule('/raw/<identifier>/', endpoint='pastes/raw_paste'),
     Rule('/compare/', endpoint='pastes/compare_paste'),
-    Rule('/compare/<int:new_id>/<int:old_id>/', endpoint='pastes/compare_paste'),
-    Rule('/unidiff/<int:new_id>/<int:old_id>/', endpoint='pastes/unidiff_paste'),
-    Rule('/tree/<int:paste_id>/', endpoint='pastes/show_tree'),
+    Rule('/compare/<new_id>/<old_id>/', endpoint='pastes/compare_paste'),
+    Rule('/unidiff/<new_id>/<old_id>/', endpoint='pastes/unidiff_paste'),
+    Rule('/tree/<identifier>/', endpoint='pastes/show_tree'),
 
     # captcha for new paste
     Rule('/_captcha.png', endpoint='pastes/show_captcha'),

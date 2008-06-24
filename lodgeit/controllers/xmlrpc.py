@@ -34,10 +34,15 @@ def pastes_new_paste(language, code, parent_id=None,
     """
     if not language:
         language = get_language_for(filename or '', mimetype or '')
-    paste = Paste(code, language, parent_id)
-    session.save(paste)
+    parent = None
+    if parent_id:
+        parent = Paste.get(parent_id)
+        if parent is None:
+            raise ValueError('parent paste not found')
+
+    paste = Paste(code, language, parent)
     session.flush()
-    return paste.paste_id
+    return paste.identifier
 
 
 @exported('pastes.getPaste')
@@ -48,8 +53,7 @@ def pastes_get_paste(paste_id):
     `paste_id`, `code`, `parsed_code`, `pub_date`, `language`,
     `parent_id`, `url`.
     """
-    paste = session.query(Paste).filter(Paste.c.paste_id ==
-                                          paste_id).first()
+    paste = Paste.get(paste_id)
     if paste is None:
         return False
     return paste.to_xmlrpc_dict()
@@ -58,11 +62,10 @@ def pastes_get_paste(paste_id):
 @exported('pastes.getDiff')
 def pastes_get_diff(old_id, new_id):
     """Compare the two pastes and return an unified diff."""
-    pastes = session.query(Paste)
-    old = pastes.filter(Paste.c.paste_id == old_id).first()
-    new = pastes.filter(Paste.c.paste_id == new_id).first()
+    old = Paste.get(old_id)
+    new = Paste.get(new_id)
     if old is None or new is None:
-        return False
+        raise ValueError('argument error, paste not found')
     return old.compare_to(new)
 
 
@@ -72,10 +75,7 @@ def pastes_get_recent(amount=5):
     `amount` pastes.
     """
     amount = min(amount, 20)
-    return [x.to_xmlrpc_dict() for x in
-            session.query(Paste).order_by(
-                Paste.pub_date.desc()
-            ).limit(amount)]
+    return [x.to_xmlrpc_dict() for x in Paste.find_all().limit(amount)]
 
 
 @exported('pastes.getLast')

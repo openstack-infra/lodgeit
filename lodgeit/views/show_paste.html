@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set page_title = 'Paste #%d'|format(paste.paste_id) %}
+{% set page_title = 'Paste #' ~ paste.identifier %}
 {% set active_page = 'all' %}
 {% block body %}
   <div class="related">
@@ -7,26 +7,26 @@
     <div class="content">
       <p>posted on {{ paste.pub_date|datetimeformat }}</p>
       <ul>
-        <li><a class="autoclose" href="/?reply_to={{ paste.paste_id }}">reply to this paste</a></li>
+        <li><a class="autoclose" href="/?reply_to={{ paste.identifier }}">reply to this paste</a></li>
         {% if paste.parent %}
-          <li><a class="autoclose" href="/compare/{{ paste.paste_id }}/{{
-              paste.parent.paste_id }}/">compare it with the parent paste</a></li>
+          <li><a class="autoclose" href="/compare/{{ paste.identifier }}/{{
+              paste.parent.identifier }}/">compare it with the parent paste</a></li>
           <li><a class="autoclose" href="{{ paste.parent.url|e }}">look at the parent paste</a></li>
         {% endif %}
         {% if paste.children %}
           <li>the following pastes replied to this paste:
           {% for child in paste.children %}
-            <a class="autoclose" href="{{ child.url|e }}">#{{ child.paste_id }}</a>
+            <a class="autoclose" href="{{ child.url|e }}">#{{ child.identifier }}</a>
             {%- if not loop.last %},{% endif -%}
           {% endfor %}
           </li>
         {% endif %}
         {% if paste.parent or paste.children %}
-          <li><a href="/tree/{{ paste.paste_id }}/">show paste tree</a></li>
+          <li><a href="/tree/{{ paste.identifier }}/">show paste tree</a></li>
         {% endif %}
-        <li><a href="/raw/{{ paste.paste_id }}/">download paste</a></li>
+        <li><a href="/raw/{{ paste.identifier }}/">download paste</a></li>
         <li>compare with paste <form action="/compare/" method="post">
-          <input type="hidden" name="old" value="{{ paste.paste_id }}">
+          <input type="hidden" name="old" value="{{ paste.identifier }}">
           <input type="text" name="new" value="#">
           <input type="submit" value="compare">
         </form></li>

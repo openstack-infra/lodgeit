@@ -19,7 +19,7 @@ from sqlalchemy.orm import create_session, mapper, backref, relation
 from sqlalchemy.orm.scoping import ScopedSession
 from werkzeug import cached_property
 
-from lodgeit.utils import _local_manager, ctx
+from lodgeit.utils import _local_manager, ctx, generate_paste_hash
 from lodgeit.lib.highlighting import highlight, LANGUAGES
 
 
@@ -29,9 +29,10 @@ metadata = MetaData()
 
 pastes = Table('pastes', metadata,
     Column('paste_id', Integer, primary_key=True),
+    Column('private_id', String(40), unique=True, nullable=True),
     Column('code', Text),
     Column('parent_id', Integer, ForeignKey('pastes.paste_id'),
-             nullable=True),
+           nullable=True),
     Column('pub_date', DateTime),
     Column('language', String(30)),
     Column('user_hash', String(40), nullable=True),
@@ -40,6 +41,7 @@ pastes = Table('pastes', metadata,
 
 
 class Paste(object):
+    """Represents a paste."""
 
     def __init__(self, code, language, parent=None, user_hash=None):
         if language not in LANGUAGES:
@@ -54,16 +56,83 @@ class Paste(object):
         self.handled = False
         self.user_hash = user_hash
 
+    @staticmethod
+    def get(identifier):
+        """Return the paste for an identifier.  Private pastes must be loaded
+        with their unique hash and public with the paste id.
+        """
+        if isinstance(identifier, basestring) and not identifier.isdigit():
+            return Paste.query.filter(Paste.private_id == identifier).first()
+        return Paste.query.filter(
+            (Paste.paste_id == int(identifier)) &
+            (Paste.private_id == None)
+        ).first()
+
+    @staticmethod
+    def find_all():
+        """Return a query for all public pastes ordered by the publication
+        date in reverse order.
+        """
+        return Paste.query.filter(Paste.private_id == None) \
+                          .order_by(Paste.pub_date.desc())
+
+    @staticmethod
+    def count():
+        """COunt all pastes."""
+        s = select([func.count(pastes.c.paste_id)])
+        return session.execute(s).fetchone()[0]
+
+    @staticmethod
+    def resolve_root(identifier):
+        """Find the root paste for a paste tree."""
+        paste = Paste.get(identifier)
+        if paste is None:
+            return
+        while paste.parent_id is not None:
+            paste = paste.parent
+        return paste
+
+    def _get_private(self):
+        return self.private_id is not None
+
+    def _set_private(self, value):
+        if not value:
+            self.private_id = None
+            return
+        if self.private_id is None:
+            while 1:
+                self.private_id = generate_paste_hash()
+                paste = Paste.query.filter(Paste.private_id ==
+                                           self.private_id).first()
+                if paste is None:
+                    break
+    private = property(_get_private, _set_private, doc='''
+        The private status of the paste.  If the paste is private it gets
+        a unique hash as identifier, otherwise an integer.
+    ''')
+    del _get_private, _set_private
+
+    @property
+    def identifier(self):
+        """The paste identifier.  This is a string, the same the `get`
+        method accepts.
+        """
+        if self.private:
+            return self.private_id
+        return str(self.paste_id)
+
     @property
     def url(self):
-        return '/show/%d/' % self.paste_id
+        """The URL to the paste."""
+        return '/show/%s/' % self.identifier
 
     def compare_to(self, other, context_lines=4, template=False):
+        """Compare the paste with another paste."""
         udiff = u'\n'.join(difflib.unified_diff(
             self.code.splitlines(),
             other.code.splitlines(),
-            fromfile='Paste #%d' % self.paste_id,
-            tofile='Paste #%d' % other.paste_id,
+            fromfile='Paste #%s' % self.identifier,
+            tofile='Paste #%s' % other.identifier,
             lineterm='',
             n=context_lines
         ))
@@ -75,9 +144,11 @@ class Paste(object):
 
     @cached_property
     def parsed_code(self):
+        """The paste as rendered code."""
         return highlight(self.code, self.language)
 
     def to_xmlrpc_dict(self):
+        """Convert the paste into a dict for XMLRCP."""
         from lodgeit.lib.xmlrpc import strip_control_chars
         return {
             'paste_id':         self.paste_id,
@@ -90,6 +161,7 @@ class Paste(object):
         }
 
     def render_preview(self):
+        """Render a preview for this paste."""
         try:
             start = self.parsed_code.index('</pre>')
             code = self.parsed_code[
@@ -110,7 +182,7 @@ class Paste(object):
             Paste.user_hash == ctx.request.user_hash
         )
 
-        paste_list = session.query(Paste).filter(and_(
+        paste_list = Paste.query.filter(and_(
             Paste.parent_id.in_(s),
             Paste.handled == False,
             Paste.user_hash != ctx.request.user_hash,
@@ -121,24 +193,8 @@ class Paste(object):
                                       values={'handled': True}))
         return paste_list
 
-    @staticmethod
-    def count():
-        s = select([func.count(pastes.c.paste_id)])
-        return session.execute(s).fetchone()[0]
 
-    @staticmethod
-    def resolve_root(paste_id):
-        pastes = session.query(Paste)
-        while True:
-            paste = pastes.filter(Paste.c.paste_id == paste_id).first()
-            if paste is None:
-                return
-            if paste.parent_id is None:
-                return paste
-            paste_id = paste.parent_id
-
-
-mapper(Paste, pastes, properties={
+session.mapper(Paste, pastes, properties={
     'children': relation(Paste,
         primaryjoin=pastes.c.parent_id==pastes.c.paste_id,
         cascade='all',

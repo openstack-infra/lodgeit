@@ -5,7 +5,7 @@
   <ul class="paste_list">
   {% for paste in pastes %}
     <li class="{{ loop.cycle('even', 'odd') }}"><p><a href="{{ paste.url|e
-        }}">Paste #{{ paste.paste_id }}</a>,
+        }}">Paste #{{ paste.identifier }}</a>,
         pasted on {{ paste.pub_date|datetimeformat }}</p>
       {{ paste.render_preview() }}</li>
   {%- endfor %}

@@ -27,18 +27,18 @@ class PasteController(BaseController):
         """The 'create a new paste' view."""
         code = error = ''
         language = 'text'
-        pastes = session.query(Paste)
-        show_captcha = False
+        show_captcha = private = False
+        parent = None
         getform = ctx.request.form.get
 
         if ctx.request.method == 'POST':
             code = getform('code')
             language = getform('language')
-            try:
-                parent = pastes.filter(Paste.paste_id ==
-                    int(getform('parent'))).first()
-            except (ValueError, TypeError):
-                parent = None
+
+            parent_id = getform('parent')
+            if parent_id is not None:
+                parent = Paste.get(parent_id)
+
             spam = ctx.request.form.get('webpage') or antispam.is_spam(code)
             if spam:
                 error = 'your paste contains spam'
@@ -51,16 +51,19 @@ class PasteController(BaseController):
                 show_captcha = True
             if code and language and not error:
                 paste = Paste(code, language, parent, ctx.request.user_hash)
-                session.save(paste)
+                if 'private' in ctx.request.form:
+                    paste.private = True
                 session.flush()
                 return redirect(paste.url)
 
         else:
-            parent = ctx.request.args.get('reply_to')
-            if parent is not None and parent.isdigit():
-                parent = pastes.filter(Paste.paste_id == parent).first()
-                code = parent.code
-                language = parent.language
+            parent_id = ctx.request.args.get('reply_to')
+            if parent_id is not None:
+                parent = Paste.get(parent_id)
+                if parent is not None:
+                    code = parent.code
+                    language = parent.language
+                    private = parent.private
 
         return render_template('new_paste.html',
             languages=LANGUAGES,
@@ -68,14 +71,14 @@ class PasteController(BaseController):
             code=code,
             language=language,
             error=error,
-            show_captcha=show_captcha
+            show_captcha=show_captcha,
+            private=private
         )
 
-    def show_paste(self, paste_id, raw=False):
+    def show_paste(self, identifier, raw=False):
         """Show an existing paste."""
         linenos = ctx.request.args.get('linenos') != 'no'
-        pastes = session.query(Paste)
-        paste = pastes.filter(Paste.c.paste_id == paste_id).first()
+        paste = Paste.get(identifier)
         if paste is None:
             raise NotFound()
         if raw:
@@ -90,18 +93,18 @@ class PasteController(BaseController):
             linenos=linenos,
         )
 
-    def raw_paste(self, paste_id):
+    def raw_paste(self, identifier):
         """Show an existing paste in raw mode."""
-        return self.show_paste(paste_id, raw=True)
+        return self.show_paste(identifier, raw=True)
 
-    def show_tree(self, paste_id):
+    def show_tree(self, identifier):
         """Display the tree of some related pastes."""
-        paste = Paste.resolve_root(paste_id)
+        paste = Paste.resolve_root(identifier)
         if paste is None:
             raise NotFound()
         return render_template('paste_tree.html',
             paste=paste,
-            current=paste_id
+            current=identifier
         )
 
     def show_all(self, page=1):
@@ -112,31 +115,30 @@ class PasteController(BaseController):
                 return '/all/'
             return '/all/%d' % page
 
-        pastes = session.query(Paste).order_by(
-            Paste.c.pub_date.desc()
-       ).limit(10).offset(10*(page-1)).all()
+        all = Paste.find_all()
+        pastes = all.limit(10).offset(10 * (page -1)).all()
         if not pastes and page != 1:
             raise NotFound()
 
         return render_template('show_all.html',
             pastes=pastes,
-            pagination=generate_pagination(page, 10,
-                Paste.count(), link),
+            pagination=generate_pagination(page, 10, all.count(), link),
             css=get_style(ctx.request)[1]
         )
 
     def compare_paste(self, new_id=None, old_id=None):
         """Render a diff view for two pastes."""
         # redirect for the compare form box
-        if old_id is new_id is None:
+        if old_id is None:
             old_id = ctx.request.form.get('old', '-1').lstrip('#')
             new_id = ctx.request.form.get('new', '-1').lstrip('#')
             return redirect('/compare/%s/%s' % (old_id, new_id))
-        pastes = session.query(Paste)
-        old = pastes.filter(Paste.c.paste_id == old_id).first()
-        new = pastes.filter(Paste.c.paste_id == new_id).first()
+
+        old = Paste.get(old_id)
+        new = Paste.get(new_id)
         if old is None or new is None:
             raise NotFound()
+
         return render_template('compare_paste.html',
             old=old,
             new=new,
@@ -145,11 +147,12 @@ class PasteController(BaseController):
 
     def unidiff_paste(self, new_id=None, old_id=None):
         """Render an udiff for the two pastes."""
-        pastes = session.query(Paste)
-        old = pastes.filter(Paste.c.paste_id == old_id).first()
-        new = pastes.filter(Paste.c.paste_id == new_id).first()
+        old = Paste.get(old_id)
+        new = Paste.get(new_id)
+
         if old is None or new is None:
             raise NotFound()
+
         return Response(old.compare_to(new), mimetype='text/plain')
 
     def set_colorscheme(self):

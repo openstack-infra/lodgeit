@@ -10,7 +10,8 @@
         {%- if show_captcha %}
         <div class="captcha">
           <p>Please fill out the CAPTCHA to proceed:</p>
-          <img src="/_captcha.png" alt="a captcha you can't see.  Sorry :(">
+          <img src="{{ url_for('pastes/captcha')
+            }}" alt="a captcha you can't see.  Sorry :(">
           <input type="text" name="captcha" size="20">
         </div>
         {%- else %}
@@ -19,7 +20,7 @@
       </div>
     {%- endif %}
     {%- if parent %}
-      <input type="hidden" name="parent" value="{{ parent.paste_id }}">
+      <input type="hidden" name="parent" value="{{ parent.identifier }}">
     {%- endif %}
     <textarea name="code" rows="10" cols="80">{{ code|e }}</textarea>
     <select name="language">
@@ -32,5 +33,7 @@
     <input type="submit" value="Paste!">
     <input type="button" value="▲" onclick="LodgeIt.resizeTextarea(-100)">
     <input type="button" value="▼" onclick="LodgeIt.resizeTextarea(100)">
+    <input type="checkbox" name="private" id="private"{% if private
+      %} checked{% endif %}><label for="private">make this paste private</label>
   </form>
 {% endblock %}

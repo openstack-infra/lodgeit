@@ -8,6 +8,7 @@
     :copyright: 2007 by Christopher Grebs.
     :license: BSD
 """
+import re
 import time
 from os import path
 try:
@@ -15,6 +16,7 @@ try:
 except:
     from sha import new as sha1
 from random import random
+from functools import partial
 
 from werkzeug import Local, LocalManager, LocalProxy, \
      Request as RequestBase, Response
@@ -30,9 +32,12 @@ jinja_environment = Environment(loader=FileSystemLoader(
     path.join(path.dirname(__file__), 'views')))
 
 
+_word_only = partial(re.compile(r'[^a-zA-Z0-9]').sub, '')
+
+
 def datetimeformat(obj):
     """Helper filter for the template"""
-    return obj.strftime('%Y-%m-%d %H:%M')
+    return obj.strftime('%Y-%m-%d @ %H:%M')
 
 jinja_environment.filters['datetimeformat'] = datetimeformat
 
@@ -40,6 +45,16 @@ jinja_environment.filters['datetimeformat'] = datetimeformat
 def generate_user_hash():
     """Generates an more or less unique SHA1 hash."""
     return sha1('%s|%s' % (random(), time.time())).hexdigest()
+
+
+def generate_paste_hash():
+    """Generates a more or less unique-truncated SHA1 hash."""
+    while 1:
+        digest = sha1('%s|%s' % (random(), time.time())).digest()
+        val = _word_only(digest.encode('base64').strip().splitlines()[0])[:20]
+        # sanity check.  number only not allowed (though unlikely)
+        if not val.isdigit():
+            return val
 
 
 class Request(RequestBase):

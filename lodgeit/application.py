@@ -17,7 +17,7 @@ from werkzeug import SharedDataMiddleware, ClosingIterator
 from werkzeug.exceptions import HTTPException, NotFound
 
 from lodgeit.utils import _local_manager, ctx, jinja_environment, \
-     Request, generate_user_hash
+     Request
 from lodgeit.database import metadata, session, Paste
 from lodgeit.urls import urlmap
 from lodgeit.controllers import get_controller
