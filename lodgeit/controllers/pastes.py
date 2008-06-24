@@ -114,7 +114,7 @@ class PasteController(BaseController):
 
         pastes = session.query(Paste).order_by(
             Paste.c.pub_date.desc()
-       ).limit(10).offset(10*(page-1))
+       ).limit(10).offset(10*(page-1)).all()
         if not pastes and page != 1:
             raise NotFound()
 
