@@ -32,10 +32,10 @@
         </form></li>
         <li>select different colorscheme <form action="/colorscheme/" method="post">
           <select name="style">
-          {% for key, caption in styles|dictsort %}
+          {%- for key, caption in styles|dictsort %}
             <option value="{{ key }}"{% if key == style
               %} selected="selected"{% endif %}>{{ caption }}</option>
-          {% endfor %}
+          {%- endfor %}
           </select>
           <input type="submit" value="change">
         </form></li>

@@ -29,11 +29,7 @@ class PasteController(BaseController):
         language = 'text'
         pastes = session.query(Paste)
         show_captcha = False
-
-        # prefix all form fields with the a portion of the user hash
-        # this should fight some stupid bots
-        prefix = ctx.request.cookies.get('user_hash', '')[2:14]
-        getform = lambda x: ctx.request.form.get(prefix + x)
+        getform = ctx.request.form.get
 
         if ctx.request.method == 'POST':
             code = getform('code')
@@ -72,8 +68,7 @@ class PasteController(BaseController):
             code=code,
             language=language,
             error=error,
-            show_captcha=show_captcha,
-            prefix=prefix
+            show_captcha=show_captcha
         )
 
     def show_paste(self, paste_id, raw=False):
