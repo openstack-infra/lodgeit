@@ -48,6 +48,8 @@ def generate_pagination(page, per_page, total, link_builder=None,
     prev = None
     next = None
     for num in xrange(1, pages + 1):
+        if num == page:
+            was_ellipsis = False
         if num - 1 == page:
             next = num
         if num + 1 == page:
