@@ -8,9 +8,9 @@
   </p>
   <ul class="paste_tree">
   {%- for paste in [paste] recursive %}
-    <li{% if paste.paste_id == current
+    <li{% if paste.identifier == current
       %} class="highlighted"{% endif %}><a href="{{ paste.url|e
-      }}">Paste #{{ paste.paste_id }}</a> &mdash; {{
+      }}">Paste #{{ paste.identifier }}</a> &mdash; {{
         paste.pub_date|datetimeformat }}
       {%- if paste.children -%}
         <ul>{{ loop(paste.children) }}</ul>
