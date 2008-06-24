@@ -106,7 +106,6 @@ class PasteController(BaseController):
 
     def show_all(self, page=1):
         """Paginated list of pages."""
-        raise NotFound()
 
         def link(page):
             if page == 1:
@@ -118,9 +117,6 @@ class PasteController(BaseController):
        ).limit(10).offset(10*(page-1))
         if not pastes and page != 1:
             raise NotFound()
-
-        for paste in pastes:
-            paste.rehighlight()
 
         return render_template('show_all.html',
             pastes=pastes,
