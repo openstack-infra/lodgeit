@@ -258,7 +258,7 @@ if __name__ == '__main__':
     # create paste
     code = make_utf8(data, opts.encoding)
     id = create_paste(code, opts.language, filename, mimetype)
-    url = '%sshow/%d' % (SERVICE_URL, id)
+    url = '%sshow/%s/' % (SERVICE_URL, id)
     print url
     if opts.open_browser:
         open_webbrowser(url)
