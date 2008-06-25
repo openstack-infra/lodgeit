@@ -10,8 +10,7 @@
         {%- if show_captcha %}
         <div class="captcha">
           <p>Please fill out the CAPTCHA to proceed:</p>
-          <img src="{{ url_for('pastes/captcha')
-            }}" alt="a captcha you can't see.  Sorry :(">
+          <img src="/_captcha.png" alt="a captcha you can't see.  Sorry :(">
           <input type="text" name="captcha" size="20">
         </div>
         {%- else %}
