@@ -43,7 +43,8 @@ pastes = Table('pastes', metadata,
 class Paste(object):
     """Represents a paste."""
 
-    def __init__(self, code, language, parent=None, user_hash=None):
+    def __init__(self, code, language, parent=None, user_hash=None,
+                 private=False):
         if language not in LANGUAGES:
             language = 'text'
         self.code = u'\n'.join(code.splitlines())
@@ -55,6 +56,7 @@ class Paste(object):
         self.pub_date = datetime.now()
         self.handled = False
         self.user_hash = user_hash
+        self.private = private
 
     @staticmethod
     def get(identifier):

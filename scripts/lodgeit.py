@@ -113,20 +113,32 @@ def get_xmlrpc_service():
 
 def copy_url(url):
     """Copy the url into the clipboard."""
+    # try windows first
     try:
         import win32clipboard
         import win32con
     except ImportError:
+        # then give pbcopy a try.  do that before gtk because
+        # gtk might be installed on os x but nobody is interested
+        # in the X11 clipboard there.
+        from subprocess import Popen, PIPE
         try:
-            import pygtk
-            pygtk.require('2.0')
-            import gtk
-            import gobject
-        except ImportError:
-            return
-        gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD).set_text(url)
-        gobject.idle_add(gtk.main_quit)
-        gtk.main()
+            client = Popen(['pbcopy'], stdin=PIPE)
+        except OSError:
+            try:
+                import pygtk
+                pygtk.require('2.0')
+                import gtk
+                import gobject
+            except ImportError:
+                return
+            gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD).set_text(url)
+            gobject.idle_add(gtk.main_quit)
+            gtk.main()
+        else:
+            client.stdin.write(url)
+            client.stdin.close()
+            client.wait()
     else:
         win32clipboard.OpenClipboard()
         win32clipboard.EmptyClipboard()
@@ -152,7 +164,9 @@ def get_mimetype(data, filename):
     try:
         import gnomevfs
     except ImportError:
-        pass
+        from mimetypes import guess_type
+        if filename:
+            return guess_type(filename)[0]
     else:
         if filename:
             return gnomevfs.get_mime_type(os.path.abspath(filename))
@@ -176,9 +190,10 @@ def download_paste(uid):
     print paste['code'].encode('utf-8')
 
 
-def create_paste(code, language, filename, mimetype):
+def create_paste(code, language, filename, mimetype, private):
     xmlrpc = get_xmlrpc_service()
-    rv = xmlrpc.pastes.newPaste(language, code, None, filename, mimetype)
+    rv = xmlrpc.pastes.newPaste(language, code, None, filename, mimetype,
+                                private)
     if not rv:
         fail('Could not commit paste. Something went wrong', 4)
     return rv
@@ -210,6 +225,8 @@ if __name__ == '__main__':
                       help='Retrieve a list of supported languages')
     parser.add_option('--download', metavar='UID',
                       help='Download a given paste')
+    parser.add_option('--private', action='store_true', default=False,
+                      help='Paste as private')
 
     opts, args = parser.parse_args()
 
@@ -257,7 +274,7 @@ if __name__ == '__main__':
 
     # create paste
     code = make_utf8(data, opts.encoding)
-    id = create_paste(code, opts.language, filename, mimetype)
+    id = create_paste(code, opts.language, filename, mimetype, opts.private)
     url = '%sshow/%s/' % (SERVICE_URL, id)
     print url
     if opts.open_browser:

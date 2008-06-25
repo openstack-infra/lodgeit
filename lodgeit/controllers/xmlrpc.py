@@ -26,7 +26,7 @@ class XmlRpcController(BaseController):
 
 @exported('pastes.newPaste')
 def pastes_new_paste(language, code, parent_id=None,
-                     filename='', mimetype=''):
+                     filename='', mimetype='', private=False):
     """Create a new paste. Return the new ID.
 
     `language` can be None, in which case the language will be
@@ -40,7 +40,7 @@ def pastes_new_paste(language, code, parent_id=None,
         if parent is None:
             raise ValueError('parent paste not found')
 
-    paste = Paste(code, language, parent)
+    paste = Paste(code, language, parent, private=private)
     session.flush()
     return paste.identifier
 

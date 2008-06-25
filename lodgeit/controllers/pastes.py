@@ -50,9 +50,8 @@ class PasteController(BaseController):
                         error += ' and the CAPTCHA solution was incorrect'
                 show_captcha = True
             if code and language and not error:
-                paste = Paste(code, language, parent, ctx.request.user_hash)
-                if 'private' in ctx.request.form:
-                    paste.private = True
+                paste = Paste(code, language, parent, ctx.request.user_hash,
+                              'private' in ctx.request.form)
                 session.flush()
                 return redirect(paste.url)
 
