@@ -31,7 +31,7 @@ class LodgeIt(object):
         self.secret_key = secret_key
         #: name of the error handler
         self.not_found = ('static/not_found', {})
-        self.engine = sqlalchemy.create_engine(dburi)
+        self.engine = sqlalchemy.create_engine(dburi, convert_unicode=True)
         #: make sure all tables exist.
         metadata.create_all(self.engine)
         #: bind the application to the current context local

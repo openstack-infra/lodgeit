@@ -92,6 +92,26 @@ class Paste(object):
             paste = paste.parent
         return paste
 
+    @staticmethod
+    def fetch_replies():
+        """Get the new replies for the ower of a request and flag them
+        as handled.
+        """
+        s = select([pastes.c.paste_id],
+            Paste.user_hash == ctx.request.user_hash
+        )
+
+        paste_list = Paste.query.filter(and_(
+            Paste.parent_id.in_(s),
+            Paste.handled == False,
+            Paste.user_hash != ctx.request.user_hash,
+        )).order_by(pastes.c.paste_id.desc()).all()
+
+        to_mark = [p.paste_id for p in paste_list]
+        session.execute(pastes.update(pastes.c.paste_id.in_(to_mark),
+                                      values={'handled': True}))
+        return paste_list
+
     def _get_private(self):
         return self.private_id is not None
 
@@ -172,26 +192,6 @@ class Paste(object):
             code = self.code.strip('\n').splitlines()
         code = '\n'.join(code[:5] + ['...'])
         return '<pre class="syntax">%s</pre>' % code
-
-    @staticmethod
-    def fetch_replies():
-        """Get the new replies for the ower of a request and flag them
-        as handled.
-        """
-        s = select([pastes.c.paste_id],
-            Paste.user_hash == ctx.request.user_hash
-        )
-
-        paste_list = Paste.query.filter(and_(
-            Paste.parent_id.in_(s),
-            Paste.handled == False,
-            Paste.user_hash != ctx.request.user_hash,
-        )).order_by(pastes.c.paste_id.desc()).all()
-
-        to_mark = [p.paste_id for p in paste_list]
-        session.execute(pastes.update(pastes.c.paste_id.in_(to_mark),
-                                      values={'handled': True}))
-        return paste_list
 
 
 session.mapper(Paste, pastes, properties={
