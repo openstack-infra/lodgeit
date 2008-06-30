@@ -19,7 +19,12 @@ _url_pattern = (
     r'(?:mailto|telnet|s?news|sips?|skype):)'
 )
 
-_link_re = re.compile(r'%s[^\s\'"]+\S' % _url_pattern)
+_link_re = re.compile(r'''(?xi)
+    (%(url)s[^\s\'"]+)|
+    (<a(?:\s+\w+\s*=\s*
+        (?:"\s*%(url)s.*?"|'\s*%(url)s.*?'|%(url)s.*?)
+       )+\s*>.*?</a>)
+''' % dict(url=_url_pattern))
 
 
 # maximum number of links in percent
