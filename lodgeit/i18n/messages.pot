@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2008-07-08 10:40+0200\n"
+"POT-Creation-Date: 2008-07-08 11:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -296,11 +296,11 @@ msgid ""
 msgstr ""
 
 #: lodgeit/views/about.html:26
-msgid "vim integration</a>"
+msgid "vim integration"
 msgstr ""
 
 #: lodgeit/views/about.html:27
-msgid "emacs integration</a>"
+msgid "emacs integration"
 msgstr ""
 
 #: lodgeit/views/about.html:28
@@ -407,11 +407,11 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: lodgeit/views/layout.html:35
+#: lodgeit/views/layout.html:40
 msgid "Someone Replied To Your Paste"
 msgstr ""
 
-#: lodgeit/views/layout.html:37
+#: lodgeit/views/layout.html:42
 #, python-format
 msgid ""
 "\n"
@@ -423,15 +423,15 @@ msgid ""
 "              those two pastes</a>."
 msgstr ""
 
-#: lodgeit/views/layout.html:46 lodgeit/views/layout.html:58
+#: lodgeit/views/layout.html:51 lodgeit/views/layout.html:63
 msgid "hide this notification"
 msgstr ""
 
-#: lodgeit/views/layout.html:50
+#: lodgeit/views/layout.html:55
 msgid "Welcome On LodgeIt"
 msgstr ""
 
-#: lodgeit/views/layout.html:51
+#: lodgeit/views/layout.html:56
 msgid ""
 "Welcome to the LodgeIt pastebin. In order to use the notification feature"
 "\n"
