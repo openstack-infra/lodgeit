@@ -43,7 +43,7 @@ class LodgeIt(object):
         #: 18n setup
         #TODO: load from user cookie
         self.locale = None
-        self.set_locale('de_DE')
+        self.set_locale('en_US')
 
         #: jinja_environment update
         jinja_environment.filters.update(
