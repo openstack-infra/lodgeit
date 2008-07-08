@@ -3,18 +3,18 @@
 {% set active_page = 'all' %}
 {% block body %}
   <div class="related">
-    <h3><a href="javascript:LodgeIt.toggleRelatedBox()">Paste Details</a></h3>
+    <h3><a href="javascript:LodgeIt.toggleRelatedBox()">{% trans %}Paste Details{% endtrans %}</a></h3>
     <div class="content">
-      <p>posted on {{ paste.pub_date|datetimeformat }}</p>
+      <p>{% trans pub_date=paste.pub_date|datetimeformat %}posted on {{ pub_date }}{% endtrans %}</p>
       <ul>
-        <li><a class="autoclose" href="/?reply_to={{ paste.identifier }}">reply to this paste</a></li>
+        <li><a class="autoclose" href="/?reply_to={{ paste.identifier }}">{% trans %}reply to this paste{% endtrans %}</a></li>
         {% if paste.parent %}
           <li><a class="autoclose" href="/compare/{{ paste.identifier }}/{{
-              paste.parent.identifier }}/">compare it with the parent paste</a></li>
-          <li><a class="autoclose" href="{{ paste.parent.url|e }}">look at the parent paste</a></li>
+              paste.parent.identifier }}/">{% trans %}compare it with the parent paste{% endtrans %}</a></li>
+          <li><a class="autoclose" href="{{ paste.parent.url|e }}">{% trans %}look at the parent paste{% endtrans %}</a></li>
         {% endif %}
         {% if paste.children %}
-          <li>the following pastes replied to this paste:
+          <li>{% trans %}the following pastes replied to this paste:{% endtrans %}
           {% for child in paste.children %}
             <a class="autoclose" href="{{ child.url|e }}">#{{ child.identifier }}</a>
             {%- if not loop.last %},{% endif -%}
@@ -22,24 +22,24 @@
           </li>
         {% endif %}
         {% if paste.parent or paste.children %}
-          <li><a href="/tree/{{ paste.identifier }}/">show paste tree</a></li>
+          <li><a href="/tree/{{ paste.identifier }}/">{% trans %}show paste tree{% endtrans %}</a></li>
         {% endif %}
-        <li><a href="/raw/{{ paste.identifier }}/">download paste</a></li>
-        <li>compare with paste <form action="/compare/" method="post">
+        <li><a href="/raw/{{ paste.identifier }}/">{% trans %}download paste{% endtrans %}</a></li>
+        <li>{% trans %}compare with paste{% endtrans %} <form action="/compare/" method="post">
           <input type="hidden" name="old" value="{{ paste.identifier }}">
           <input type="text" name="new" value="#">
-          <input type="submit" value="compare">
+          <input type="submit" value="{% trans %}compare{% endtrans %}">
         </form></li>
-        <li>select different colorscheme <form action="/colorscheme/" method="post">
+        <li>{% trans %}select different colorscheme{% endtrans %} <form action="/colorscheme/" method="post">
           <select name="style">
           {%- for key, caption in styles|dictsort %}
             <option value="{{ key }}"{% if key == style
               %} selected="selected"{% endif %}>{{ caption }}</option>
           {%- endfor %}
           </select>
-          <input type="submit" value="change">
+          <input type="submit" value="{% trans %}change{% endtrans %}">
         </form></li>
-        <li><a href="?linenos={{ linenos and 'no' or 'yes' }}" onclick="LodgeIt.toggleLineNumbers(); return false;">toggle line numbers</a></li>
+        <li><a href="?linenos={{ linenos and 'no' or 'yes' }}" onclick="LodgeIt.toggleLineNumbers(); return false;">{% trans %}toggle line numbers{% endtrans %}</a></li>
       </ul>
     </div>
   </div>

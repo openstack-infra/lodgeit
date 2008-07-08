@@ -16,6 +16,9 @@ from datetime import datetime, timedelta
 from werkzeug import SharedDataMiddleware, ClosingIterator
 from werkzeug.exceptions import HTTPException, NotFound
 
+from babel import Locale
+
+from lodgeit import i18n
 from lodgeit.utils import _local_manager, ctx, jinja_environment, \
      Request
 from lodgeit.database import metadata, session, Paste
@@ -29,16 +32,37 @@ class LodgeIt(object):
     def __init__(self, dburi, secret_key):
         #: the secret key used by the captcha
         self.secret_key = secret_key
+
         #: name of the error handler
         self.not_found = ('static/not_found', {})
         self.engine = sqlalchemy.create_engine(dburi, convert_unicode=True)
+
         #: make sure all tables exist.
         metadata.create_all(self.engine)
+
+        #: 18n setup
+        #TODO: load from user cookie
+        self.locale = None
+        self.set_locale('de_DE')
+
+        #: jinja_environment update
+        jinja_environment.filters.update(
+            datetimeformat=i18n.format_datetime
+        )
+
         #: bind the application to the current context local
         self.bind_to_context()
 
     def bind_to_context(self):
         ctx.application = self
+
+    def set_locale(self, locale):
+        if not self.locale or self.locale.language != locale:
+            self.locale = Locale(locale)
+        self.translations = i18n.load_translations(self.locale)
+
+        #: update gettext translations
+        jinja_environment.install_gettext_translations(self.translations)
 
     def __call__(self, environ, start_response):
         """Minimal WSGI application for request dispatching."""

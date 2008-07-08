@@ -12,6 +12,7 @@ from werkzeug import redirect, Response
 from werkzeug.exceptions import NotFound
 
 from lodgeit.utils import ctx, render_template
+from lodgeit.i18n import list_languages, _
 from lodgeit.controllers import BaseController
 from lodgeit.database import session, Paste
 from lodgeit.lib import antispam
@@ -41,13 +42,13 @@ class PasteController(BaseController):
 
             spam = ctx.request.form.get('webpage') or antispam.is_spam(code)
             if spam:
-                error = 'your paste contains spam'
+                error = _('your paste contains spam')
                 captcha = getform('captcha')
                 if captcha:
                     if check_hashed_solution(captcha):
                         error = None
                     else:
-                        error += ' and the CAPTCHA solution was incorrect'
+                        error += _(' and the CAPTCHA solution was incorrect')
                 show_captcha = True
             if code and language and not error:
                 paste = Paste(code, language, parent, ctx.request.user_hash,
@@ -162,6 +163,15 @@ class PasteController(BaseController):
         resp = redirect(ctx.request.environ.get('HTTP_REFERER') or '/')
         if style_name in STYLES:
             resp.set_cookie('style', style_name)
+        return resp
+    
+    def set_language(self):
+        """Minimal view that set's a different language. Redirects
+        back to the page the user is coming from."""
+        lang = ctx.request.form.get('language')
+        resp = redirect(ctx.request.environ.get('HTTP_REFERER') or '/')
+        if lang in list_languages():
+            ctx.application.set_locale(lang)
         return resp
 
     def show_captcha(self):

@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
-{% set page_title = "XMLRPC" %}
+{% set page_title = _('XMLRPC') %}
 {% set active_page = 'about' %}
 {% block body %}
   <div class="text">
-    <h3>XMLRPC Entrypoint</h3>
-    <p>
+    <h3>{% trans %}XMLRPC Entrypoint{% endtrans %}</h3>
+    <p>{% trans %}
       This is the entrypoint for the XMLRPC system. If you're interested
-      in using it head over to the <a href="/help/xmlrpc/">XMLRPC
-      documentation</a>.
+      in using it head over to the <a href="/help/xmlrpc/">XMLRPC documentation</a>.
+      {%- endtrans %}
     </p>
   </div>
 {% endblock %}

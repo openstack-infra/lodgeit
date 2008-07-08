@@ -29,17 +29,18 @@ _local_manager = LocalManager(ctx)
 
 #: jinja environment for all the templates
 jinja_environment = Environment(loader=FileSystemLoader(
-    path.join(path.dirname(__file__), 'views')))
-
+    path.join(path.dirname(__file__), 'views')),
+    extensions=['jinja2.ext.i18n'])
 
 _word_only = partial(re.compile(r'[^a-zA-Z0-9]').sub, '')
 
 
-def datetimeformat(obj):
-    """Helper filter for the template"""
-    return obj.strftime('%Y-%m-%d @ %H:%M')
+def get_application():
+    return getattr(ctx, 'application', None)
 
-jinja_environment.filters['datetimeformat'] = datetimeformat
+
+def get_request():
+    return getattr(ctx, 'request', None)
 
 
 def generate_user_hash():

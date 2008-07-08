@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
-{% set page_title = 'Page Not Found' %}
+{% set page_title = _('Page Not Found') %}
 {% block body %}
   <p>
-    Sorry, but the page you requested was not found on this server.
+    {% trans %}Sorry, but the page you requested was not found on this server.{% endtrans %}
   </p>
-  <p>
+  <p>{% trans %}
     We've recently updated this pastebin. While it is out goal for nothing to get
     lost, you may have found a page that was mis-placed. Check your URL to ensure
     you have gone where you intended. If everything looks OK and you still see
-    this error page, please consider <a href="/about">contacting us</a>.
+    this error page, please consider <a href="/about">contacting us</a>.{% endtrans %}
   </p>
   <p>
-    Click <a href="/">here</a> to add a new paste. 
+    {% trans %}Click <a href="/">here</a> to add a new paste.{% endtrans %}
   </p>
 {% endblock %}

@@ -1,64 +1,64 @@
 {% extends "layout.html" %}
-{% set page_title = 'About LodgeIt' %}
+{% set page_title = _('About LodgeIt') %}
 {% set active_page = 'about' %}
 {% block body %}
   <div class="text">
-    <h3 id="why-the-hell-another-pastebin">Why the hell another pastebin?</h3>
-    <p>
+    <h3 id="why-the-hell-another-pastebin">{% trans %} Why the hell another pastebin?{% endtrans %}</h3>
+    <p>{% trans %}
       Good question. Basically the world doesn't need another pastebin.
       There is <a href="http://pastie.caboo.se/">pastie</a> and
       <a href="http://dpaste.com/">dpaste.com</a> which
       both use kick-ass highlighting libraries for highlighting the
       code and both have an	intuitive user interface. Nevertheless there
-      are some features which are unique to LodgeIt.
+      are some features which are unique to LodgeIt.{% endtrans %}
     </p>
-    <h3 id="features">Features</h3>
+    <h3 id="features">{% trans %}Features{% endtrans %}</h3>
     <ul>
-       <li>clean user interface</li>
-       <li>different color schemes for the sourcecode</li>
-       <li>reply to pastes</li>
-       <li>diffs of different pastes</li>
-       <li>support for many python template languages</li>
-       <li>support for many scripting languages like Python and Ruby, even with
-           weird syntax (ruby *cough*)</li>
-       <li><a href="/help/xmlrpc/">XMLRPC support</a></li>
-       <li>command-line <a href="http://dev.pocoo.org/hg/lodgeit-main/raw-file/-1/scripts/lodgeit.py">client script</a></li>
-       <li><a href="http://www.vim.org/scripts/script.php?script_id=1965">vim integration</a></li>
-       <li><a href="http://lunaryorn.de/projects/paste/">emacs integration</a></li>
-       <li>persistent pastes</li>
-       <li>reply notification</li>
-       <li>valid HTML 4.0</li>
+       <li>{% trans %}clean user interface{% endtrans %}</li>
+       <li>{% trans %}different color schemes for the sourcecode{% endtrans %}</li>
+       <li>{% trans %}reply to pastes{% endtrans %}</li>
+       <li>{% trans %}diffs of different pastes{% endtrans %}</li>
+       <li>{% trans %}support for many python template languages{% endtrans %}</li>
+       <li>{% trans %}support for many scripting languages like Python and Ruby, even with
+           weird syntax (ruby *cough*){% endtrans %}</li>
+       <li><a href="/help/xmlrpc/">{% trans %}XMLRPC support{% endtrans %}</a></li>
+       <li>{% trans %}command-line <a href="http://dev.pocoo.org/hg/lodgeit-main/raw-file/-1/scripts/lodgeit.py">client script</a>{% endtrans %}</li>
+       <li><a href="http://www.vim.org/scripts/script.php?script_id=1965">{% trans %}vim integration{% endtrans %}</a></li>
+       <li><a href="http://lunaryorn.de/projects/paste/">{% trans %}emacs integration{% endtrans %}</a></li>
+       <li>{% trans %}persistent pastes{% endtrans %}</li>
+       <li>{% trans %}reply notification{% endtrans %}</li>
+       <li>{% trans %}valid HTML 4.0{% endtrans %}</li>
     </ul>
-    <h3 id="request-more-languages">Request More Languages</h3>
-    <p>
+    <h3 id="request-more-languages">{% trans %}Request More Languages{% endtrans %}</h3>
+    <p>{% trans %}
       A language is missing in the list? File a ticket in the
       <a href="http://dev.pocoo.org/projects/pygments">Pygments trac</a> and we add that as soon
-      as possible.
+      as possible.{% endtrans %}
     </p>
-    <h3 id="software-used">Software Used</h3>
+    <h3 id="software-used">{% trans %}Software Used{% endtrans %}</h3>
     <ul>
-      <li><a href="http://pygments.pocoo.org/">Pygments</a> for syntax highlighting</li>
-      <li><a href="http://www.python.org/">Python</a> as scripting language</li>
-      <li><a href="http://jinja.pocoo.org/2">Jinja 2</a> for templating</li>
-      <li><a href="http://werkzeug.pocoo.org/">Werkzeug</a> for the WSGI implementation</li>
-      <li><a href="http://www.sqlalchemy.org">SQLAlchemy</a> as database layer</li>
-      <li><a href="http://www.jquery.com/">jQuery</a> for scripting</li>
+      <li>{% trans %}<a href="http://pygments.pocoo.org/">Pygments</a> for syntax highlighting{% endtrans %}</li>
+      <li>{% trans %}<a href="http://www.python.org/">Python</a> as scripting language{% endtrans %}</li>
+      <li>{% trans %}<a href="http://jinja.pocoo.org/2">Jinja 2</a> for templating{% endtrans %}</li>
+      <li>{% trans %}<a href="http://werkzeug.pocoo.org/">Werkzeug</a> for the WSGI implementation{% endtrans %}</li>
+      <li>{% trans %}<a href="http://www.sqlalchemy.org">SQLAlchemy</a> as database layer{% endtrans %}</li>
+      <li>{% trans %}<a href="http://www.jquery.com/">jQuery</a> for scripting{% endtrans %}</li>
     </ul>
-    <h3 id="who">Who?</h3>
-    <p>
+    <h3 id="who">{% trans %}Who?{% endtrans %}</h3>
+    <p>{% trans %}
       This paste was founded by <a href="http://lucumr.pocoo.org/">Armin Ronacher</a> from the pocoo
       team and is now maintained by <a href="http://webshox.org">Christopher Grebs</a>.
-      Pygments is a pocoo project led by Georg Brandl.
+      Pygments is a pocoo project led by Georg Brandl.{% endtrans %}
     </p>
-    <h3 id="privacy">Privacy</h3>
-    <p>
+    <h3 id="privacy">{% trans %}Privacy{% endtrans %}</h3>
+    <p>{% trans %}
       LodgeIt does not use user accounts because it's logging in for using a
       pastebin is useles. However this pastebin creates unique user ids for you
       and for 31 days. Whenever you return to the pastebin it will notify you
       about replies to your pastes. If you don't want to have that feature you
       can let lodgeit forget about you by
       <a href="javascript:LodgeIt.removeCookie()">removing the cookie</a>.
-      Please note that on the next request you will get a new id.
+      Please note that on the next request you will get a new id.{% endtrans %}
     </p>
   </div>
 {% endblock %}

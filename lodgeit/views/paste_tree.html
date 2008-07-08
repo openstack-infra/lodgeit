@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
-{% set page_title = 'Paste Tree' %}
+{% set page_title = _('Paste Tree') %}
 {% set active_page = 'all' %}
 {% block body %}
-  <p>
+  <p>{% trans %}
     Here you can see the requested tree of paste replies. The paste you're
-    coming from is highlighted.
+    coming from is highlighted.{% endtrans %}
   </p>
   <ul class="paste_tree">
   {%- for paste in [paste] recursive %}

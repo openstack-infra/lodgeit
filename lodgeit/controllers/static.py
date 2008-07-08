@@ -11,15 +11,16 @@
 from werkzeug.exceptions import NotFound
 
 from lodgeit.utils import ctx, render_template
+from lodgeit.i18n import _
 from lodgeit.controllers import BaseController
 from lodgeit.lib.xmlrpc import xmlrpc
 
 
 HELP_PAGES = [
-    ('pasting',         'Pasting'),
-    ('advanced',        'Advanced Features'),
-    ('xmlrpc',          'Using the XMLRPC Interface'),
-    ('integration',     'Scripts and Editor Integration')
+    ('pasting',         _('Pasting')),
+    ('advanced',        _('Advanced Features')),
+    ('xmlrpc',          _('Using the XMLRPC Interface')),
+    ('integration',     _('Scripts and Editor Integration'))
 ]
 
 known_help_pages = set(x[0] for x in HELP_PAGES)

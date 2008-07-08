@@ -1,20 +1,20 @@
 {% extends "layout.html" %}
-{% set page_title = 'New Paste' %}
+{% set page_title = _('New Paste') %}
 {% set active_page = 'new' %}
 {% block body %}
   <form action="/" method="post" class="submitform">
     {%- if error %}
       <div class="notification">
-        <h3>Error While Pasting</h3>
-        <p>Could not submit your paste because {{ error|e }}.</p>
+        <h3>{% trans %}Error While Pasting{% endtrans %}</h3>
+        <p>{% trans error=error|e %}Could not submit your paste because {{ error }}.{% endtrans %}</p>
         {%- if show_captcha %}
         <div class="captcha">
-          <p>Please fill out the CAPTCHA to proceed:</p>
-          <img src="/_captcha.png" alt="a captcha you can't see.  Sorry :(">
+          <p>{% trans %}Please fill out the CAPTCHA to proceed:{% endtrans %}</p>
+          <img src="/_captcha.png" alt="{% trans %}a captcha you can't see.  Sorry :({% endtrans %}">
           <input type="text" name="captcha" size="20">
         </div>
         {%- else %}
-        <p><a href="javascript:LodgeIt.hideNotification()">hide this message</a></p>
+        <p><a href="javascript:LodgeIt.hideNotification()">{% trans %}hide this message{% endtrans %}</a></p>
         {%- endif %}
       </div>
     {%- endif %}
@@ -29,10 +29,10 @@
     {%- endfor %}
     </select>
     <input type="text" value="" name="webpage" id="webpage">
-    <input type="submit" value="Paste!">
+    <input type="submit" value="{% trans %}Paste!{% endtrans %}">
     <input type="button" value="▲" onclick="LodgeIt.resizeTextarea(-100)">
     <input type="button" value="▼" onclick="LodgeIt.resizeTextarea(100)">
     <input type="checkbox" name="private" id="private"{% if private
-      %} checked{% endif %}><label for="private">make this paste private</label>
+      %} checked{% endif %}><label for="private">{% trans %}make this paste private{% endtrans %}</label>
   </form>
 {% endblock %}
