@@ -10,7 +10,7 @@
 """
 import re
 import time
-from os import path, urandom
+from os import path
 from random import random
 from functools import partial
 from werkzeug import Request as RequestBase, Response
@@ -31,7 +31,6 @@ jinja_environment = Environment(loader=FileSystemLoader(
 #: constants
 _word_only = partial(re.compile(r'[^a-zA-Z0-9]').sub, '')
 COOKIE_NAME = u'lodgeit_session'
-SECRET_KEY = urandom(50)
 
 
 def generate_user_hash():
@@ -59,7 +58,8 @@ class Request(RequestBase):
     def __init__(self, environ):
         super(Request, self).__init__(environ)
         self.first_visit = False
-        session = SecureCookie.load_cookie(self, COOKIE_NAME, SECRET_KEY)
+        session = SecureCookie.load_cookie(self, COOKIE_NAME,
+            local.application.secret_key)
         user_hash = session.get('user_hash')
 
         if not user_hash:

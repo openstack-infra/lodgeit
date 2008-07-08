@@ -123,7 +123,7 @@ var LodgeIt = {
    */
   removeCookie : function() {
     if (confirm('Do really want to remove your cookie?')) {
-      $.cookie('user_hash', '');
+      $.cookie('lodgeit_session', '');
       alert('Your cookie was resetted!');
     }
   }

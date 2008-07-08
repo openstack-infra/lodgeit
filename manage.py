@@ -10,17 +10,20 @@ from lodgeit.database import session
 
 dburi = 'sqlite:////tmp/lodgeit.db'
 
+SECRET_KEY = os.urandom(50)
+
+
 def run_app(app, path='/'):
-    env = create_environ(path)
+    env = create_environ(path, SECRET_KEY)
     return run_wsgi_app(app, env)
 
 action_runserver = script.make_runserver(
-    lambda: make_app(dburi),
+    lambda: make_app(dburi, SECRET_KEY),
     use_reloader=True)
 
 action_shell = script.make_shell(
     lambda: {
-        'app': make_app(dburi, False, True),
+        'app': make_app(dburi, SECRET_KEY, False, True),
         'local': local,
         'session': session,
         'run_app': run_app

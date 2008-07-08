@@ -25,7 +25,9 @@ from lodgeit.controllers import get_controller
 class LodgeIt(object):
     """The WSGI Application"""
 
-    def __init__(self, dburi):
+    def __init__(self, dburi, secret_key):
+        self.secret_key = secret_key
+
         #: database engine
         self.engine = sqlalchemy.create_engine(dburi, convert_unicode=True)
         #: make sure all tables exist.
@@ -85,10 +87,7 @@ class LodgeIt(object):
             resp = e.get_response(environ)
         else:
             expires = datetime.utcnow() + timedelta(days=31)
-            if request.first_visit:
-                resp.set_cookie(COOKIE_NAME, request.user_hash,
-                                expires=expires)
-            if request.session.should_save:
+            if request.first_visit or request.session.should_save:
                 request.session.save_cookie(resp, COOKIE_NAME,
                                             expires=expires)
 
@@ -96,10 +95,10 @@ class LodgeIt(object):
                                [local._local_manager.cleanup, session.remove])
 
 
-def make_app(dburi, debug=False, shell=False):
+def make_app(dburi, secret_key, debug=False, shell=False):
     """Apply the used middlewares and create the application."""
     static_path = os.path.join(os.path.dirname(__file__), 'static')
-    app = LodgeIt(dburi)
+    app = LodgeIt(dburi, secret_key)
     if debug:
         app.engine.echo = True
     if not shell:
