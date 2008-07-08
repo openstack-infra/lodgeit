@@ -1,0 +1,605 @@
+# German translations for PROJECT.
+# Copyright (C) 2008 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2008-07-08 10:05+0200\n"
+"PO-Revision-Date: 2008-07-08 11:16+0100\n"
+"Last-Translator: Christopher Grebs <cg@webshox.org>\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.2\n"
+
+#: lodgeit/controllers/pastes.py:45
+msgid "your paste contains spam"
+msgstr "Dein Paste beinhaltet Spam"
+
+#: lodgeit/controllers/pastes.py:51
+msgid " and the CAPTCHA solution was incorrect"
+msgstr " und die CAPTCHA-Eingabe war falsch"
+
+#: lodgeit/controllers/static.py:20
+msgid "Pasting"
+msgstr "Pasting"
+
+#: lodgeit/controllers/static.py:21
+msgid "Advanced Features"
+msgstr "Erweiterte Funktionen"
+
+#: lodgeit/controllers/static.py:22
+msgid "Using the XMLRPC Interface"
+msgstr "Das XMLRPC Interface benutzen"
+
+#: lodgeit/controllers/static.py:23
+msgid "Scripts and Editor Integration"
+msgstr "Scripte und Editor-Integration"
+
+#: lodgeit/lib/highlighting.py:23
+msgid "Text"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:24
+msgid "Python"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:25
+msgid "Python Console Sessions"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:26
+msgid "Python Tracebacks"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:27
+#: lodgeit/lib/highlighting.py:42
+msgid "PHP"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:28
+msgid "Django / Jinja Templates"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:29
+msgid "Mako Templates"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:30
+msgid "Myghty Templates"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:31
+msgid "Apache Config (.htaccess)"
+msgstr "Apache Konfiguration (.htaccess)"
+
+#: lodgeit/lib/highlighting.py:32
+msgid "Bash"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:33
+msgid "Batch (.bat)"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:34
+msgid "C"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:35
+msgid "C++"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:36
+msgid "C#"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:37
+msgid "CSS"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:38
+msgid "D"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:39
+msgid "MiniD"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:40
+msgid "Smarty"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:41
+msgid "HTML"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:43
+msgid "Genshi Templates"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:44
+msgid "JavaScript"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:45
+msgid "Java"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:46
+msgid "JSP"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:47
+msgid "Lua"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:48
+msgid "Haskell"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:49
+msgid "Scheme"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:50
+msgid "Ruby"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:51
+msgid "Interactive Ruby"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:52
+msgid "Perl"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:53
+msgid "eRuby / rhtml"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:54
+msgid "TeX / LaTeX"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:55
+msgid "XML"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:56
+msgid "reStructuredText"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:57
+msgid "IRC Logs"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:58
+msgid "Unified Diff"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:59
+msgid "Vim Scripts"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:60
+msgid "OCaml"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:61
+msgid "SQL"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:62
+msgid "SquidConf"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:63
+msgid "sources.list"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:64
+msgid "Erlang"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:65
+msgid "Vim"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:66
+msgid "Dylan"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:67
+msgid "GAS"
+msgstr ""
+
+#: lodgeit/lib/pagination.py:75
+#, python-format
+msgid " <a href=\"%(link)s\">Next &raquo;</a>"
+msgstr " <a href=\"%(link)s\">Weiter &raquo;</a>"
+
+#: lodgeit/lib/pagination.py:78
+msgid " <span class=\"disabled\">Next &raquo;</span>"
+msgstr " <span class=\"disabled\">Weiter &raquo;</span>"
+
+#: lodgeit/lib/pagination.py:81
+#, python-format
+msgid "<a href=\"%(link)s\">&laquo; Prev</a> "
+msgstr "<a href=\"%(link)s\">&laquo; Zurück</a> "
+
+#: lodgeit/lib/pagination.py:84
+msgid "<span class=\"disabled\">&laquo; Prev</span> "
+msgstr "<span class=\"disabled\">&laquo; Zurück</span> "
+
+#: lodgeit/views/about.html:2
+msgid "About LodgeIt"
+msgstr "Über Lodgeit"
+
+#: lodgeit/views/about.html:6
+msgid " Why the hell another pastebin?"
+msgstr "Warum zum Teufel ein weiterer Pastebin?"
+
+#: lodgeit/views/about.html:7
+msgid ""
+"\n"
+"      Good question. Basically the world doesn't need another pastebin.\n"
+"      There is <a href=\"http://pastie.caboo.se/\">pastie</a> and\n"
+"      <a href=\"http://dpaste.com/\">dpaste.com</a> which\n"
+"      both use kick-ass highlighting libraries for highlighting the\n"
+"      code and both have an\tintuitive user interface. Nevertheless there\n"
+"      are some features which are unique to LodgeIt."
+msgstr ""
+"\n"
+"    Gute Frage, die Welt braucht eigentlich keinen anderen Pastebin.\n"
+"    Es gibt <a href=\"http://pastie.caboo.se/\">pastie</a> und \n"
+"    <a href=\"http://dpaste.com/\">dpaste.com</a>, welche beide\n"
+"    fantastische Bibliotheken zum hervorheben des Codes benutzen, und beide\n"
+"    ein intuitives Interface haben.\n"
+"    Dennoch gibt es einige Funktionen die LodgeIt einzigartig machen."
+
+#: lodgeit/views/about.html:15
+msgid "Features"
+msgstr "Funktionen"
+
+#: lodgeit/views/about.html:17
+msgid "clean user interface"
+msgstr "sauberes Benutzer-Interface"
+
+#: lodgeit/views/about.html:18
+msgid "different color schemes for the sourcecode"
+msgstr "verschiedene Farb-Schemata für den Quellcode"
+
+#: lodgeit/views/about.html:19
+msgid "reply to pastes"
+msgstr "auf einen Paste antworten"
+
+#: lodgeit/views/about.html:20
+msgid "diffs of different pastes"
+msgstr "Unterschiede verschiedener Pastes"
+
+#: lodgeit/views/about.html:21
+msgid "support for many python template languages"
+msgstr "Unterstützung für viele Python-Template-Engines"
+
+#: lodgeit/views/about.html:22
+msgid ""
+"support for many scripting languages like Python and Ruby, even with\n"
+"           weird syntax (ruby *cough*)"
+msgstr ""
+"Unterstützung für viele Scriptsprachen wie Python oder Ruby, auch mit\n"
+"           schräger Syntax (ruby *würg*)"
+
+#: lodgeit/views/about.html:24
+msgid "XMLRPC support"
+msgstr "XMLRPC Support"
+
+#: lodgeit/views/about.html:25
+msgid "command-line <a href=\"http://dev.pocoo.org/hg/lodgeit-main/raw-file/-1/scripts/lodgeit.py\">client script</a>"
+msgstr "Kommando-Zeilen basiertes <a href=\"http://dev.pocoo.org/hg/lodgeit-main/raw-file/-1/scripts/lodgeit.py\">Script</a>"
+
+#: lodgeit/views/about.html:26
+msgid "vim integration</a>"
+msgstr "Vim Integration"
+
+#: lodgeit/views/about.html:27
+msgid "emacs integration</a>"
+msgstr "Emacs Integration"
+
+#: lodgeit/views/about.html:28
+msgid "persistent pastes"
+msgstr "dauerhaft gespeicherte Pastes"
+
+#: lodgeit/views/about.html:29
+msgid "reply notification"
+msgstr "Antwortt-Benachrichtigungen"
+
+#: lodgeit/views/about.html:30
+msgid "valid HTML 4.0"
+msgstr "Valides HTML 4.0"
+
+#: lodgeit/views/about.html:32
+msgid "Request More Languages"
+msgstr "Mehr Sprachen"
+
+#: lodgeit/views/about.html:33
+msgid ""
+"\n"
+"      A language is missing in the list? File a ticket in the\n"
+"      <a href=\"http://dev.pocoo.org/projects/pygments\">Pygments trac</a> and we add that as soon\n"
+"      as possible."
+msgstr ""
+"\n"
+"      Eine Sprache steht nicht in der Liste? Erstelle einfach ein Ticket im\n"
+"      <a href=\"http://dev.pocoo.org/projects/pygments\">Pygments Trac</a> und wir fügen sie so schnell wie möglich hinzu.\n"
+
+#: lodgeit/views/about.html:38
+msgid "Software Used"
+msgstr "Benutzte Software"
+
+#: lodgeit/views/about.html:40
+msgid "<a href=\"http://pygments.pocoo.org/\">Pygments</a> for syntax highlighting"
+msgstr "<a href=\"http://pygments.pocoo.org/\">Pygments</a> für das Syntax Highlighting"
+
+#: lodgeit/views/about.html:41
+msgid "<a href=\"http://www.python.org/\">Python</a> as scripting language"
+msgstr "<a href=\"http://www.python.org/\">Python</a> als Programmiersprache"
+
+#: lodgeit/views/about.html:42
+msgid "<a href=\"http://jinja.pocoo.org/2\">Jinja 2</a> for templating"
+msgstr "<a href=\"http://jinja.pocoo.org/2\">Jinja 2</a> als Template-Engine"
+
+#: lodgeit/views/about.html:43
+msgid "<a href=\"http://werkzeug.pocoo.org/\">Werkzeug</a> for the WSGI implementation"
+msgstr "<a href=\"http://werkzeug.pocoo.org/\">Werkzeug</a> für die WSGI-Implementation"
+
+#: lodgeit/views/about.html:44
+msgid "<a href=\"http://www.sqlalchemy.org\">SQLAlchemy</a> as database layer"
+msgstr "<a href=\"http://www.sqlalchemy.org\">SQLAlchemy</a> als Datenbank-Schnittstelle"
+
+#: lodgeit/views/about.html:45
+msgid "<a href=\"http://www.jquery.com/\">jQuery</a> for scripting"
+msgstr "<a href=\"http://www.jquery.com/\">jQuery</a> fürs Scripting"
+
+#: lodgeit/views/about.html:47
+msgid "Who?"
+msgstr "Autoren"
+
+#: lodgeit/views/about.html:48
+msgid ""
+"\n"
+"      This paste was founded by <a href=\"http://lucumr.pocoo.org/\">Armin Ronacher</a> from the pocoo\n"
+"      team and is now maintained by <a href=\"http://webshox.org\">Christopher Grebs</a>.\n"
+"      Pygments is a pocoo project led by Georg Brandl."
+msgstr ""
+"\n"
+"      Der Paste wurde von <a href=\"http://lucumr.pocoo.org/\">Armin Ronacher</a>, vom Pocoo-Team, gegründet und wird von <a href=\"http://webshox.org\">Christopher Grebs</a> gepflegt.\n"
+"      Pygments ist ein Pocoo-Projekt – von Georg Brandl geleitet."
+
+#: lodgeit/views/about.html:53
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: lodgeit/views/about.html:54
+msgid ""
+"\n"
+"      LodgeIt does not use user accounts because it's logging in for using a\n"
+"      pastebin is useles. However this pastebin creates unique user ids for you\n"
+"      and for 31 days. Whenever you return to the pastebin it will notify you\n"
+"      about replies to your pastes. If you don't want to have that feature you\n"
+"      can let lodgeit forget about you by\n"
+"      <a href=\"javascript:LodgeIt.removeCookie()\">removing the cookie</a>.\n"
+"      Please note that on the next request you will get a new id."
+msgstr ""
+"\n"
+"      LodgeIt benutzt kein Benutzer-System, da das einloggen für einen Pastebin\n"
+"      sinnlos ist. Allerdings erstellt der Pastebin eine einzigartige Benutzer-ID\n"
+"      für 31 Tage. Wenn du in diesem Zeitraum den Pastebin nochmal aufrufst,\n"
+"      wirst du über Beantwortungen deiner Pastes informiert. Wenn du diese Funktion\n"
+"      nicht haben möchtest, kann LodgeIt dich auch vergessen:\n"
+"      <a href=\"javascript:LodgeIt.removeCookie()\">Cookie entfernen</a>.\n"
+"      Bitte beachte, das du bei einer neuen Anfrage eine neue ID bekommst."
+
+#: lodgeit/views/layout.html:22
+msgid "New"
+msgstr "Neu"
+
+#: lodgeit/views/layout.html:23
+msgid "All"
+msgstr "Alle"
+
+#: lodgeit/views/layout.html:24
+msgid "About"
+msgstr "Über"
+
+#: lodgeit/views/layout.html:35
+msgid "Someone Replied To Your Paste"
+msgstr "Jemand hat auf dein Paste geantwortet"
+
+#: lodgeit/views/layout.html:37
+#, python-format
+msgid ""
+"\n"
+"              on %(date)s someone replied to your paste \n"
+"              <a href=\"%(parent_url)s\">#%(parent)s</a>,\n"
+"              in paste <a href=\"%(paste_url)s\">#%(paste)s</a>. Click here to\n"
+"              <a href=\"/compare/%(paste)s/%(parent)s/\">compare\n"
+"              those two pastes</a>."
+msgstr ""
+"\n"
+"              am %(date)s hat jemand auf dein Paste geantwortet \n"
+"              <a href=\"%(parent_url)s\">#%(parent)s</a>,\n"
+"              im Paste <a href=\"%(paste_url)s\">#%(paste)s</a>. Klick hier um\n"
+"              beide Pastes zu <a href=\"/compare/%(paste)s/%(parent)s/\">vergleichen</a>\n"
+
+#: lodgeit/views/layout.html:46
+#: lodgeit/views/layout.html:58
+msgid "hide this notification"
+msgstr "Benachrichtigung verbergen"
+
+#: lodgeit/views/layout.html:50
+msgid "Welcome On LodgeIt"
+msgstr "Willkommen bei LodgeIt"
+
+#: lodgeit/views/layout.html:51
+msgid ""
+"Welcome to the LodgeIt pastebin. In order to use the notification feature\n"
+"              a 31 day cookie with an unique ID was created for you. The lodgeit database\n"
+"              does not store any information about you, it's just used for an advanced\n"
+"              pastebin experience :-). Read more on the <a href=\"/about/#privacy\">about\n"
+"              lodgeit</a> page. Have fun :-)"
+msgstr ""
+"Willkommen zum LodgeIt Pastebin. Damit Benachrichtigungen benutzt werden können,\n"
+"              wurde ein 31 Tage-Cookie mit einer einzigartigen ID erstellt.\n"
+"Die LodgeIt Datenbank speichert keine Informationen über dich, es wird nur für eine bessere Pastebin-Benutzung benutzt :-).\n"
+"Siehe <a href=\"/about/#privacy\">Über Lodgeit</a> für mehr Informationen. Viel Spaß :-)"
+
+#: lodgeit/views/new_paste.html:2
+msgid "New Paste"
+msgstr "Neuer Paste"
+
+#: lodgeit/views/new_paste.html:8
+msgid "Error While Pasting"
+msgstr "Ein Fehler ist aufgetreten"
+
+#: lodgeit/views/new_paste.html:9
+#, python-format
+msgid "Could not submit your paste because %(error)s."
+msgstr "Konnte den Paste nicht senden, da Fehler aufgetreten sind: %(error)s"
+
+#: lodgeit/views/new_paste.html:12
+msgid "Please fill out the CAPTCHA to proceed:"
+msgstr "Bitte fülle das CAPTCHA Feld aus um fortzufahren"
+
+#: lodgeit/views/new_paste.html:13
+msgid "a captcha you can't see.  Sorry :("
+msgstr "ein captcha das du nicht sehen kannst. Sorry :("
+
+#: lodgeit/views/new_paste.html:17
+msgid "hide this message"
+msgstr "verberge diese Nachricht"
+
+#: lodgeit/views/new_paste.html:32
+msgid "Paste!"
+msgstr "Paste!"
+
+#: lodgeit/views/new_paste.html:36
+msgid "make this paste private"
+msgstr "Dieser Paste ist privat"
+
+#: lodgeit/views/not_found.html:2
+msgid "Page Not Found"
+msgstr "Seite Nicht Gefunden"
+
+#: lodgeit/views/not_found.html:5
+msgid "Sorry, but the page you requested was not found on this server."
+msgstr "Sorry, aber die angeforderte Seite konnte nicht auf diesem Server gefunden werden."
+
+#: lodgeit/views/not_found.html:7
+msgid ""
+"\n"
+"    We've recently updated this pastebin. While it is out goal for nothing to get\n"
+"    lost, you may have found a page that was mis-placed. Check your URL to ensure\n"
+"    you have gone where you intended. If everything looks OK and you still see\n"
+"    this error page, please consider <a href=\"/about\">contacting us</a>."
+msgstr ""
+"\n"
+"    Wir haben den Pastebin letztens aktualisiert. Da nichts verloren gehen sollte,\n"
+"    hast du vermutlich eine fehlerhafte Seite gefunden. Bitte überprüfe die URL um sicherzugehen\n"
+"    das du richtig bist. Wenn alles OK aussieht und die immernoch diese\n"
+"    Fehlerseite siehst, <a href=\"/about\">kontaktiere uns</a> bitte."
+
+#: lodgeit/views/not_found.html:14
+msgid "Click <a href=\"/\">here</a> to add a new paste."
+msgstr "Klicke <a href=\"/\">hier</a> um einen neuen Paste zu erstellen."
+
+#: lodgeit/views/paste_tree.html:2
+msgid "Paste Tree"
+msgstr "Paste-Tree"
+
+#: lodgeit/views/paste_tree.html:5
+msgid ""
+"\n"
+"    Here you can see the requested tree of paste replies. The paste you're\n"
+"    coming from is highlighted."
+msgstr ""
+
+#: lodgeit/views/show_all.html:2
+msgid "All Pastes"
+msgstr "Alle Pastes"
+
+#: lodgeit/views/show_paste.html:6
+msgid "Paste Details"
+msgstr "Paste Details"
+
+#: lodgeit/views/show_paste.html:8
+#, python-format
+msgid "posted on %(pub_date)s"
+msgstr "am %(pub_date)s geschrieben"
+
+#: lodgeit/views/show_paste.html:10
+msgid "reply to this paste"
+msgstr "antworte auf diesen Paste"
+
+#: lodgeit/views/show_paste.html:13
+msgid "compare it with the parent paste"
+msgstr "Vergleiche diesen mit dem ursprünglichen Paste"
+
+#: lodgeit/views/show_paste.html:14
+msgid "look at the parent paste"
+msgstr "schau dir den ursprünglichen Paste an"
+
+#: lodgeit/views/show_paste.html:17
+msgid "the following pastes replied to this paste:"
+msgstr "Antworten auf diesen Paste:"
+
+#: lodgeit/views/show_paste.html:25
+msgid "show paste tree"
+msgstr ""
+
+#: lodgeit/views/show_paste.html:27
+msgid "download paste"
+msgstr "Paste herunterladen"
+
+#: lodgeit/views/show_paste.html:28
+msgid "compare with paste"
+msgstr "vergleiche mit Paste"
+
+#: lodgeit/views/show_paste.html:31
+msgid "compare"
+msgstr "vergleiche"
+
+#: lodgeit/views/show_paste.html:33
+msgid "select different colorscheme"
+msgstr "anderes Farbschema wählen"
+
+#: lodgeit/views/show_paste.html:40
+msgid "change"
+msgstr "ändern"
+
+#: lodgeit/views/show_paste.html:42
+msgid "toggle line numbers"
+msgstr "Zeilennummern umschalten"
+
+#: lodgeit/views/xmlrpc.html:2
+msgid "XMLRPC"
+msgstr "XMLRPC"
+
+#: lodgeit/views/xmlrpc.html:6
+msgid "XMLRPC Entrypoint"
+msgstr "XMLRPC Einstiegspunkt"
+
+#: lodgeit/views/xmlrpc.html:7
+msgid ""
+"\n"
+"      This is the entrypoint for the XMLRPC system. If you're interested\n"
+"      in using it head over to the <a href=\"/help/xmlrpc/\">XMLRPC documentation</a>."
+msgstr ""
+"\n"
+"      Dies ist ein Einstiegspunkt für das XMLRPC System. Wenn du es\n"
+"      nutzen möchtest, schau dir die <a href=\"/help/xmlrpc/\">XMLRPC Dokumentation</a> an."
+
