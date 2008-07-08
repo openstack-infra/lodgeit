@@ -5,14 +5,12 @@
 
     Static stuff.
 
-    :copyright: 2007-2008 by Armin Ronacher.
+    :copyright: 2007-2008 by Armin Ronacher, Christopher Grebs.
     :license: BSD
 """
 from werkzeug.exceptions import NotFound
-
-from lodgeit.utils import ctx, render_template
 from lodgeit.i18n import _
-from lodgeit.controllers import BaseController
+from lodgeit.utils import render_template
 from lodgeit.lib.xmlrpc import xmlrpc
 
 
@@ -26,7 +24,7 @@ HELP_PAGES = [
 known_help_pages = set(x[0] for x in HELP_PAGES)
 
 
-class StaticController(BaseController):
+class StaticController(object):
 
     def not_found(self):
         return render_template('not_found.html')
@@ -46,7 +44,7 @@ class StaticController(BaseController):
             help_topics=HELP_PAGES,
             current_topic=topic,
             xmlrpc_url='http://%s/xmlrpc/' %
-            ctx.request.environ['SERVER_NAME'],
+            local.request.environ['SERVER_NAME'],
             xmlrpc_methods=xmlrpc.get_public_methods()
         )
 

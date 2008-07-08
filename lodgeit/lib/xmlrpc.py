@@ -12,10 +12,8 @@ import sys
 import re
 import inspect
 from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
-
 from werkzeug import Response
-
-from lodgeit.utils import ctx
+from lodgeit import local
 
 
 _strip_re = re.compile(r'[\x00-\x08\x0B-\x1F]')
@@ -38,7 +36,7 @@ class XMLRPCRequestHandler(SimpleXMLRPCDispatcher):
     def handle_request(self):
         def dispatch(method_name, params):
             return self.funcs[method_name](*params)
-        response = self._marshaled_dispatch(ctx.request.data, dispatch)
+        response = self._marshaled_dispatch(local.request.data, dispatch)
         return Response(response, mimetype='text/xml')
 
     def get_public_methods(self):

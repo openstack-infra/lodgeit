@@ -5,26 +5,25 @@
 
     Database fun :)
 
-    :copyright: 2007 by Armin Ronacher, Christopher Grebs.
+    :copyright: 2007-2008 by Armin Ronacher, Christopher Grebs.
     :license: BSD
 """
 import time
 import difflib
 from cgi import escape
 from datetime import datetime
-
+from werkzeug import cached_property
 from sqlalchemy import MetaData, Integer, Text, DateTime, ForeignKey, \
      String, Boolean, Table, Column, select, and_, func
 from sqlalchemy.orm import create_session, mapper, backref, relation
 from sqlalchemy.orm.scoping import ScopedSession
-from werkzeug import cached_property
-
-from lodgeit.utils import _local_manager, ctx, generate_paste_hash
+from lodgeit import local
+from lodgeit.utils import generate_paste_hash
 from lodgeit.lib.highlighting import highlight, LANGUAGES
 
 
-session = ScopedSession(lambda: create_session(bind=ctx.application.engine),
-                        scopefunc=_local_manager.get_ident)
+session = ScopedSession(lambda: create_session(bind=local.application.engine),
+                        scopefunc=local._local_manager.get_ident)
 metadata = MetaData()
 
 pastes = Table('pastes', metadata,
@@ -100,13 +99,13 @@ class Paste(object):
         as handled.
         """
         s = select([pastes.c.paste_id],
-            Paste.user_hash == ctx.request.user_hash
+            Paste.user_hash == local.request.user_hash
         )
 
         paste_list = Paste.query.filter(and_(
             Paste.parent_id.in_(s),
             Paste.handled == False,
-            Paste.user_hash != ctx.request.user_hash,
+            Paste.user_hash != local.request.user_hash,
         )).order_by(pastes.c.paste_id.desc()).all()
 
         to_mark = [p.paste_id for p in paste_list]

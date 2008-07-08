@@ -13,18 +13,16 @@
 import random
 import colorsys
 import math
+from os import listdir
+from os.path import abspath, join, dirname, pardir
+from PIL import ImageFont, ImageDraw, Image, ImageChops, ImageColor
+from werkzeug import Response
+from lodgeit import local
+
 try:
     from hashlib import sha1
 except ImportError:
     from sha import new as sha1
-from os import listdir
-from os.path import abspath, join, dirname, pardir
-
-from PIL import ImageFont, ImageDraw, Image, ImageChops, ImageColor
-from werkzeug import Response
-
-from lodgeit.utils import ctx
-
 
 resource_path = abspath(join(dirname(__file__), pardir, 'res'))
 
@@ -34,7 +32,7 @@ def check_hashed_solution(solution, hashed_solution=None, secret_key=None):
     request by using the secret key.
     """
     if hashed_solution is None:
-        hashed_solution = ctx.request.cookies.get('captcha_id')
+        hashed_solution = local.request.session.get('captcha_id')
         if hashed_solution is None:
             return False
     return hashed_solution == calculate_hash(solution, secret_key)
@@ -43,7 +41,7 @@ def check_hashed_solution(solution, hashed_solution=None, secret_key=None):
 def calculate_hash(solution, secret_key=None):
     """Calculate the hash."""
     if secret_key is None:
-        secret_key = ctx.application.secret_key
+        secret_key = local.application.secret_key
     return sha1('%s|%s' % (
         secret_key,
         solution.encode('utf-8')
@@ -116,7 +114,7 @@ class Captcha(object):
         response = Response(mimetype='image/png')
         self.render_image(size=None).save(response.stream, 'PNG')
         if set_cookie:
-            response.set_cookie('captcha_id', self.hash_solution())
+            request.session['captcha_id'] = self.hash_solution()
         return response
 
 

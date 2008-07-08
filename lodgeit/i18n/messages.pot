@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2008-07-08 11:43+0200\n"
+"POT-Creation-Date: 2008-07-09 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,19 +25,19 @@ msgstr ""
 msgid " and the CAPTCHA solution was incorrect"
 msgstr ""
 
-#: lodgeit/controllers/static.py:20
+#: lodgeit/controllers/static.py:18
 msgid "Pasting"
 msgstr ""
 
-#: lodgeit/controllers/static.py:21
+#: lodgeit/controllers/static.py:19
 msgid "Advanced Features"
 msgstr ""
 
-#: lodgeit/controllers/static.py:22
+#: lodgeit/controllers/static.py:20
 msgid "Using the XMLRPC Interface"
 msgstr ""
 
-#: lodgeit/controllers/static.py:23
+#: lodgeit/controllers/static.py:21
 msgid "Scripts and Editor Integration"
 msgstr ""
 

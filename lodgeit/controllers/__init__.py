@@ -9,13 +9,6 @@
     :license: BSD
 """
 
-class BaseController(object):
-    """
-    Base controller class. This does nothing *yet* but
-    maybe is usefull later.
-    """
-
-
 def get_controller(name):
     cname, hname = name.split('/')
     module = __import__('lodgeit.controllers.' + cname, None, None, [''])

@@ -12,16 +12,11 @@ import os
 from datetime import datetime
 from babel import Locale, dates, UnknownLocaleError
 from babel.support import Translations
-from lodgeit.utils import ctx, jinja_environment, get_application
+from lodgeit import local
+from lodgeit.utils import jinja_environment
 
 
 __all__ = ['_', 'gettext', 'ngettext']
-
-
-DATE_FORMATS = ['%m/%d/%Y', '%d/%m/%Y', '%Y%m%d', '%d. %m. %Y',
-                '%m/%d/%y', '%d/%m/%y', '%d%m%y', '%m%d%y', '%y%m%d']
-TIME_FORMATS = ['%H:%M', '%H:%M:%S', '%I:%M %p', '%I:%M:%S %p']
-
 
 
 def load_translations(locale):
@@ -31,22 +26,20 @@ def load_translations(locale):
 
 def gettext(string):
     """Translate the given string to the language of the application."""
-    app = get_application()
-    if app is None:
+    if not local.application:
         return string
-    return app.translations.ugettext(string)
+    return local.application.translations.ugettext(string)
 
 
 def ngettext(singular, plural, n):
     """Translate the possible pluralized string to the language of the
     application.
     """
-    app = get_application()
-    if app is None:
+    if not local.application:
         if n == 1:
             return singular
-        return plrual
-    return app.translations.ungettext(singular, plural, n)
+        return plural
+    return local.application.translations.ungettext(singular, plural, n)
 
 
 def format_datetime(datetime=None, format='medium'):
@@ -56,9 +49,8 @@ def format_datetime(datetime=None, format='medium'):
 
 def list_languages():
     """Return a list of all languages."""
-    app = get_application()
-    if app:
-        locale = app.locale
+    if local.application:
+        locale = local.application.locale
     else:
         locale = Locale('en')
 
@@ -85,11 +77,10 @@ def has_language(language):
 
 
 def _date_format(formatter, obj, format):
-    app = get_application()
-    if app is None:
+    if not local.application:
         locale = Locale('en')
     else:
-        locale = app.locale
+        locale = local.application.locale
     return formatter(obj, format, locale=locale)
 
 

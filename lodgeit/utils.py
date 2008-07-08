@@ -5,42 +5,33 @@
 
     Serveral utilities used by LodgeIt.
 
-    :copyright: 2007 by Christopher Grebs.
+    :copyright: 2007-2008 by Christopher Grebs.
     :license: BSD
 """
 import re
 import time
-from os import path
+from os import path, urandom
+from random import random
+from functools import partial
+from werkzeug import Request as RequestBase, Response
+from werkzeug.contrib.securecookie import SecureCookie
+from jinja2 import Environment, FileSystemLoader
+from lodgeit import local
+
 try:
     from hashlib import sha1
 except:
     from sha import new as sha1
-from random import random
-from functools import partial
 
-from werkzeug import Local, LocalManager, LocalProxy, \
-     Request as RequestBase, Response
-from jinja2 import Environment, FileSystemLoader
-
-
-#: context locals
-ctx = Local()
-_local_manager = LocalManager(ctx)
-
-#: jinja environment for all the templates
+#: Jinja2 Environment for our template handling
 jinja_environment = Environment(loader=FileSystemLoader(
     path.join(path.dirname(__file__), 'views')),
     extensions=['jinja2.ext.i18n'])
 
+#: constants
 _word_only = partial(re.compile(r'[^a-zA-Z0-9]').sub, '')
-
-
-def get_application():
-    return getattr(ctx, 'application', None)
-
-
-def get_request():
-    return getattr(ctx, 'request', None)
+COOKIE_NAME = u'lodgeit_session'
+SECRET_KEY = urandom(50)
 
 
 def generate_user_hash():
@@ -66,21 +57,19 @@ class Request(RequestBase):
     charset = 'utf-8'
 
     def __init__(self, environ):
-        self.app = ctx.application
         super(Request, self).__init__(environ)
-
-        # check the user hash. an empty cookie is considered
-        # begin a new session.
-        self.user_hash = ''
         self.first_visit = False
-        if 'user_hash' in self.cookies:
-            self.user_hash = self.cookies['user_hash']
-        if not self.user_hash:
-            self.user_hash = generate_user_hash()
+        session = SecureCookie.load_cookie(self, COOKIE_NAME, SECRET_KEY)
+        user_hash = session.get('user_hash')
+
+        if not user_hash:
+            session['user_hash'] = generate_user_hash()
             self.first_visit = True
+        self.user_hash = session['user_hash']
+        self.session = session
 
     def bind_to_context(self):
-        ctx.request = self
+        local.request = self
 
 
 def render_template(template_name, **tcontext):
@@ -90,8 +79,9 @@ def render_template(template_name, **tcontext):
     welcome message.
     """
     from lodgeit.database import Paste
-    if ctx.request.method == 'GET':
+    if local.request.method == 'GET':
         tcontext['new_replies'] = Paste.fetch_replies()
-    tcontext['request'] = ctx.request
+    if local.request:
+        tcontext['request'] = local.request
     t = jinja_environment.get_template(template_name)
     return Response(t.render(tcontext), mimetype='text/html; charset=utf-8')

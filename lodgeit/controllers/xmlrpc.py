@@ -5,21 +5,21 @@
 
     The XMLRPC controller
 
-    :copyright: 2007 by Armin Ronacher, Georg Brandl, Christopher Grebs.
+    :copyright: 2007-2008 by Armin Ronacher, Georg Brandl, Christopher Grebs.
     :license: BSD
 """
-from lodgeit.utils import ctx, render_template
-from lodgeit.controllers import BaseController
+from lodgeit import local
+from lodgeit.utils import render_template
 from lodgeit.database import session, Paste
 from lodgeit.lib.xmlrpc import xmlrpc, exported
 from lodgeit.lib.highlighting import STYLES, LANGUAGES, get_style, \
      get_language_for
 
 
-class XmlRpcController(BaseController):
+class XmlRpcController(object):
 
     def handle_request(self):
-        if ctx.request.method == 'POST':
+        if local.request.method == 'POST':
             return xmlrpc.handle_request()
         return render_template('xmlrpc.html')
 

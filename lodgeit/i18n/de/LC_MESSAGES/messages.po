@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2008-07-08 10:05+0200\n"
-"PO-Revision-Date: 2008-07-08 11:43+0200\n"
+"PO-Revision-Date: 2008-07-09 00:50+0200\n"
 "Last-Translator: Christopher Grebs <cg@webshox.org>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -25,19 +25,19 @@ msgstr "Dein Paste beinhaltet Spam"
 msgid " and the CAPTCHA solution was incorrect"
 msgstr " und die CAPTCHA-Eingabe war falsch"
 
-#: lodgeit/controllers/static.py:20
+#: lodgeit/controllers/static.py:18
 msgid "Pasting"
 msgstr "Pasting"
 
-#: lodgeit/controllers/static.py:21
+#: lodgeit/controllers/static.py:19
 msgid "Advanced Features"
 msgstr "Erweiterte Funktionen"
 
-#: lodgeit/controllers/static.py:22
+#: lodgeit/controllers/static.py:20
 msgid "Using the XMLRPC Interface"
 msgstr "Das XMLRPC Interface benutzen"
 
-#: lodgeit/controllers/static.py:23
+#: lodgeit/controllers/static.py:21
 msgid "Scripts and Editor Integration"
 msgstr "Scripte und Editor-Integration"
 
