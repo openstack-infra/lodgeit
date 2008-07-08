@@ -164,13 +164,12 @@ class PasteController(BaseController):
         if style_name in STYLES:
             resp.set_cookie('style', style_name)
         return resp
-    
-    def set_language(self):
+
+    def set_language(self, lang='en'):
         """Minimal view that set's a different language. Redirects
         back to the page the user is coming from."""
-        lang = ctx.request.form.get('language')
         resp = redirect(ctx.request.environ.get('HTTP_REFERER') or '/')
-        if lang in list_languages():
+        if lang in [x[0] for x in list_languages()]:
             ctx.application.set_locale(lang)
         return resp
 

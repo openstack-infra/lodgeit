@@ -46,6 +46,9 @@ class LodgeIt(object):
         self.set_locale('en_US')
 
         #: jinja_environment update
+        jinja_environment.globals.update(
+            i18n_languages=i18n.list_languages()
+        )
         jinja_environment.filters.update(
             datetimeformat=i18n.format_datetime
         )

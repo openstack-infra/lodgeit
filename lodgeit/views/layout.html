@@ -28,6 +28,11 @@
           endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
       {%- endfor %}
       </ul>
+      <ul id="languages">
+      {% for lang in i18n_languages %}
+        <li><a href="{{ '/language/%s'|format(lang[0]) }}"><img src="{{ '/static/flags/%s.png'|format(lang[0]) }}"></a></li>
+      {% endfor %}
+      </ul>
       <div class="content">
         <h2>{{ page_title|e }}</h2>
         {%- if new_replies %}
