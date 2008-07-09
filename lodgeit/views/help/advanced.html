@@ -1,45 +1,45 @@
 {% extends "help/layout.html" %}
 {% block help_body %}
-  <h3>Advanced Features</h3>
-  <p>
+  <h3>{% trans %}Advanced Features{% endtrans %}</h3>
+  <p>{% trans %}
     If you are looking at a paste you can toggle the paste detail
     box by clicking on "paste detail". From there you have (depending on
-    the type of paste) a couple of options:
+    the type of paste) a couple of options:{% endtrans %}
   </p>
-  <img src="/static/help/advanced_features.png" class="standalone" alt="screenshot of the paste detail box">
-  <p>
+  <img src="/static/help/advanced_features.png" class="standalone" alt="{% trans %}screenshot of the paste detail box{% endtrans %}">
+  <p>{% trans %}
     In any case you can reply to that paste by clicking on the
     "reply to this paste" link. Also always possible is downloading the
-    paste, changing the color scheme and toggeling the line numbers.
+    paste, changing the color scheme and toggeling the line numbers.{% endtrans %}
   </p>
-  <p>
+  <p>{% trans %}
     If the paste you're looking at is a reply to another paste you can
     compare it with the parent paste by clicking on the "compare it with
     parent paste" link. If this paste has pastes that replied to you will
-    see a list of replies in the detail box.
+    see a list of replies in the detail box.{% endtrans %}
   </p>
-  <p>
+  <p>{% trans %}
     Even if someone copied over the paste by hand to make changes you can
     still compare those two pastes if you enter the id of the other paste
-    into the textfield and click compare.
+    into the textfield and click compare.{% endtrans %}
   </p>
-  <p>
+  <p>{% trans %}
     If you want to see all pastes that are somehow related to the current
-    one, click on the "show paste tree" link:
+    one, click on the "show paste tree" link:{% endtrans %}
   </p>
-  <img src="/static/help/paste_tree.png" class="standalone" alt="screenshot of the paste tree">
-  <h3>Comparing Pastes</h3>
-  <p>
+  <img src="/static/help/paste_tree.png" class="standalone" alt="{% trans %}screenshot of the paste tree{% endtrans %}">
+  <h3>{% trans %}Comparing Pastes{% endtrans %}</h3>
+  <p>{% trans %}
     In the diff view you can see the differences between two pastes. Deleted
     lines have a redish background, added lines a bright green one. You can
-    also download the changes as unified diff.
+    also download the changes as unified diff.{% endtrans %}
   </p>
-  <img src="/static/help/diff_view.png" class="standalone" alt="screenshot of the diff viewer">
-  <h3>Paste Notifications</h3>
-  <p>
+  <img src="/static/help/diff_view.png" class="standalone" alt="{% trans %}screenshot of the diff viewer{% endtrans %}">
+  <h3>{% trans %}Paste Notifications{% endtrans %}</h3>
+  <p>{% trans %}
     If someone replies to one of your pastes you will get a notification the
     next time you visit the pastebin. This however doesn't work for pastes
     older than 31 days because after that time you get a new cookie for
-    privacy reasons.
+    privacy reasons.{% endtrans %}
   </p>
 {% endblock %}

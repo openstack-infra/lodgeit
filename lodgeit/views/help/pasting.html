@@ -1,31 +1,31 @@
 {% extends "help/layout.html" %}
 {% block help_body %}
-  <h3>Creating New Pastes</h3>
-  <p>
+  <h3>{% trans %}Creating New Pastes{% endtrans %}</h3>
+  <p>{% trans %}
     If you use the web interface to create new pastes the process is
     straightforward. All you have to do is to click on the <a href="/">new</a>
     tab and fill in the text field. Additionally you should select a proper
-    highlighter from the list below to make it easier to read your paste.
+    highlighter from the list below to make it easier to read your paste.{% endtrans %}
   </p>
-  <img src="/static/help/new_paste.png" class="standalone" alt="screenshot of the form">
+  <img src="/static/help/new_paste.png" class="standalone" alt="{% trans %}screenshot of the form{% endtrans %}">
   <p>
-    After you have finished just hit "paste" to submit the paste.
+    {% trans %}After you have finished just hit "paste" to submit the paste.{% endtrans %}
   </p>
-  <h3>Replying to Pastes</h3>
-  <p>
+  <h3>{% trans %}Replying to Pastes{% endtrans %}</h3>
+  <p>{% trans %}
     Another way of creating a new paste is to reply to an existing paste.
     When looking at a paste click on the "Paste Details" link to open the
-    paste menu. From there select the "reply to this paste" link.
+    paste menu. From there select the "reply to this paste" link.{% endtrans %}
   </p>
-  <img src="/static/help/reply_to_paste.png" class="standalone" alt="screenshot of the paste detail box">
-  <p>
+  <img src="/static/help/reply_to_paste.png" class="standalone" alt="{% trans %}screenshot of the paste detail box{% endtrans %}">
+  <p>{% trans %}
     A new editor window will open with the contents of the old paste. Just
-    do your changes and click "paste" to submit them.
+    do your changes and click "paste" to submit them.{% endtrans %}
   </p>
-  <p>
+  <p>{% trans %}
     If you use the reply feature a link to the parent paste is created
     automatically. This allows you to compare those two pastes with one
     click to find changes easily. For information about the diff view
-    head over to the <a href="/help/advanced/">advanced features</a> page.
+    head over to the <a href="/help/advanced/">advanced features</a> page.{% endtrans %}
   </p>
 {% endblock %}

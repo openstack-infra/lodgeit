@@ -132,7 +132,7 @@ class PasteController(object):
         # redirect for the compare form box
         if old_id is None:
             old_id = getform('old', '-1').lstrip('#')
-            new_id = geform('new', '-1').lstrip('#')
+            new_id = getform('new', '-1').lstrip('#')
             return redirect('/compare/%s/%s' % (old_id, new_id))
 
         old = Paste.get(old_id)

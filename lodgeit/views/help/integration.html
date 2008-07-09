@@ -1,68 +1,68 @@
 {% extends "help/layout.html" %}
 {% block help_body %}
-  <h3>Scripts and Editor Integration</h3>
-  <p>
+  <h3>{% trans %}Scripts and Editor Integration{% endtrans %}</h3>
+  <p>{% trans %}
     For some popular editors lodgeit integration scripts/plugins exist.
     Additionally there is also a small script that allows pasting from the
-    command line.
+    command line.{% endtrans %}
   </p>
-  <h3>Command Line Script</h3>
+  <h3>{% trans %}Command Line Script{% endtrans %}</h3>
   <p>
-    The usage is pretty simple, to paste a file use the following command
+    {% trans %}The usage is pretty simple, to paste a file use the following command{% endtrans %}
   </p>
-  <pre class="sample">lodgeit.py /path/to/file</pre>
-  <p>
+  <pre class="sample">{% trans %}lodgeit.py /path/to/file{% endtrans %}</pre>
+  <p>{% trans %}
     This will use various guessing methods to get the correct language of
     the file. If all guessing fails it falls back to a normal text paste.
-    You can also provide the language yourself.
+    You can also provide the language yourself.{% endtrans %}
   </p>
-  <pre class="sample">lodgeit.py -l LANGUAGE /path/to/file</pre>
+  <pre class="sample">{% trans %}lodgeit.py -l LANGUAGE /path/to/file{% endtrans %}</pre>
   <p>
-    For a list of supported languages use the following command:
+    {% trans %}For a list of supported languages use the following command:{% endtrans %}
   </p>
-  <pre class="sample">lodgeit.py --languages</pre>
-  <p>If no file is given it will read from the standard input stream.</p>
+  <pre class="sample">{% trans %}lodgeit.py --languages{% endtrans %}</pre>
+  <p>{% trans %}If no file is given it will read from the standard input stream.{% endtrans %}</p>
   <p>
-    <strong>Download:</strong>
+    <strong>{% trans %}Download:{% endtrans %}</strong>
     <a href="http://dev.pocoo.org/hg/lodgeit-main/raw-file/tip/scripts/lodgeit.py">lodgeit.py</a>
   </p>
-  <h3>Vim Support</h3>
-  <p>
+  <h3>{% trans %}Vim Support{% endtrans %}</h3>
+  <p>{% trans %}
     If Vim is your editor you can paste and download pastes directly from
-    within Vim.
+    within Vim.{% endtrans %}
   </p>
-  <p>
+  <p>{% trans %}
     All you have to do to paste the current range or whole buffer to lodgeit
     is executing <tt>:Lodgeit</tt>. If you want you can map this command to
-    a mapping like ctrl+p by adding this to your vimrc:
+    a mapping like ctrl+p by adding this to your vimrc:{% endtrans %}
   </p>
   <pre class="sample">map ^P :Lodgeit&lt;CR&gt;</pre>
-  <p>(^P is entered using ctrl + v, ctrl + in vim)</p>
-  <p>
+  <p>{% trans %}(^P is entered using ctrl + v, ctrl + in vim){% endtrans %}</p>
+  <p>{% trans %}
     If you want to reply to a paste from within Vim you can call
     <tt>:Lodgeit PASTE_URL</tt> or <tt>:Lodgeit #PASTE_ID</tt> and load the
     paste into a new tab. After modifing it you can push the new version to
-    the server using <tt>:Lodgeit</tt>.
+    the server using <tt>:Lodgeit</tt>.{% endtrans %}
   </p>
   <p>
-    <strong>Download:</strong>
+    <strong>{% trans %}Download:{% endtrans %}</strong>
     <a href="http://www.vim.org/scripts/script.php?script_id=1965">lodgeit.vim</a>
   </p>
-  <h3>Emacs Support</h3>
-  <p>
+  <h3>{% trans %}Emacs Support{% endtrans %}</h3>
+  <p>{% trans %}
     You need a working installation of <a href="http://pymacs.progiciels-bpi.ca/">Pymacs</a>.
     For Linux users, many distributions already include a package; otherwise, refer to the
     <a href="http://pymacs.progiciels-bpi.ca/manual/Installation.html#Installation">Pymacs documentation</a>
     for help. If Pymacs is working, you just need to put <tt>paste.py</tt> into a directory where
     Pymacs can find it (see the variable <tt>pymacs-load-path</tt>), and add the line
     <tt>(pymacs-load "paste")</tt> to your <tt>.emacs</tt> file. If you want a Pastebin menu in
-    your menu bar, you also need to add the line <tt>(paste-menu)</tt>.
+    your menu bar, you also need to add the line <tt>(paste-menu)</tt>.{% endtrans %}
   </p>
   <p>
-    Detailed usage instructions are located at <a href="http://lunaryorn.de/projects/paste/">on the project page</a>.
+    {% trans %}Detailed usage instructions are located at <a href="http://lunaryorn.de/projects/paste/">on the project page{% endtrans %}</a>.
   </p>
   <p>
-    <strong>Download:</strong>
+    <strong>{% trans %}Download:{% endtrans %}</strong>
     <a href="http://lunaryorn.de/projects/paste/">paste.py</a>
   </p>
 {% endblock %}

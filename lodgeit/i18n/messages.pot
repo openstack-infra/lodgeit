@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2008-07-09 00:50+0200\n"
+"POT-Creation-Date: 2008-07-09 08:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,19 +25,19 @@ msgstr ""
 msgid " and the CAPTCHA solution was incorrect"
 msgstr ""
 
-#: lodgeit/controllers/static.py:18
+#: lodgeit/controllers/static.py:19
 msgid "Pasting"
 msgstr ""
 
-#: lodgeit/controllers/static.py:19
+#: lodgeit/controllers/static.py:20 lodgeit/views/help/advanced.html:3
 msgid "Advanced Features"
 msgstr ""
 
-#: lodgeit/controllers/static.py:20
+#: lodgeit/controllers/static.py:21 lodgeit/views/help/xmlrpc.html:3
 msgid "Using the XMLRPC Interface"
 msgstr ""
 
-#: lodgeit/controllers/static.py:21
+#: lodgeit/controllers/static.py:22 lodgeit/views/help/integration.html:3
 msgid "Scripts and Editor Integration"
 msgstr ""
 
@@ -517,6 +517,10 @@ msgstr ""
 msgid "All Pastes"
 msgstr ""
 
+#: lodgeit/views/show_all.html:9
+msgid "pasted on "
+msgstr ""
+
 #: lodgeit/views/show_paste.html:6
 msgid "Paste Details"
 msgstr ""
@@ -584,5 +588,320 @@ msgid ""
 "      This is the entrypoint for the XMLRPC system. If you're interested\n"
 "      in using it head over to the <a href=\"/help/xmlrpc/\">XMLRPC "
 "documentation</a>."
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:4
+msgid ""
+"\n"
+"    If you are looking at a paste you can toggle the paste detail\n"
+"    box by clicking on \"paste detail\". From there you have (depending "
+"on\n"
+"    the type of paste) a couple of options:"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:9 lodgeit/views/help/pasting.html:20
+msgid "screenshot of the paste detail box"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:10
+msgid ""
+"\n"
+"    In any case you can reply to that paste by clicking on the\n"
+"    \"reply to this paste\" link. Also always possible is downloading the"
+"\n"
+"    paste, changing the color scheme and toggeling the line numbers."
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:15
+msgid ""
+"\n"
+"    If the paste you're looking at is a reply to another paste you can\n"
+"    compare it with the parent paste by clicking on the \"compare it with"
+"\n"
+"    parent paste\" link. If this paste has pastes that replied to you "
+"will\n"
+"    see a list of replies in the detail box."
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:21
+msgid ""
+"\n"
+"    Even if someone copied over the paste by hand to make changes you can"
+"\n"
+"    still compare those two pastes if you enter the id of the other paste"
+"\n"
+"    into the textfield and click compare."
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:26
+msgid ""
+"\n"
+"    If you want to see all pastes that are somehow related to the current"
+"\n"
+"    one, click on the \"show paste tree\" link:"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:30
+msgid "screenshot of the paste tree"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:31
+msgid "Comparing Pastes"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:32
+msgid ""
+"\n"
+"    In the diff view you can see the differences between two pastes. "
+"Deleted\n"
+"    lines have a redish background, added lines a bright green one. You "
+"can\n"
+"    also download the changes as unified diff."
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:37
+msgid "screenshot of the diff viewer"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:38
+msgid "Paste Notifications"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:39
+msgid ""
+"\n"
+"    If someone replies to one of your pastes you will get a notification "
+"the\n"
+"    next time you visit the pastebin. This however doesn't work for "
+"pastes\n"
+"    older than 31 days because after that time you get a new cookie for\n"
+"    privacy reasons."
+msgstr ""
+
+#: lodgeit/views/help/index.html:3
+msgid "Welcome in the LodgeIt Help Section"
+msgstr ""
+
+#: lodgeit/views/help/index.html:4
+msgid ""
+"\n"
+"    Here you can read about the features of LodgeIt and how to use them\n"
+"    properly."
+msgstr ""
+
+#: lodgeit/views/help/index.html:9
+msgid "Select the topic you're interested in from the list on the right."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:4
+msgid ""
+"\n"
+"    For some popular editors lodgeit integration scripts/plugins exist.\n"
+"    Additionally there is also a small script that allows pasting from "
+"the\n"
+"    command line."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:9
+msgid "Command Line Script"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:11
+msgid "The usage is pretty simple, to paste a file use the following command"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:13
+msgid "lodgeit.py /path/to/file"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:14
+msgid ""
+"\n"
+"    This will use various guessing methods to get the correct language of"
+"\n"
+"    the file. If all guessing fails it falls back to a normal text paste."
+"\n"
+"    You can also provide the language yourself."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:19
+msgid "lodgeit.py -l LANGUAGE /path/to/file"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:21
+msgid "For a list of supported languages use the following command:"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:23
+msgid "lodgeit.py --languages"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:24
+msgid "If no file is given it will read from the standard input stream."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:26
+#: lodgeit/views/help/integration.html:48
+#: lodgeit/views/help/integration.html:65
+msgid "Download:"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:29
+msgid "Vim Support"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:30
+msgid ""
+"\n"
+"    If Vim is your editor you can paste and download pastes directly from"
+"\n"
+"    within Vim."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:34
+msgid ""
+"\n"
+"    All you have to do to paste the current range or whole buffer to "
+"lodgeit\n"
+"    is executing <tt>:Lodgeit</tt>. If you want you can map this command "
+"to\n"
+"    a mapping like ctrl+p by adding this to your vimrc:"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:40
+msgid "(^P is entered using ctrl + v, ctrl + in vim)"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:41
+msgid ""
+"\n"
+"    If you want to reply to a paste from within Vim you can call\n"
+"    <tt>:Lodgeit PASTE_URL</tt> or <tt>:Lodgeit #PASTE_ID</tt> and load "
+"the\n"
+"    paste into a new tab. After modifing it you can push the new version "
+"to\n"
+"    the server using <tt>:Lodgeit</tt>."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:51
+msgid "Emacs Support"
+msgstr ""
+
+#: lodgeit/views/help/integration.html:52
+msgid ""
+"\n"
+"    You need a working installation of <a href=\"http://pymacs"
+".progiciels-bpi.ca/\">Pymacs</a>.\n"
+"    For Linux users, many distributions already include a package; "
+"otherwise, refer to the\n"
+"    <a href=\"http://pymacs.progiciels-"
+"bpi.ca/manual/Installation.html#Installation\">Pymacs documentation</a>\n"
+"    for help. If Pymacs is working, you just need to put "
+"<tt>paste.py</tt> into a directory where\n"
+"    Pymacs can find it (see the variable <tt>pymacs-load-path</tt>), and "
+"add the line\n"
+"    <tt>(pymacs-load \"paste\")</tt> to your <tt>.emacs</tt> file. If you"
+" want a Pastebin menu in\n"
+"    your menu bar, you also need to add the line <tt>(paste-menu)</tt>."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:62
+msgid ""
+"Detailed usage instructions are located at <a "
+"href=\"http://lunaryorn.de/projects/paste/\">on the project page"
+msgstr ""
+
+#: lodgeit/views/help/layout.html:2
+msgid "Help"
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:3
+msgid "Creating New Pastes"
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:4
+msgid ""
+"\n"
+"    If you use the web interface to create new pastes the process is\n"
+"    straightforward. All you have to do is to click on the <a "
+"href=\"/\">new</a>\n"
+"    tab and fill in the text field. Additionally you should select a "
+"proper\n"
+"    highlighter from the list below to make it easier to read your paste."
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:10
+msgid "screenshot of the form"
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:12
+msgid "After you have finished just hit \"paste\" to submit the paste."
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:14
+msgid "Replying to Pastes"
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:15
+msgid ""
+"\n"
+"    Another way of creating a new paste is to reply to an existing paste."
+"\n"
+"    When looking at a paste click on the \"Paste Details\" link to open "
+"the\n"
+"    paste menu. From there select the \"reply to this paste\" link."
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:21
+msgid ""
+"\n"
+"    A new editor window will open with the contents of the old paste. "
+"Just\n"
+"    do your changes and click \"paste\" to submit them."
+msgstr ""
+
+#: lodgeit/views/help/pasting.html:25
+msgid ""
+"\n"
+"    If you use the reply feature a link to the parent paste is created\n"
+"    automatically. This allows you to compare those two pastes with one\n"
+"    click to find changes easily. For information about the diff view\n"
+"    head over to the <a href=\"/help/advanced/\">advanced features</a> "
+"page."
+msgstr ""
+
+#: lodgeit/views/help/xmlrpc.html:4
+#, python-format
+msgid ""
+"\n"
+"    The XMLRPC Interface is available at <tt>%(xmlrpc_url)s</tt>.\n"
+"    (Note the trailing slash!)"
+msgstr ""
+
+#: lodgeit/views/help/xmlrpc.html:8
+msgid "Quickstart"
+msgstr ""
+
+#: lodgeit/views/help/xmlrpc.html:9
+msgid ""
+"\n"
+"    You can connect to the XMLRPC interface with any XMLRPC library. If "
+"you're\n"
+"    using Python the following piece of code connects you to the XMLRPC "
+"service:"
+msgstr ""
+
+#: lodgeit/views/help/xmlrpc.html:18
+msgid ""
+"For example if you want to fetch one paste from the server you can do "
+"this:"
+msgstr ""
+
+#: lodgeit/views/help/xmlrpc.html:25
+msgid "For a list of all supported methods see the list below."
+msgstr ""
+
+#: lodgeit/views/help/xmlrpc.html:26
+msgid "Methods"
 msgstr ""
 

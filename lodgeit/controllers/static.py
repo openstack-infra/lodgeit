@@ -9,6 +9,7 @@
     :license: BSD
 """
 from werkzeug.exceptions import NotFound
+from lodgeit import local
 from lodgeit.i18n import _
 from lodgeit.utils import render_template
 from lodgeit.lib.xmlrpc import xmlrpc

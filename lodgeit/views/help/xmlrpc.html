@@ -1,29 +1,29 @@
 {% extends "help/layout.html" %}
 {% block help_body %}
-  <h3>Using the XMLRPC Interface</h3>
-  <p>
-    The XMLRPC Interface is available at <tt>{{ xmlrpc_url|escape }}</tt>.
-    (Note the trailing slash!)
+  <h3>{% trans %}Using the XMLRPC Interface{% endtrans %}</h3>
+  <p>{% trans xmlrpc_url=xmlrpc_url|escape %}
+    The XMLRPC Interface is available at <tt>{{ xmlrpc_url }}</tt>.
+    (Note the trailing slash!){% endtrans %}
   </p>
-  <h3>Quickstart</h3>
-  <p>
+  <h3>{% trans %}Quickstart{% endtrans %}</h3>
+  <p>{% trans %}
     You can connect to the XMLRPC interface with any XMLRPC library. If you're
-    using Python the following piece of code connects you to the XMLRPC service:
+    using Python the following piece of code connects you to the XMLRPC service:{% endtrans %}
   </p>
   <pre class="sample">{% filter escape %}
 >>> from xmlrpclib import ServerProxy
 >>> s = ServerProxy('{{ xmlrpc_url|escape }}')
 {% endfilter %}</pre>  
   <p>
-    For example if you want to fetch one paste from the server you can do this:
+    {% trans %}For example if you want to fetch one paste from the server you can do this:{% endtrans %}
   </p>
 <pre class="sample">{% filter escape %}
 >>> paste = s.pastes.getPaste(23)
 >>> print paste['code']
 '{{ "{% if users %}" }}\n...'
 {% endfilter %}</pre>  
-  <p>For a list of all supported methods see the list below.</p>
-  <h3>Methods</h3>
+  <p>{% trans %}For a list of all supported methods see the list below.{% endtrans %}</p>
+  <h3>{% trans %}Methods{% endtrans %}</h3>
   <ul class="xmlrpc-method-list">
   {% for method in xmlrpc_methods %}
     <li class="{{ loop.cycle('even', 'odd') }}"><p class="signature"><strong>{{
