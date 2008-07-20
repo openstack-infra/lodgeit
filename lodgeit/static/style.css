@@ -102,11 +102,15 @@ div.text {
   border: 1px solid #000;
 }
 
+#languages li.active img {
+  border: 2px solid #000;
+}
 
 #paste {
     margin: 0;
     padding: 0;
     border: 1px solid #84BCCA;
+    overflow: auto;
 }
 
 #paste table, #paste tbody {

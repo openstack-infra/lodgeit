@@ -83,5 +83,7 @@ def render_template(template_name, **tcontext):
         tcontext['new_replies'] = Paste.fetch_replies()
     if local.request:
         tcontext['request'] = local.request
+    if local.application:
+        tcontext['active_language'] = local.application.locale.language
     t = jinja_environment.get_template(template_name)
     return Response(t.render(tcontext), mimetype='text/html; charset=utf-8')

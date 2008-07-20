@@ -24,13 +24,16 @@
         ('/about/', 'about', _('About')),
         ('/help/', 'help', '?')
       ] %}
-        <li{% if active_page == id %} class="active"{%
-          endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+        <li{% if active_page == id %} class="active"{% endif %}>
+          <a href="{{ href|e }}">{{ caption|e }}</a>
+        </li>
       {%- endfor %}
       </ul>
       <ul id="languages">
       {% for lang in i18n_languages %}
-        <li><a href="{{ '/language/%s'|format(lang[0]) }}"><img src="{{ '/static/flags/%s.png'|format(lang[0]) }}"></a></li>
+        <li{% if active_language == lang[0] %} class="active"{% endif %}>
+          <a href="{{ '/language/%s'|format(lang[0]) }}"><img src="{{ '/static/flags/%s.png'|format(lang[0]) }}"></a>
+        </li>
       {% endfor %}
       </ul>
       <div class="content">

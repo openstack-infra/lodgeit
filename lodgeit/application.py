@@ -34,8 +34,7 @@ class LodgeIt(object):
         metadata.create_all(self.engine)
 
         #: 18n setup
-        self.locale = None
-        self.set_locale('en_US')
+        self.locale = Locale('en')
 
         #: jinja_environment update
         jinja_environment.globals.update(
