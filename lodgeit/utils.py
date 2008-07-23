@@ -72,7 +72,7 @@ class Request(RequestBase):
         local.request = self
 
 
-def render_template(template_name, **tcontext):
+def render_template(template_name, plain=False, **tcontext):
     """Render a template to a response. This automatically fetches
     the list of new replies for the layout template. It also
     adds the current request to the context. This is used for the
@@ -86,4 +86,8 @@ def render_template(template_name, **tcontext):
     if local.application:
         tcontext['active_language'] = local.application.locale.language
     t = jinja_environment.get_template(template_name)
-    return Response(t.render(tcontext), mimetype='text/html; charset=utf-8')
+    if not plain:
+        resp = Response(t.render(tcontext), mimetype='text/html; charset=utf-8')
+    else:
+        resp = t.render(tcontext)
+    return resp

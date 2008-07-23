@@ -9,14 +9,10 @@
     :license: GNU GPL.
 """
 import os
-from datetime import datetime
 from babel import Locale, dates, UnknownLocaleError
 from babel.support import Translations
 from lodgeit import local
-from lodgeit.utils import jinja_environment
 
-
-__all__ = ['_', 'gettext', 'ngettext']
 
 
 def load_translations(locale):

@@ -114,7 +114,7 @@ class Captcha(object):
         response = Response(mimetype='image/png')
         self.render_image(size=None).save(response.stream, 'PNG')
         if set_cookie:
-            request.session['captcha_id'] = self.hash_solution()
+            local.request.session['captcha_id'] = self.hash_solution()
         return response
 
 

@@ -121,7 +121,15 @@ class DiffRenderer(object):
                             affects_old = True
                             action = 'del'
                         else:
-                            raise RuntimeError()
+                            # this happens sometimes if it's a diff from
+                            # a po/pot file with `"` at one line.
+                            # No idea how to handle that a better way...
+                            if command == '"':
+                                affects_old = affects_new = True
+                                action = 'unmod'
+                                line = '"'
+                            else:
+                                raise RuntimeError()
 
                         old_line += affects_old
                         new_line += affects_new

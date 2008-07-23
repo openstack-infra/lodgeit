@@ -18,6 +18,7 @@ from lodgeit.database import session, Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
+from lodgeit.lib.filterable import Filterable
 
 
 class PasteController(object):
@@ -109,13 +110,26 @@ class PasteController(object):
 
     def show_all(self, page=1):
         """Paginated list of pages."""
-
         def link(page):
             if page == 1:
                 return '/all/'
             return '/all/%d' % page
 
-        all = Paste.find_all()
+        form_args = local.request.args
+        if not 'show_private' in form_args:
+            query = Paste.find_all()
+        else:
+            query = Paste.query.filter_by(
+                user_hash=local.request.user_hash
+            )
+
+        filterable = Filterable(Paste, query, {
+            'paste_id': (_(u'identifier'), 'int'),
+            'pub_date': (_(u'published'), 'date'),
+            'language': (_(u'language'), 'str'),
+        }, form_args, True)
+        all = filterable.get_objects()
+
         pastes = all.limit(10).offset(10 * (page -1)).all()
         if not pastes and page != 1:
             raise NotFound()
@@ -123,7 +137,9 @@ class PasteController(object):
         return render_template('show_all.html',
             pastes=pastes,
             pagination=generate_pagination(page, 10, all.count(), link),
-            css=get_style(local.request)[1]
+            css=get_style(local.request)[1],
+            filterable=filterable,
+            show_private='show_private' in form_args
         )
 
     def compare_paste(self, new_id=None, old_id=None):

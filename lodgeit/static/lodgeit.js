@@ -27,6 +27,9 @@ var LodgeIt = {
 
     /* hide all related blocks if in js mode */
     $('div.related div.content').hide();
+
+    /* hide all filter related blocks if in js mode */
+    $('div.paste_filter form').hide();
     
     /**
      * links marked with "autoclose" inside the related div
@@ -87,6 +90,13 @@ var LodgeIt = {
         LodgeIt._toggleLock = false;
       });
     }
+  },
+
+  /**
+   * slide-toggle a box
+   */
+  toggleFilterBox : function() {
+    $('div.paste_filter form').slideToggle(500);
   },
 
   /**

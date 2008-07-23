@@ -10,20 +10,20 @@
 """
 import time
 import difflib
-from cgi import escape
 from datetime import datetime
 from werkzeug import cached_property
 from sqlalchemy import MetaData, Integer, Text, DateTime, ForeignKey, \
      String, Boolean, Table, Column, select, and_, func
-from sqlalchemy.orm import create_session, mapper, backref, relation
+from sqlalchemy.orm import scoped_session, create_session, backref, relation
 from sqlalchemy.orm.scoping import ScopedSession
 from lodgeit import local
 from lodgeit.utils import generate_paste_hash
 from lodgeit.lib.highlighting import highlight, LANGUAGES
 
 
-session = ScopedSession(lambda: create_session(bind=local.application.engine),
-                        scopefunc=local._local_manager.get_ident)
+session = scoped_session(lambda: create_session(local.application.engine),
+    scopefunc=local._local_manager.get_ident)
+
 metadata = MetaData()
 
 pastes = Table('pastes', metadata,
@@ -79,7 +79,7 @@ class Paste(object):
 
     @staticmethod
     def count():
-        """COunt all pastes."""
+        """Count all pastes."""
         s = select([func.count(pastes.c.paste_id)])
         return session.execute(s).fetchone()[0]
 

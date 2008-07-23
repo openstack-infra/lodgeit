@@ -11,14 +11,14 @@
 """
 import os
 from datetime import datetime, timedelta
-import sqlalchemy
 from babel import Locale
 from werkzeug import SharedDataMiddleware, ClosingIterator
 from werkzeug.exceptions import HTTPException, NotFound
+from sqlalchemy import create_engine
 from lodgeit import i18n, local
 from lodgeit.urls import urlmap
 from lodgeit.utils import COOKIE_NAME, Request, jinja_environment
-from lodgeit.database import metadata, session, Paste
+from lodgeit.database import metadata, session
 from lodgeit.controllers import get_controller
 
 
@@ -28,10 +28,10 @@ class LodgeIt(object):
     def __init__(self, dburi, secret_key):
         self.secret_key = secret_key
 
-        #: database engine
-        self.engine = sqlalchemy.create_engine(dburi, convert_unicode=True)
-        #: make sure all tables exist.
-        metadata.create_all(self.engine)
+        #: bind metadata, create engine and create all tables
+        self.engine = engine = create_engine(dburi, convert_unicode=True)
+        metadata.bind = engine
+        metadata.create_all(engine)
 
         #: 18n setup
         self.locale = Locale('en')

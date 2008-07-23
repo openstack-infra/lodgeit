@@ -144,6 +144,7 @@ div.text {
 }
 
 div.related,
+div.paste_filter,
 div.notification {
     margin: 0 0 10px 0;
     border: 1px solid #84BCCA;
@@ -152,6 +153,7 @@ div.notification {
 }
 
 div.related h3,
+div.paste_filter h3,
 div.notification h3 {
     margin: 0;
     padding: 0;
@@ -160,6 +162,7 @@ div.notification h3 {
 }
 
 div.notification h3,
+div.paste_filter h3 a,
 div.related h3 a {
     display: block;
     padding: 5px;
@@ -180,12 +183,14 @@ div.notification div.captcha img {
     margin: 8px 0 8px 0;
 }
 
-div.related h3 a:hover {
+div.related h3 a:hover,
+div.paste_filter h3 a:hover {
     background-color: #1d89a4;
     color: white;
 }
 
-div.related h3 a:focus {
+div.related h3 a:focus,
+div.paste_filter h3 a:focus {
     outline: none;
 }
 
@@ -434,4 +439,39 @@ ul.xmlrpc-method-list li p.signature em {
 ul.xmlrpc-method-list li p.docstring {
     padding: 5px 0 0 20px;
     font-size: 0.95em;
+}
+
+
+/* Filterable */
+table.filterable {
+  width: 100%;
+  margin-bottom: 0.7em;
+  margin-top: 0.2em;
+  border-collapse: collapse;
+  border-spacing: 0px;
+  border: solid 1px #ccc;
+}
+
+table.filterable td {
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 1px 0 1px 0;
+  vertical-align: middle;
+}
+
+table.filterable td.value {
+  width: 100%;
+}
+
+table.filterable div.add {
+  float: right;
+}
+
+table.filterable div.add.left {
+  float: left;
+}
+
+input.update_filterable {
+  margin: 5px 10px 5px 5px;
+  display: block;
 }

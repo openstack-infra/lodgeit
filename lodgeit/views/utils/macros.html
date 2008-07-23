@@ -1,0 +1,66 @@
+{% macro filterable(filters, fields, actions, args, inline=False) %}
+{% if not inline %}
+<form action="" method="get">
+{% endif %}
+  {%- for k, v in args.iteritems() %}
+  {%- if v %}
+  <input type="hidden" name="{{ k|e }}" value="{{ v|e }}" />
+  {%- endif %}
+  {%- endfor %}
+  <table class="filterable">
+    {%- for field, _ in filters.iteritems() %}
+    {%- set action, value = _ %}
+    {%- set label, type = fields[field] %}
+    <tr class="filter_value">
+      {%- if type == 'bool' %}
+      <td class="field value" colspan="3">
+        <input type="hidden" name="{{ field }}_action" value="bool" />
+        <select name="{{ field }}_value">
+          <option {% if value == 'true' %}selected="selected" {% endif %}value="true">{% trans %}is{% endtrans %}</option>
+          <option {% if value == 'false' %}selected="selected" {% endif %}value="false">{% trans %}is not{% endtrans %}</option>
+        </select> {{ label|e }}
+      </td>
+      {%- else %}
+      <td class="field">{{ label|e }}</td>
+      <td class="filter">
+        <select name="{{ field }}_action">
+          {%- for k, v in actions[type].iteritems() %}:
+          <option value="{{ k }}"{% if k == action %} selected="selected"{% endif %}>
+            {{- v|e -}}
+          </option>
+          {%- endfor %}
+        </select>
+      </td>
+      <td class="value">
+        <input type="{{ fields[field][1] == 'date' and 'date' or 'text' }}"
+               name="{{ field }}_value" value="{{ value|e }}" />
+      </td>
+      {%- endif %}
+      <td class="action">
+        <button type="submit" name="remove_filter" value="{{ field }}">-</button>
+      </td>
+    </tr>
+    {%- endfor %}
+    <tr>
+      <td colspan="4">
+        <div class="add{% if not filters %} left{% endif %}">
+          {% trans %}new filter: {% endtrans %}<select name="new_filter">
+            <option></option>
+            {%- for k, v in fields.iteritems() %}
+            {%- if k not in filters %}
+            <option value="{{ k }}">{{ v[0]|e }}</option>
+            {%- endif %}
+            {%- endfor %}
+          </select>
+          <input type="submit" name="add_filter" value="{% trans %}ok{% endtrans %}" />
+        </div>
+        {%- if filters and not inline %}
+        <input type="submit" value="{% trans %}update{% endtrans %}">
+        {%- endif %}
+      </td>
+    </tr>
+  </table>
+{% if not inline %}
+</form>
+{% endif %}
+{% endmacro %}
