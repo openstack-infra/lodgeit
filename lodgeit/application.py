@@ -33,9 +33,6 @@ class LodgeIt(object):
         metadata.bind = engine
         metadata.create_all(engine)
 
-        #: 18n setup
-        self.locale = Locale('en')
-
         #: jinja_environment update
         jinja_environment.globals.update(
             i18n_languages=i18n.list_languages()
@@ -43,6 +40,7 @@ class LodgeIt(object):
         jinja_environment.filters.update(
             datetimeformat=i18n.format_datetime
         )
+        jinja_environment.install_null_translations()
 
         #: bind the application to the current context local
         self.bind_to_context()
@@ -50,29 +48,12 @@ class LodgeIt(object):
     def bind_to_context(self):
         local.application = self
 
-    def set_locale(self, locale):
-        if not isinstance(locale, Locale):
-            locale = Locale(locale)
-        self.translations = i18n.load_translations(locale)
-
-        if not self.locale or self.locale.language != locale.language:
-            self.locale = locale
-
-        #: update gettext translations
-        jinja_environment.install_gettext_translations(self.translations)
-
     def __call__(self, environ, start_response):
         """Minimal WSGI application for request dispatching."""
         #: bind the application to the new context local
         self.bind_to_context()
         request = Request(environ)
         request.bind_to_context()
-
-        #: try to get the best language solution for the user
-        #XXX: does a browser always send the language `-` seperated
-        user_lang = request.user_agent.language
-        if self.locale.language != user_lang and request.first_visit:
-            self.set_locale(Locale.parse(user_lang, sep='-'))
 
         urls = urlmap.bind_to_environ(environ)
         try:

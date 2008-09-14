@@ -30,9 +30,9 @@
       {%- endfor %}
       </ul>
       <ul id="languages">
-      {% for lang in i18n_languages %}
-        <li{% if active_language == lang[0] %} class="active"{% endif %}>
-          <a href="{{ '/language/%s'|format(lang[0]) }}"><img src="{{ '/static/flags/%s.png'|format(lang[0]) }}"></a>
+      {% for lang, name in i18n_languages %}
+        <li{% if request.locale.language == lang %} class="active"{% endif %}>
+          <a href="{{ '/language/%s'|format(lang) }}"><img alt="{{ lang }}" src="{{ '/static/flags/%s.png'|format(lang) }}"></a>
         </li>
       {% endfor %}
       </ul>

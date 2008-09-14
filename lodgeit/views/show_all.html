@@ -3,13 +3,15 @@
 {% set page_title = _('All Pastes') %}
 {% set active_page = 'all' %}
 {% block body %}
-  <div class="paste_filter">
+  <div class="paste_filter{% if filterable.filters %} open{% endif %}">
     <h3><a href="javascript:LodgeIt.toggleFilterBox()">{%- trans -%}Filter pastes{%- endtrans -%}</a></h3>
     <form action="" method="get">
       {{ filterable.get_html() }}
-      <input type="checkbox" name="show_private" id="show_private"{% if show_private %} checked="checked"{% endif %} />
-        <label for="show_private">{% trans %}show <em>only</em> private pastes{% endtrans %}</label>
-      <input type="submit" value="{% trans %}update{% endtrans %}" class="update_filterable" />
+      <div class="actions">
+        <input type="checkbox" name="show_personal" id="show_personal"{% if show_personal %} checked{% endif %}>
+        <label for="show_personal">{{ _('Search personal pastes') }}</label>
+        <input type="submit" value="{{ _('Filter') }}">
+      </div>
     </form>
   </div>
   {% if pastes %}

@@ -29,7 +29,9 @@ var LodgeIt = {
     $('div.related div.content').hide();
 
     /* hide all filter related blocks if in js mode */
-    $('div.paste_filter form').hide();
+    var paste_filter = $('div.paste_filter form');
+    if (paste_filter.length && !paste_filter.is('.open'))
+      paste_filters.hide();
     
     /**
      * links marked with "autoclose" inside the related div

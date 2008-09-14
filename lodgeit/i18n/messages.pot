@@ -8,21 +8,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2008-07-20 11:18+0200\n"
+"POT-Creation-Date: 2008-09-14 12:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.3\n"
+"Generated-By: Babel 1.0dev-r444\n"
 
-#: lodgeit/controllers/pastes.py:45
+#: lodgeit/controllers/pastes.py:46
 msgid "your paste contains spam"
 msgstr ""
 
-#: lodgeit/controllers/pastes.py:51
-msgid " and the CAPTCHA solution was incorrect"
+#: lodgeit/controllers/pastes.py:52
+msgid "your paste contains spam and the CAPTCHA solution was incorrect"
+msgstr ""
+
+#: lodgeit/controllers/pastes.py:128
+msgid "identifier"
+msgstr ""
+
+#: lodgeit/controllers/pastes.py:129
+msgid "published"
+msgstr ""
+
+#: lodgeit/controllers/pastes.py:130
+msgid "language"
 msgstr ""
 
 #: lodgeit/controllers/static.py:19
@@ -39,6 +51,39 @@ msgstr ""
 
 #: lodgeit/controllers/static.py:22 lodgeit/views/help/integration.html:3
 msgid "Scripts and Editor Integration"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:17 lodgeit/lib/filterable.py:22
+#: lodgeit/views/utils/macros.html:19
+msgid "is"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:18
+msgid "contains"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:19
+msgid "startswith"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:23
+msgid "greater"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:24
+msgid "lower"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:27
+msgid "same date"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:28
+msgid "later"
+msgstr ""
+
+#: lodgeit/lib/filterable.py:29
+msgid "earlier"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:23
@@ -407,11 +452,11 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: lodgeit/views/layout.html:40
+#: lodgeit/views/layout.html:43
 msgid "Someone Replied To Your Paste"
 msgstr ""
 
-#: lodgeit/views/layout.html:42
+#: lodgeit/views/layout.html:45
 #, python-format
 msgid ""
 "\n"
@@ -423,15 +468,15 @@ msgid ""
 "              those two pastes</a>."
 msgstr ""
 
-#: lodgeit/views/layout.html:51 lodgeit/views/layout.html:63
+#: lodgeit/views/layout.html:54 lodgeit/views/layout.html:66
 msgid "hide this notification"
 msgstr ""
 
-#: lodgeit/views/layout.html:55
+#: lodgeit/views/layout.html:58
 msgid "Welcome On LodgeIt"
 msgstr ""
 
-#: lodgeit/views/layout.html:56
+#: lodgeit/views/layout.html:59
 msgid ""
 "Welcome to the LodgeIt pastebin. In order to use the notification feature"
 "\n"
@@ -513,12 +558,28 @@ msgid ""
 "    coming from is highlighted."
 msgstr ""
 
-#: lodgeit/views/show_all.html:2
+#: lodgeit/views/show_all.html:3
 msgid "All Pastes"
 msgstr ""
 
-#: lodgeit/views/show_all.html:9
+#: lodgeit/views/show_all.html:7
+msgid "Filter pastes"
+msgstr ""
+
+#: lodgeit/views/show_all.html:11
+msgid "show <em>only</em> private pastes"
+msgstr ""
+
+#: lodgeit/views/show_all.html:12 lodgeit/views/utils/macros.html:58
+msgid "update"
+msgstr ""
+
+#: lodgeit/views/show_all.html:20
 msgid "pasted on "
+msgstr ""
+
+#: lodgeit/views/show_all.html:25
+msgid "No pastes found"
 msgstr ""
 
 #: lodgeit/views/show_paste.html:6
@@ -903,5 +964,17 @@ msgstr ""
 
 #: lodgeit/views/help/xmlrpc.html:26
 msgid "Methods"
+msgstr ""
+
+#: lodgeit/views/utils/macros.html:20
+msgid "is not"
+msgstr ""
+
+#: lodgeit/views/utils/macros.html:47
+msgid "new filter: "
+msgstr ""
+
+#: lodgeit/views/utils/macros.html:55
+msgid "ok"
 msgstr ""
 

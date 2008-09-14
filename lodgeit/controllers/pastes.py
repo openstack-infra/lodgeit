@@ -49,7 +49,8 @@ class PasteController(object):
                     if check_hashed_solution(captcha):
                         error = None
                     else:
-                        error += _(' and the CAPTCHA solution was incorrect')
+                        error = _('your paste contains spam and the '
+                                  'CAPTCHA solution was incorrect')
                 show_captcha = True
             if code and language and not error:
                 paste = Paste(code, language, parent, req.user_hash,
@@ -116,7 +117,7 @@ class PasteController(object):
             return '/all/%d' % page
 
         form_args = local.request.args
-        if not 'show_private' in form_args:
+        if 'show_personal' not in form_args:
             query = Paste.find_all()
         else:
             query = Paste.query.filter_by(
@@ -130,7 +131,7 @@ class PasteController(object):
         }, form_args, True)
         all = filterable.get_objects()
 
-        pastes = all.limit(10).offset(10 * (page -1)).all()
+        pastes = all.limit(10).offset(10 * (page - 1)).all()
         if not pastes and page != 1:
             raise NotFound()
 
@@ -139,7 +140,7 @@ class PasteController(object):
             pagination=generate_pagination(page, 10, all.count(), link),
             css=get_style(local.request)[1],
             filterable=filterable,
-            show_private='show_private' in form_args
+            show_personal='show_personal' in form_args
         )
 
     def compare_paste(self, new_id=None, old_id=None):
@@ -185,10 +186,11 @@ class PasteController(object):
     def set_language(self, lang='en'):
         """Minimal view that set's a different language. Redirects
         back to the page the user is coming from."""
-        resp = redirect(local.request.environ.get('HTTP_REFERER') or '/')
-        if lang in [x[0] for x in list_languages()]:
-            local.application.set_locale(lang)
-        return resp
+        for key, value in list_languages():
+            if key == lang:
+                local.request.set_language(lang)
+                break
+        return redirect(local.request.headers.get('referer') or '/')
 
     def show_captcha(self):
         """Show a captcha."""

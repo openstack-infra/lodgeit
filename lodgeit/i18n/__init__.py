@@ -11,31 +11,42 @@
 import os
 from babel import Locale, dates, UnknownLocaleError
 from babel.support import Translations
+
 from lodgeit import local
 
 
+_translations = {}
 
-def load_translations(locale):
-    """Load the translation for a locale."""
-    return Translations.load(os.path.dirname(__file__), [locale])
+
+def get_translations(locale):
+    """Get the translation for a locale."""
+    locale = Locale.parse(locale)
+    translations = _translations.get(str(locale))
+    if translations is not None:
+        return translations
+    rv = Translations.load(os.path.dirname(__file__), [locale])
+    _translations[str(locale)] = rv
+    return rv
 
 
 def gettext(string):
     """Translate the given string to the language of the application."""
-    if not local.application:
+    request = getattr(local, 'request', None)
+    if not request:
         return string
-    return local.application.translations.ugettext(string)
+    return request.translations.ugettext(string)
 
 
 def ngettext(singular, plural, n):
     """Translate the possible pluralized string to the language of the
     application.
     """
-    if not local.application:
+    request = getattr(local, 'request', None)
+    if not request:
         if n == 1:
             return singular
         return plural
-    return local.application.translations.ungettext(singular, plural, n)
+    return request.translations.ungettext(singular, plural, n)
 
 
 def format_datetime(datetime=None, format='medium'):
@@ -45,12 +56,7 @@ def format_datetime(datetime=None, format='medium'):
 
 def list_languages():
     """Return a list of all languages."""
-    if local.application:
-        locale = local.application.locale
-    else:
-        locale = Locale('en')
-
-    languages = [('en', Locale('en').get_display_name(locale))]
+    languages = [('en', Locale('en').display_name)]
     folder = os.path.dirname(__file__)
 
     for filename in os.listdir(folder):
@@ -61,7 +67,7 @@ def list_languages():
             l = Locale.parse(filename)
         except UnknownLocaleError:
             continue
-        languages.append((str(l), l.get_display_name(locale)))
+        languages.append((str(l), l.display_name))
 
     languages.sort(key=lambda x: x[1].lower())
     return languages
@@ -73,10 +79,11 @@ def has_language(language):
 
 
 def _date_format(formatter, obj, format):
-    if not local.application:
-        locale = Locale('en')
+    request = getattr(local, 'request', None)
+    if request:
+        locale = request.locale
     else:
-        locale = local.application.locale
+        locale = Locale('en')
     return formatter(obj, format, locale=locale)
 
 

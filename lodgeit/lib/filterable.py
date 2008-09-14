@@ -40,6 +40,7 @@ ACTIONS_MAP = {
 
 
 class Filterable(object):
+
     def __init__(self, model, objects, fields, args, inline=False):
         self.model = model
         self.fields = fields
@@ -58,7 +59,6 @@ class Filterable(object):
             self.filters[new_filter] = 'is', ''
 
         self.inline = inline
-
 
     def get_html(self):
         ret = render_template('utils/filterable.html', plain=True, **{

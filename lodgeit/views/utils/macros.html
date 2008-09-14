@@ -4,7 +4,7 @@
 {% endif %}
   {%- for k, v in args.iteritems() %}
   {%- if v %}
-  <input type="hidden" name="{{ k|e }}" value="{{ v|e }}" />
+  <input type="hidden" name="{{ k|e }}" value="{{ v|e }}">
   {%- endif %}
   {%- endfor %}
   <table class="filterable">
@@ -14,18 +14,18 @@
     <tr class="filter_value">
       {%- if type == 'bool' %}
       <td class="field value" colspan="3">
-        <input type="hidden" name="{{ field }}_action" value="bool" />
+        <input type="hidden" name="{{ field }}_action" value="bool">
         <select name="{{ field }}_value">
-          <option {% if value == 'true' %}selected="selected" {% endif %}value="true">{% trans %}is{% endtrans %}</option>
-          <option {% if value == 'false' %}selected="selected" {% endif %}value="false">{% trans %}is not{% endtrans %}</option>
+          <option {% if value == 'true' %}selected {% endif %}value="true">{% trans %}is{% endtrans %}</option>
+          <option {% if value == 'false' %}selected {% endif %}value="false">{% trans %}is not{% endtrans %}</option>
         </select> {{ label|e }}
       </td>
       {%- else %}
       <td class="field">{{ label|e }}</td>
       <td class="filter">
         <select name="{{ field }}_action">
-          {%- for k, v in actions[type].iteritems() %}:
-          <option value="{{ k }}"{% if k == action %} selected="selected"{% endif %}>
+          {%- for k, v in actions[type].iteritems() %}
+          <option value="{{ k }}"{% if k == action %} selected{% endif %}>
             {{- v|e -}}
           </option>
           {%- endfor %}
@@ -33,7 +33,7 @@
       </td>
       <td class="value">
         <input type="{{ fields[field][1] == 'date' and 'date' or 'text' }}"
-               name="{{ field }}_value" value="{{ value|e }}" />
+               name="{{ field }}_value" value="{{ value|e }}">
       </td>
       {%- endif %}
       <td class="action">
@@ -52,7 +52,7 @@
             {%- endif %}
             {%- endfor %}
           </select>
-          <input type="submit" name="add_filter" value="{% trans %}ok{% endtrans %}" />
+          <input type="submit" name="add_filter" value="{% trans %}ok{% endtrans %}">
         </div>
         {%- if filters and not inline %}
         <input type="submit" value="{% trans %}update{% endtrans %}">

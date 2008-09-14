@@ -13,10 +13,16 @@ import time
 from os import path
 from random import random
 from functools import partial
+
 from werkzeug import Request as RequestBase, Response
 from werkzeug.contrib.securecookie import SecureCookie
+
 from jinja2 import Environment, FileSystemLoader
+
+from babel import Locale
+
 from lodgeit import local
+from lodgeit.i18n import get_translations
 
 try:
     from hashlib import sha1
@@ -59,7 +65,7 @@ class Request(RequestBase):
         super(Request, self).__init__(environ)
         self.first_visit = False
         session = SecureCookie.load_cookie(self, COOKIE_NAME,
-            local.application.secret_key)
+                                           local.application.secret_key)
         user_hash = session.get('user_hash')
 
         if not user_hash:
@@ -67,6 +73,18 @@ class Request(RequestBase):
             self.first_visit = True
         self.user_hash = session['user_hash']
         self.session = session
+
+        lang = session.get('language')
+        if lang is None:
+            lang = (self.accept_languages.best or 'en').split('-')[0]
+        self.locale = Locale.parse(lang)
+
+    def set_language(self, lang):
+        self.session['language'] = lang
+
+    @property
+    def translations(self):
+        return get_translations(self.locale)
 
     def bind_to_context(self):
         local.request = self
@@ -79,12 +97,14 @@ def render_template(template_name, plain=False, **tcontext):
     welcome message.
     """
     from lodgeit.database import Paste
-    if local.request.method == 'GET':
+    request = local.request
+    if request.method == 'GET':
         tcontext['new_replies'] = Paste.fetch_replies()
-    if local.request:
-        tcontext['request'] = local.request
-    if local.application:
-        tcontext['active_language'] = local.application.locale.language
+    tcontext.update(
+        request=request,
+        gettext=request.translations.ugettext,
+        ngettext=request.translations.ungettext
+    )
     t = jinja_environment.get_template(template_name)
     if not plain:
         resp = Response(t.render(tcontext), mimetype='text/html; charset=utf-8')

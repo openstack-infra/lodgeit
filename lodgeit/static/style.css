@@ -94,16 +94,18 @@ div.text {
 }
 
 #languages li {
-  float: left;
-  margin-right: 5px;
+    float: left;
+    margin-right: 5px;
 }
 
 #languages li img {
-  border: 1px solid #000;
+    border: none;
+    padding: 2px;
 }
 
 #languages li.active img {
-  border: 2px solid #000;
+    border: 1px solid #84BCCA;
+    padding: 1px;
 }
 
 #paste {
@@ -444,34 +446,29 @@ ul.xmlrpc-method-list li p.docstring {
 
 /* Filterable */
 table.filterable {
-  width: 100%;
-  margin-bottom: 0.7em;
-  margin-top: 0.2em;
-  border-collapse: collapse;
-  border-spacing: 0px;
-  border: solid 1px #ccc;
+    width: 100%;
+    margin-bottom: 0.7em;
+    margin-top: 0.2em;
+    border-collapse: collapse;
 }
 
 table.filterable td {
-  border-color: #ccc;
-  border-style: solid;
-  border-width: 1px 0 1px 0;
-  vertical-align: middle;
+    vertical-align: middle;
+    padding: 5px 10px;
 }
 
 table.filterable td.value {
-  width: 100%;
+    width: 100%;
 }
 
 table.filterable div.add {
-  float: right;
+    float: right;
 }
 
 table.filterable div.add.left {
-  float: left;
+    float: left;
 }
 
-input.update_filterable {
-  margin: 5px 10px 5px 5px;
-  display: block;
+div.paste_filter div.actions {
+    padding: 5px 10px;
 }
