@@ -18,7 +18,6 @@ from lodgeit.database import session, Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
-from lodgeit.lib.filterable import Filterable
 
 
 class PasteController(object):
@@ -124,22 +123,14 @@ class PasteController(object):
                 user_hash=local.request.user_hash
             )
 
-        filterable = Filterable(Paste, query, {
-            'paste_id': (_(u'identifier'), 'int'),
-            'pub_date': (_(u'published'), 'date'),
-            'language': (_(u'language'), 'str'),
-        }, form_args, True)
-        all = filterable.get_objects()
-
-        pastes = all.limit(10).offset(10 * (page - 1)).all()
+        pastes = query.limit(10).offset(10 * (page - 1)).all()
         if not pastes and page != 1:
             raise NotFound()
 
         return render_template('show_all.html',
             pastes=pastes,
-            pagination=generate_pagination(page, 10, all.count(), link),
+            pagination=generate_pagination(page, 10, query.count(), link),
             css=get_style(local.request)[1],
-            filterable=filterable,
             show_personal='show_personal' in form_args
         )
 

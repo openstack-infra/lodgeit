@@ -10,7 +10,7 @@ from lodgeit.database import session
 
 dburi = 'sqlite:////tmp/lodgeit.db'
 
-SECRET_KEY = os.urandom(50)
+SECRET_KEY = 'no secret key'
 
 
 def run_app(app, path='/'):
