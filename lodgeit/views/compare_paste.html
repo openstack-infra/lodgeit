@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% from 'utils/macros.html' import render_diff_part %}
 {% set page_title = 'Compare Pastes' %}
 {% set active_page = 'all' %}
 {% block body %}
@@ -8,22 +9,7 @@
     and <a href="{{ new.url|e }}">#{{ new.identifier }}</a> ({{ new.pub_date|datetimeformat }}). Download as <a href="/unidiff/{{ old.identifier }}/{{ new.identifier }}/">unified diff</a>.
   </p>
   {% if diff.chunks %}
-    <table class="diff">
-      {%- for chunk in diff.chunks -%}
-        {% if not loop.first -%}
-          <tr class="ellipsis">
-            <th colspan="3">...</th>
-          </tr>
-        {%- endif -%}
-        {% for line in chunk %}
-          <tr class="line {{ line.action }}">
-            <th class="old_rev">{{ line.old_lineno }}</th>
-            <th class="new_rev">{{ line.new_lineno }}</th>
-            <td class="code">{{ line.line }}</td>
-          </tr>
-        {%- endfor -%}
-      {% endfor %}
-    </table>
+    {{ render_diff_part(diff) }}
   {% else %}
     <p>The two pastes are identical.</p>
   {% endif %}

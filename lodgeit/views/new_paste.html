@@ -34,5 +34,11 @@
     <input type="button" value="▼" onclick="LodgeIt.resizeTextarea(100)">
     <input type="checkbox" name="private" id="private"{% if private
       %} checked{% endif %}><label for="private">{% trans %}make this paste private{% endtrans %}</label>
+    <div id="multi-file-information">{% trans %}
+      You have selected the multi-file highlighter.  This highlighter allows
+      you to paste multiple different files that belong together.  For more
+      information have a look at <a href="/help/advanced/">the advanced
+      features help page</a>.
+    {% endtrans %}</div>
   </form>
 {% endblock %}

@@ -42,4 +42,23 @@
     older than 31 days because after that time you get a new cookie for
     privacy reasons.{% endtrans %}
   </p>
+  <h3>{% trans %}Multi-File Pastes{% endtrans %}</h3>
+  <p>{% trans %}
+    If you select the "Multi-File" formatter from the list you can combine
+    multiple files into one paste.  Each file has to be introduced with a
+    formatter line of the following format:
+  {% endtrans %}</p>
+  <pre class="sample">{{ _('### filename [formatter key]') }}</pre>
+  <p>{% trans %}
+    Both the filename and the formatter key is optional.  If no formatter
+    key is provided the formatter is guessed from the filename.  If the
+    filename is given it will be used as headline for the section.
+  {% endtrans %}</p>
+  <p>{{ _('List of supported formatters:') }}</p>
+  <table>
+    <tr><th>{{ _('Key') }}</th><th>{{ _('Name') }}</th></tr>
+    {%- for key, name in formatters|dictsort(true, 'value') %}
+      <tr><td><code>{{ key }}</code></td><td>{{ name }}</td></tr>
+    {%- endfor %}
+  </table>
 {% endblock %}

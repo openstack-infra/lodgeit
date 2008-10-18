@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2008-09-14 12:24+0200\n"
+"POT-Creation-Date: 2008-09-20 17:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev-r444\n"
 
-#: lodgeit/controllers/pastes.py:46
+#: lodgeit/controllers/pastes.py:45
 msgid "your paste contains spam"
 msgstr ""
 
-#: lodgeit/controllers/pastes.py:52
+#: lodgeit/controllers/pastes.py:51
 msgid "your paste contains spam and the CAPTCHA solution was incorrect"
 msgstr ""
 
-#: lodgeit/controllers/pastes.py:128
-msgid "identifier"
-msgstr ""
-
-#: lodgeit/controllers/pastes.py:129
-msgid "published"
-msgstr ""
-
-#: lodgeit/controllers/pastes.py:130
-msgid "language"
-msgstr ""
-
-#: lodgeit/controllers/static.py:19
+#: lodgeit/controllers/static.py:20
 msgid "Pasting"
 msgstr ""
 
-#: lodgeit/controllers/static.py:20 lodgeit/views/help/advanced.html:3
+#: lodgeit/controllers/static.py:21 lodgeit/views/help/advanced.html:3
 msgid "Advanced Features"
 msgstr ""
 
-#: lodgeit/controllers/static.py:21 lodgeit/views/help/xmlrpc.html:3
+#: lodgeit/controllers/static.py:22 lodgeit/views/help/xmlrpc.html:3
 msgid "Using the XMLRPC Interface"
 msgstr ""
 
-#: lodgeit/controllers/static.py:22 lodgeit/views/help/integration.html:3
+#: lodgeit/controllers/static.py:23 lodgeit/views/help/integration.html:3
 msgid "Scripts and Editor Integration"
 msgstr ""
 
@@ -86,185 +74,193 @@ msgstr ""
 msgid "earlier"
 msgstr ""
 
-#: lodgeit/lib/highlighting.py:23
+#: lodgeit/lib/highlighting.py:30
 msgid "Text"
 msgstr ""
 
-#: lodgeit/lib/highlighting.py:24
-msgid "Python"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:25
-msgid "Python Console Sessions"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:26
-msgid "Python Tracebacks"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:27 lodgeit/lib/highlighting.py:42
-msgid "PHP"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:28
-msgid "Django / Jinja Templates"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:29
-msgid "Mako Templates"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:30
-msgid "Myghty Templates"
-msgstr ""
-
 #: lodgeit/lib/highlighting.py:31
-msgid "Apache Config (.htaccess)"
+msgid "Multi-File"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:32
-msgid "Bash"
+msgid "Python"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:33
-msgid "Batch (.bat)"
+msgid "Python Console Sessions"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:34
-msgid "C"
+msgid "Python Tracebacks"
 msgstr ""
 
-#: lodgeit/lib/highlighting.py:35
-msgid "C++"
+#: lodgeit/lib/highlighting.py:35 lodgeit/lib/highlighting.py:50
+msgid "PHP"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:36
-msgid "C#"
+msgid "Django / Jinja Templates"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:37
-msgid "CSS"
+msgid "Mako Templates"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:38
-msgid "D"
+msgid "Myghty Templates"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:39
-msgid "MiniD"
+msgid "Apache Config (.htaccess)"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:40
-msgid "Smarty"
+msgid "Bash"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:41
-msgid "HTML"
+msgid "Batch (.bat)"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:42
+msgid "C"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:43
-msgid "Genshi Templates"
+msgid "C++"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:44
-msgid "JavaScript"
+msgid "C#"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:45
-msgid "Java"
+msgid "CSS"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:46
-msgid "JSP"
+msgid "D"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:47
-msgid "Lua"
+msgid "MiniD"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:48
-msgid "Haskell"
+msgid "Smarty"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:49
-msgid "Scheme"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:50
-msgid "Ruby"
+msgid "HTML"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:51
-msgid "Interactive Ruby"
+msgid "Genshi Templates"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:52
-msgid "Perl"
+msgid "JavaScript"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:53
-msgid "eRuby / rhtml"
+msgid "Java"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:54
-msgid "TeX / LaTeX"
+msgid "JSP"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:55
-msgid "XML"
+msgid "Lua"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:56
-msgid "reStructuredText"
+msgid "Haskell"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:57
-msgid "IRC Logs"
+msgid "Scheme"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:58
-msgid "Unified Diff"
+msgid "Ruby"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:59
-msgid "Vim Scripts"
+msgid "Interactive Ruby"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:60
-msgid "OCaml"
+msgid "Perl"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:61
-msgid "SQL"
+msgid "eRuby / rhtml"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:62
-msgid "SquidConf"
+msgid "TeX / LaTeX"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:63
-msgid "sources.list"
+msgid "XML"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:64
-msgid "Erlang"
+msgid "reStructuredText"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:65
-msgid "Vim"
+msgid "IRC Logs"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:66
-msgid "Dylan"
+msgid "Unified Diff"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:67
+msgid "Vim Scripts"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:68
+msgid "OCaml"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:69
+msgid "SQL"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:70
+msgid "SquidConf"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:71
+msgid "sources.list"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:72
+msgid "Erlang"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:73
+msgid "Vim"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:74
+msgid "Dylan"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:75
 msgid "GAS"
+msgstr ""
+
+#: lodgeit/lib/highlighting.py:76
+msgid "Creole Wiki"
 msgstr ""
 
 #: lodgeit/lib/pagination.py:75
 #, python-format
-msgid " <a href=\"%(link)s\">Next &raquo;</a>"
+msgid " <a href=\"%s\">Next &raquo;</a>"
 msgstr ""
 
 #: lodgeit/lib/pagination.py:78
@@ -273,7 +269,7 @@ msgstr ""
 
 #: lodgeit/lib/pagination.py:81
 #, python-format
-msgid "<a href=\"%(link)s\">&laquo; Prev</a> "
+msgid "<a href=\"%s\">&laquo; Prev</a> "
 msgstr ""
 
 #: lodgeit/lib/pagination.py:84
@@ -413,17 +409,18 @@ msgstr ""
 msgid ""
 "\n"
 "      This paste was founded by <a "
-"href=\"http://lucumr.pocoo.org/\">Armin Ronacher</a> from the pocoo\n"
-"      team and is now maintained by <a "
-"href=\"http://webshox.org\">Christopher Grebs</a>.\n"
-"      Pygments is a pocoo project led by Georg Brandl."
-msgstr ""
-
-#: lodgeit/views/about.html:53
-msgid "Privacy"
+"href=\"http://lucumr.pocoo.org/\">Armin Ronacher</a>\n"
+"      from the Pocoo team and is now maintained by\n"
+"      <a href=\"http://webshox.org\">Christopher Grebs</a>.  Pygments is "
+"a Pocoo project\n"
+"      led by Georg Brandl."
 msgstr ""
 
 #: lodgeit/views/about.html:54
+msgid "Privacy"
+msgstr ""
+
+#: lodgeit/views/about.html:55
 msgid ""
 "\n"
 "      LodgeIt does not use user accounts because it's logging in for "
@@ -432,11 +429,11 @@ msgid ""
 "for you\n"
 "      and for 31 days. Whenever you return to the pastebin it will notify"
 " you\n"
-"      about replies to your pastes. If you don't want to have that "
+"      about replies to your pastes.  If you don't want to have that "
 "feature you\n"
-"      can let lodgeit forget about you by\n"
-"      <a href=\"javascript:LodgeIt.removeCookie()\">removing the "
-"cookie</a>.\n"
+"      can let Lodgeit forget about you by <a\n"
+"      href=\"javascript:LodgeIt.removeCookie()\">removing the cookie</a>."
+"\n"
 "      Please note that on the next request you will get a new id."
 msgstr ""
 
@@ -522,6 +519,19 @@ msgstr ""
 msgid "make this paste private"
 msgstr ""
 
+#: lodgeit/views/new_paste.html:37
+msgid ""
+"\n"
+"      You have selected the multi-file highlighter.  This highlighter "
+"allows\n"
+"      you to paste multiple different files that belong together.  For "
+"more\n"
+"      information have a look at <a href=\"/help/advanced/\">the advanced"
+"\n"
+"      features help page</a>.\n"
+"    "
+msgstr ""
+
 #: lodgeit/views/not_found.html:2
 msgid "Page Not Found"
 msgstr ""
@@ -558,27 +568,16 @@ msgid ""
 "    coming from is highlighted."
 msgstr ""
 
-#: lodgeit/views/show_all.html:3
+#: lodgeit/views/show_all.html:2
 msgid "All Pastes"
 msgstr ""
 
-#: lodgeit/views/show_all.html:7
-msgid "Filter pastes"
+#: lodgeit/views/show_all.html:10
+#, python-format
+msgid "pasted on %(date)s"
 msgstr ""
 
-#: lodgeit/views/show_all.html:11
-msgid "show <em>only</em> private pastes"
-msgstr ""
-
-#: lodgeit/views/show_all.html:12 lodgeit/views/utils/macros.html:58
-msgid "update"
-msgstr ""
-
-#: lodgeit/views/show_all.html:20
-msgid "pasted on "
-msgstr ""
-
-#: lodgeit/views/show_all.html:25
+#: lodgeit/views/show_all.html:15
 msgid "No pastes found"
 msgstr ""
 
@@ -737,6 +736,47 @@ msgid ""
 "pastes\n"
 "    older than 31 days because after that time you get a new cookie for\n"
 "    privacy reasons."
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:45
+msgid "Multi-File Pastes"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:46
+msgid ""
+"\n"
+"    If you select the \"Multi-File\" formatter from the list you can "
+"combine\n"
+"    multiple files into one paste.  Each file has to be introduced with a"
+"\n"
+"    formatter line of the following format:\n"
+"  "
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:51
+msgid "### filename [formatter key]"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:52
+msgid ""
+"\n"
+"    Both the filename and the formatter key is optional.  If no formatter"
+"\n"
+"    key is provided the formatter is guessed from the filename.  If the\n"
+"    filename is given it will be used as headline for the section.\n"
+"  "
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:57
+msgid "List of supported formatters:"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:59
+msgid "Key"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:59
+msgid "Name"
 msgstr ""
 
 #: lodgeit/views/help/index.html:3
@@ -976,5 +1016,9 @@ msgstr ""
 
 #: lodgeit/views/utils/macros.html:55
 msgid "ok"
+msgstr ""
+
+#: lodgeit/views/utils/macros.html:58
+msgid "update"
 msgstr ""
 

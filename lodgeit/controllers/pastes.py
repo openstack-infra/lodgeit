@@ -13,7 +13,7 @@ from werkzeug.exceptions import NotFound
 from lodgeit import local
 from lodgeit.lib import antispam
 from lodgeit.i18n import list_languages, _
-from lodgeit.utils import render_template
+from lodgeit.utils import render_to_response
 from lodgeit.database import session, Paste
 from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
@@ -58,7 +58,7 @@ class PasteController(object):
                 return redirect(paste.url)
 
         else:
-            parent_id = req.form.get('reply_to')
+            parent_id = req.values.get('reply_to')
             if parent_id is not None:
                 parent = Paste.get(parent_id)
                 if parent is not None:
@@ -66,7 +66,7 @@ class PasteController(object):
                     language = parent.language
                     private = parent.private
 
-        return render_template('new_paste.html',
+        return render_to_response('new_paste.html',
             languages=LANGUAGES,
             parent=parent,
             code=code,
@@ -86,7 +86,7 @@ class PasteController(object):
             return Response(paste.code, mimetype='text/plain; charset=utf-8')
 
         style, css = get_style(local.request)
-        return render_template('show_paste.html',
+        return render_to_response('show_paste.html',
             paste=paste,
             style=style,
             css=css,
@@ -103,7 +103,7 @@ class PasteController(object):
         paste = Paste.resolve_root(identifier)
         if paste is None:
             raise NotFound()
-        return render_template('paste_tree.html',
+        return render_to_response('paste_tree.html',
             paste=paste,
             current=identifier
         )
@@ -116,18 +116,13 @@ class PasteController(object):
             return '/all/%d' % page
 
         form_args = local.request.args
-        if 'show_personal' not in form_args:
-            query = Paste.find_all()
-        else:
-            query = Paste.query.filter_by(
-                user_hash=local.request.user_hash
-            )
+        query = Paste.find_all()
 
         pastes = query.limit(10).offset(10 * (page - 1)).all()
         if not pastes and page != 1:
             raise NotFound()
 
-        return render_template('show_all.html',
+        return render_to_response('show_all.html',
             pastes=pastes,
             pagination=generate_pagination(page, 10, query.count(), link),
             css=get_style(local.request)[1],
@@ -148,7 +143,7 @@ class PasteController(object):
         if old is None or new is None:
             raise NotFound()
 
-        return render_template('compare_paste.html',
+        return render_to_response('compare_paste.html',
             old=old,
             new=new,
             diff=old.compare_to(new, template=True)

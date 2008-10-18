@@ -8,19 +8,27 @@
     :copyright: 2007 by Armin Ronacher.
     :license: BSD
 """
-from lodgeit.i18n import _
+import re
 import pygments
 from pygments.util import ClassNotFound
-from pygments.lexers import get_lexer_by_name
-from pygments.lexers import get_lexer_for_filename, get_lexer_for_mimetype
+from pygments.lexers import get_lexer_by_name, get_lexer_for_filename, \
+     get_lexer_for_mimetype
 from pygments.styles import get_all_styles
 from pygments.formatters import HtmlFormatter
+
+from lodgeit import local
+from lodgeit.i18n import lazy_gettext as _
+from lodgeit.utils import render_template
+from lodgeit.lib.diff import prepare_udiff
+
+from werkzeug import escape
 
 
 #: we use a hardcoded list here because we want to keep the interface
 #: simple
 LANGUAGES = {
     'text':             _('Text'),
+    'multi':            _('Multi-File'),
     'python':           _('Python'),
     'pycon':            _('Python Console Sessions'),
     'pytb':             _('Python Tracebacks'),
@@ -64,23 +72,104 @@ LANGUAGES = {
     'erlang':           _('Erlang'),
     'vim':              _('Vim'),
     'dylan':            _('Dylan'),
-    'gas':              _('GAS')
+    'gas':              _('GAS'),
+    'creole':           _('Creole Wiki')
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
 
 DEFAULT_STYLE = 'friendly'
 
+_section_marker_re = re.compile(r'^(?<!\\)###\s*(.*?)(?:\[(.+?)\])?\s*$(?m)')
+_escaped_marker = re.compile(r'^\\(?=###)(?m)')
 
-def highlight(code, language):
+
+def highlight(code, language, _preview=False):
     """Highlight a given code to HTML"""
+    if not _preview:
+        if language == 'diff':
+            return highlight_diff(code)
+        elif language == 'creole':
+            return format_creole(code)
+    if language == 'multi':
+        return highlight_multifile(code)
     lexer = get_lexer_by_name(language)
-    formatter = HtmlFormatter(linenos=True, cssclass='syntax', style='pastie')
-    return pygments.highlight(code, lexer, formatter)
+    style = get_style(name_only=True)
+    formatter = HtmlFormatter(linenos=True, cssclass='syntax', style=style)
+    return u'<div class="code">%s</div>' % \
+           pygments.highlight(code, lexer, formatter)
 
 
-def get_style(request):
-    """Style for a given request"""
+def preview_highlight(code, language, num=5):
+    """Returns a highlight preview."""
+    # languages that do not support preview highlighting
+    if language == 'creole':
+        parsed_code = None
+    else:
+        parsed_code = highlight(code, language, _preview=True)
+    try:
+        if parsed_code is None:
+            raise ValueError()
+        start = parsed_code.index('</pre>')
+        code = parsed_code[
+            parsed_code.index('<pre>', start) + num:
+            parsed_code.index('</pre>', start + 7)
+        ].strip('\n').splitlines()
+    except (IndexError, ValueError), e:
+        code = code.strip('\n').splitlines()
+    lines = code[:num]
+    if len(code) > num:
+        lines.append('...')
+    code = '\n'.join(lines)
+    return '<pre class="syntax">%s</pre>' % code
+
+
+def highlight_diff(code):
+    """Highlights an unified diff."""
+    diffs = prepare_udiff(code)
+    return render_template('utils/udiff.html', diffs=diffs)
+
+
+def format_creole(code):
+    """Format creole syntax."""
+    from creoleparser import creole2html
+    return u'<div class="wikitext">%s</div>' % creole2html(code)
+
+
+def highlight_multifile(code):
+    """Multi-file highlighting."""
+    result = []
+    last = [0, None, 'text']
+
+    def highlight_section(pos):
+        start, filename, lang = last
+        section_code = _escaped_marker.sub('', code[start:pos])
+        if section_code:
+            result.append(u'<div class="section">%s%s</div>' % (
+                filename and u'<p class="filename">%s</p>'
+                    % escape(filename) or u'',
+                highlight(section_code, lang)
+            ))
+
+    for match in _section_marker_re.finditer(code):
+        start = match.start()
+        highlight_section(start)
+        filename, lang = match.groups()
+        if lang is None:
+            lang = get_language_for(filename)
+        else:
+            lang = lookup_language_alias(lang)
+        last = [match.end(), filename, lang]
+
+    highlight_section(len(code))
+
+    return u'<div class="multi">%s</div>' % u'\n'.join(result)
+
+
+def get_style(request=None, name_only=False):
+    """Style for a given request or style name."""
+    if request is None:
+        request = local.request
     if isinstance(request, basestring):
         style_name = request
     else:
@@ -92,21 +181,44 @@ def get_style(request):
     try:
         f = HtmlFormatter(style=style_name)
     except ClassNotFound:
-        return style_name, ''
+        style_name = DEFAULT_STYLE
+        f = HtmlFormatter(style=style_name)
+    if name_only:
+        return style_name
     return style_name, f.get_style_defs(('#paste', '.syntax'))
 
 
-def get_language_for(filename, mimetype):
+def get_language_for(filename, mimetype=None, default='text'):
     """Get language for filename and mimetype"""
-    # XXX: this instantiates a lexer just to get at its aliases
     try:
+        if mimetype is None:
+            raise ClassNotFound()
         lexer = get_lexer_for_mimetype(mimetype)
     except ClassNotFound:
         try:
             lexer = get_lexer_for_filename(filename)
         except ClassNotFound:
-            return 'text'
+            return default
+    return get_known_alias(lexer, default)
+
+
+def lookup_language_alias(alias, default='text'):
+    """When passed a pygments alias returns the alias from LANGUAGES.  If
+    the alias does not exist at all or is not in languages, `default` is
+    returned.
+    """
+    if alias in LANGUAGES:
+        return alias
+    try:
+        lexer = get_lexer_by_name(alias)
+    except ClassNotFound:
+        return default
+    return get_known_alias(lexer)
+
+
+def get_known_alias(lexer, default='text'):
+    """Return the known alias for the lexer."""
     for alias in lexer.aliases:
         if alias in LANGUAGES:
             return alias
-    return 'text'
+    return default

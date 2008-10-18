@@ -1,0 +1,20 @@
+{% from 'utils/macros.html' import render_diff_part %}
+<div class="diff-table">
+  {% for diff in diffs %}
+    <div class="diff">
+      {% if diff.is_header %}
+        <pre class="header">{{ diff.lines|join("\n")|e }}</pre>
+      {% else %}
+        <div class="meta">
+          {% for key in 'old', 'new' %}
+          <div class="{{ key }}">
+            <span class="filename">{{ diff[key ~ '_filename']|e }}</span>
+            <span class="revision">[{{ diff[key ~ '_revision']|e }}]</span>
+          </div>
+          {% endfor %}
+        </div>
+        {{ render_diff_part(diff) }}
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

@@ -72,13 +72,13 @@ def generate_pagination(page, per_page, total, link_builder=None,
 
     if next_link:
         if next is not None:
-            result.append(_(u' <a href="%(link)s">Next &raquo;</a>') %
+            result.append(_(u' <a href="%s">Next &raquo;</a>') %
                           link_builder(next))
         elif gray_next_link:
             result.append(_(u' <span class="disabled">Next &raquo;</span>'))
     if prev_link:
         if prev is not None:
-            result.insert(0, _(u'<a href="%(link)s">&laquo; Prev</a> ') %
+            result.insert(0, _(u'<a href="%s">&laquo; Prev</a> ') %
                           link_builder(prev))
         elif gray_prev_link:
             result.insert(0, _(u'<span class="disabled">&laquo; Prev</span> '))

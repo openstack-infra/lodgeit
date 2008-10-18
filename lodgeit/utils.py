@@ -90,7 +90,17 @@ class Request(RequestBase):
         local.request = self
 
 
-def render_template(template_name, plain=False, **tcontext):
+def render_template(template_name, **context):
+    request = local.request
+    context.update(
+        request=request,
+        gettext=request.translations.ugettext,
+        ngettext=request.translations.ungettext
+    )
+    return jinja_environment.get_template(template_name).render(context)
+
+
+def render_to_response(template_name, **context):
     """Render a template to a response. This automatically fetches
     the list of new replies for the layout template. It also
     adds the current request to the context. This is used for the
@@ -99,15 +109,6 @@ def render_template(template_name, plain=False, **tcontext):
     from lodgeit.database import Paste
     request = local.request
     if request.method == 'GET':
-        tcontext['new_replies'] = Paste.fetch_replies()
-    tcontext.update(
-        request=request,
-        gettext=request.translations.ugettext,
-        ngettext=request.translations.ungettext
-    )
-    t = jinja_environment.get_template(template_name)
-    if not plain:
-        resp = Response(t.render(tcontext), mimetype='text/html; charset=utf-8')
-    else:
-        resp = t.render(tcontext)
-    return resp
+        context['new_replies'] = Paste.fetch_replies()
+    return Response(render_template(template_name, **context),
+                    mimetype='text/html')

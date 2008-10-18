@@ -30,12 +30,12 @@ class DiffRenderer(object):
     def _extract_rev(self, line1, line2):
         try:
             if line1.startswith('--- ') and line2.startswith('+++ '):
-                filename, old_rev = line1[4:].split(None, 1)
-                new_rev = line2[4:].split(None, 1)[1]
-                return filename, 'Old', 'New'
+                old_filename, old_rev = line1[4:].split(None, 1)
+                new_filename, new_rev = line2[4:].split(None, 1)
+                return (old_filename, old_rev), (new_filename, new_rev)
         except (ValueError, IndexError):
             pass
-        return None, None, None
+        return (None, None), (None, None)
 
     def _highlight_line(self, line, next):
         """Highlight inline changes in both lines."""
@@ -67,23 +67,29 @@ class DiffRenderer(object):
 
     def _parse_udiff(self):
         """Parse the diff an return data for the template."""
+        in_header = True
+        header = []
         lineiter = iter(self.lines)
         files = []
         try:
             line = lineiter.next()
-            while True:
+            while 1:
                 # continue until we found the old file
                 if not line.startswith('--- '):
+                    if in_header:
+                        header.append(line)
                     line = lineiter.next()
                     continue
 
+                in_header = False
                 chunks = []
-                filename, old_rev, new_rev = \
-                    self._extract_rev(line, lineiter.next())
+                old, new = self._extract_rev(line, lineiter.next())
                 files.append({
-                    'filename':         filename,
-                    'old_revision':     old_rev,
-                    'new_revision':     new_rev,
+                    'is_header':        False,
+                    'old_filename':     old[0],
+                    'old_revision':     old[1],
+                    'new_filename':     new[0],
+                    'new_revision':     new[1],
                     'chunks':           chunks
                 })
 
@@ -111,25 +117,15 @@ class DiffRenderer(object):
                             command = ' '
                         affects_old = affects_new = False
 
-                        if command == ' ':
-                            affects_old = affects_new = True
-                            action = 'unmod'
-                        elif command == '+':
+                        if command == '+':
                             affects_new = True
                             action = 'add'
                         elif command == '-':
                             affects_old = True
                             action = 'del'
                         else:
-                            # this happens sometimes if it's a diff from
-                            # a po/pot file with `"` at one line.
-                            # No idea how to handle that a better way...
-                            if command == '"':
-                                affects_old = affects_new = True
-                                action = 'unmod'
-                                line = '"'
-                            else:
-                                raise RuntimeError()
+                            affects_old = affects_new = True
+                            action = 'unmod'
 
                         old_line += affects_old
                         new_line += affects_new
@@ -160,6 +156,10 @@ class DiffRenderer(object):
                             self._highlight_line(line, nextline)
                 except StopIteration:
                     pass
+
+        # inject the header if we have one
+        if header and all(x.strip() for x in header):
+            files.insert(0, {'is_header': True, 'lines': header})
 
         return files
 

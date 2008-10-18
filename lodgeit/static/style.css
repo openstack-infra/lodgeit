@@ -112,6 +112,9 @@ div.text {
     margin: 0;
     padding: 0;
     border: 1px solid #84BCCA;
+}
+
+#paste div.code {
     overflow: auto;
 }
 
@@ -471,4 +474,65 @@ table.filterable div.add.left {
 
 div.paste_filter div.actions {
     padding: 5px 10px;
+}
+
+/* :::: special highlighters :::: */
+div.diff-table {
+    background: white;
+}
+
+div.diff-table div.meta {
+    background: #A0CAD4;
+    color: #111;
+    padding: 5px;
+}
+
+div.diff-table div.meta .old {
+    font-size: 12px;
+}
+
+div.diff-table div.meta .new {
+    padding-top: 4px;
+}
+
+div.diff-table div.meta span.filename {
+}
+
+div.diff-table div.meta span.revision {
+    color: #136276;
+    font-size: 0.8em;
+}
+
+div.diff-table pre.header {
+    background-color: #136276;
+    color: white;
+    padding: 5px 10px!important;
+}
+
+div.diff-table table.diff {
+    border: none;
+}
+
+div.diff-table table.diff td.code {
+    border-right: none;
+}
+
+div.multi p.filename {
+    background: #136276;
+    color: white;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+#multi-file-information {
+    margin: 10px 0 0 0;
+    padding: 5px;
+    border: 1px solid #DEECF5;
+    background: #D3E5F0;
+    font-size: 13px;
+}
+
+div.wikitext {
+    background-color: white;
+    padding: 2px 15px;
 }

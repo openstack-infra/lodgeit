@@ -18,7 +18,7 @@ from sqlalchemy.orm import scoped_session, create_session, backref, relation
 from sqlalchemy.orm.scoping import ScopedSession
 from lodgeit import local
 from lodgeit.utils import generate_paste_hash
-from lodgeit.lib.highlighting import highlight, LANGUAGES
+from lodgeit.lib.highlighting import highlight, preview_highlight, LANGUAGES
 
 
 session = scoped_session(lambda: create_session(local.application.engine),
@@ -71,11 +71,11 @@ class Paste(object):
 
     @staticmethod
     def find_all():
-        """Return a query for all public pastes ordered by the publication
-        date in reverse order.
+        """Return a query for all public pastes ordered by the id in reverse
+        order.
         """
         return Paste.query.filter(Paste.private_id == None) \
-                          .order_by(Paste.pub_date.desc())
+                          .order_by(Paste.paste_id.desc())
 
     @staticmethod
     def count():
@@ -181,18 +181,9 @@ class Paste(object):
             'url':              self.url
         }
 
-    def render_preview(self):
+    def render_preview(self, num=5):
         """Render a preview for this paste."""
-        try:
-            start = self.parsed_code.index('</pre>')
-            code = self.parsed_code[
-                self.parsed_code.index('<pre>', start) + 5:
-                self.parsed_code.rindex('</pre>')
-            ].strip('\n').splitlines()
-        except IndexError:
-            code = self.code.strip('\n').splitlines()
-        code = '\n'.join(code[:5] + ['...'])
-        return '<pre class="syntax">%s</pre>' % code
+        return preview_highlight(self.code, self.language, num)
 
 
 session.mapper(Paste, pastes, properties={

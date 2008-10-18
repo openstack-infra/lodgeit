@@ -80,6 +80,18 @@ var LodgeIt = {
       // small workaround in order to not slow firefox down
       submitform.css('opacity', 'inherit');
     });
+
+    /**
+     * information about the multifile thing
+     */
+    var multiFileInfo = $('#multi-file-information').hide();
+    $('form.submitform select[name="language"]')
+      .change(function() {
+        if (this.value == 'multi')
+          multiFileInfo.fadeIn();
+        else
+          multiFileInfo.fadeOut('fast');
+      }).change();
   },
 
   /**

@@ -9,7 +9,7 @@
     :license: BSD
 """
 from lodgeit import local
-from lodgeit.utils import render_template
+from lodgeit.utils import render_to_response
 from lodgeit.database import session, Paste
 from lodgeit.lib.xmlrpc import xmlrpc, exported
 from lodgeit.lib.highlighting import STYLES, LANGUAGES, get_style, \
@@ -21,7 +21,7 @@ class XmlRpcController(object):
     def handle_request(self):
         if local.request.method == 'POST':
             return xmlrpc.handle_request()
-        return render_template('xmlrpc.html')
+        return render_to_response('xmlrpc.html')
 
 
 @exported('pastes.newPaste')
