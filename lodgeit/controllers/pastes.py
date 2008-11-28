@@ -26,7 +26,7 @@ class PasteController(object):
     def new_paste(self):
         """The 'create a new paste' view."""
         code = error = ''
-        language = 'text'
+        language = request.args.get('language', 'text')
         show_captcha = private = False
         parent = None
         req = local.request
