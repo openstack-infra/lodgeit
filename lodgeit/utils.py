@@ -74,9 +74,11 @@ class Request(RequestBase):
         self.user_hash = session['user_hash']
         self.session = session
 
+        # language is limited to english until translations are ready
         lang = session.get('language')
         if lang is None:
-            lang = (self.accept_languages.best or 'en').split('-')[0]
+            lang = 'en'
+            #lang = (self.accept_languages.best or 'en').split('-')[0]
         self.locale = Locale.parse(lang)
 
     def set_language(self, lang):

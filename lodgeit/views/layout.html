@@ -29,13 +29,13 @@
         </li>
       {%- endfor %}
       </ul>
-      <ul id="languages">
+      {# <ul id="languages">
       {% for lang, name in i18n_languages %}
         <li{% if request.locale.language == lang %} class="active"{% endif %}>
           <a href="{{ '/language/%s'|format(lang) }}"><img alt="{{ lang }}" src="{{ '/static/flags/%s.png'|format(lang) }}"></a>
         </li>
       {% endfor %}
-      </ul>
+      </ul> #}
       <div class="content">
         <h2>{{ page_title|e }}</h2>
         {%- if new_replies %}

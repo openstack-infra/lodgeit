@@ -12,7 +12,7 @@ import re
 import pygments
 from pygments.util import ClassNotFound
 from pygments.lexers import get_lexer_by_name, get_lexer_for_filename, \
-     get_lexer_for_mimetype
+     get_lexer_for_mimetype, PhpLexer
 from pygments.styles import get_all_styles
 from pygments.formatters import HtmlFormatter
 
@@ -33,6 +33,7 @@ LANGUAGES = {
     'pycon':            _('Python Console Sessions'),
     'pytb':             _('Python Tracebacks'),
     'html+php':         _('PHP'),
+    'php':              _('PHP (inline)'),
     'html+django':      _('Django / Jinja Templates'),
     'html+mako':        _('Mako Templates'),
     'html+myghty':      _('Myghty Templates'),
@@ -47,13 +48,13 @@ LANGUAGES = {
     'minid':            _('MiniD'),
     'smarty':           _('Smarty'),
     'html':             _('HTML'),
-    'html+php':         _('PHP'),
     'html+genshi':      _('Genshi Templates'),
     'js':               _('JavaScript'),
     'java':             _('Java'),
     'jsp':              _('JSP'),
     'lua':              _('Lua'),
     'haskell':          _('Haskell'),
+    'literate-haskell': _('Literate Haskell'),
     'scheme':           _('Scheme'),
     'ruby':             _('Ruby'),
     'irb':              _('Interactive Ruby'),
@@ -67,13 +68,31 @@ LANGUAGES = {
     'vim':              _('Vim Scripts'),
     'ocaml':            _('OCaml'),
     'sql':              _('SQL'),
+    'mysql':            _('MySQL'),
     'squidconf':        _('SquidConf'),
     'sourceslist':      _('sources.list'),
     'erlang':           _('Erlang'),
     'vim':              _('Vim'),
     'dylan':            _('Dylan'),
     'gas':              _('GAS'),
-    'creole':           _('Creole Wiki')
+    'nasm':             _('Nasm'),
+    'llvm':             _('LLVM'),
+    'creole':           _('Creole Wiki'),
+    'clojure':          _('Clojure'),
+    'io':               _('IO'),
+    'objectpascal':     _('Object-Pascal'),
+    'scala':            _('Scala'),
+    'boo':              _('Boo'),
+    'matlab':           _('Matlab'),
+    'matlabsession':    _('Matlab Session'),
+    'povray':           _('Povray'),
+    'smalltalk':        _('Smalltalk'),
+    'control':          _('Debian control-files'),
+    'gettext':          _('Gettext catalogs'),
+    'lighttpd':         _('Lighttpd'),
+    'nginx':            _('Nginx'),
+    'yaml':             _('YAML'),
+    'xslt':             _('XSLT')
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
@@ -93,7 +112,10 @@ def highlight(code, language, _preview=False):
             return format_creole(code)
     if language == 'multi':
         return highlight_multifile(code)
-    lexer = get_lexer_by_name(language)
+    elif language == 'php':
+        lexer = PhpLexer(startinline=True)
+    else:
+        lexer = get_lexer_by_name(language)
     style = get_style(name_only=True)
     formatter = HtmlFormatter(linenos=True, cssclass='syntax', style=style)
     return u'<div class="code">%s</div>' % \
