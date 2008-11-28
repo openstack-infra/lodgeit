@@ -23,10 +23,10 @@ from lodgeit.lib.captcha import check_hashed_solution, Captcha
 class PasteController(object):
     """Provides all the handler callback for paste related stuff."""
 
-    def new_paste(self):
+    def new_paste(self, language='text'):
         """The 'create a new paste' view."""
         code = error = ''
-        language = local.request.args.get('language', 'text')
+        language = local.request.args.get('language', language)
         show_captcha = private = False
         parent = None
         req = local.request
