@@ -43,7 +43,7 @@
             <h3>{% trans %}Someone Replied To Your Paste{% endtrans %}</h3>
             {% for paste in new_replies %}
             <p>{% trans date=paste.pub_date|datetimeformat, parent=paste.parent.paste_id,
-                        paste=paste.paste_id, paste_url=paste.url|e, parent_url=paste.parnent.url|e %}
+                        paste=paste.paste_id, paste_url=paste.url|e, parent_url=paste.parent.url|e %}
               on {{ date }} someone replied to your paste 
               <a href="{{ parent_url }}">#{{ parent }}</a>,
               in paste <a href="{{ paste_url }}">#{{ paste }}</a>. Click here to
