@@ -54,7 +54,14 @@
     key is provided the formatter is guessed from the filename.  If the
     filename is given it will be used as headline for the section.
   {% endtrans %}</p>
-  <p>{{ _('List of supported formatters:') }}</p>
+  <p>{{ _('The list of formatters is on the bottom of this page.') }}</p>
+  <h3>{{ _('Formatter Preselection') }}</h3>
+  <p>{% trans %}
+    If you want to use lodgeit on your project's IRC channel you can add
+    <code>+FORMATTER</code> to the URL where <code>FORMATTER</code> is the
+    name of the formatter to select from the list below:
+  {% endtrans %}</p>
+  <h3>{{ _('Supported Formatters') }}</h3>
   <table>
     <tr><th>{{ _('Key') }}</th><th>{{ _('Name') }}</th></tr>
     {%- for key, name in formatters|dictsort(true, 'value') %}
