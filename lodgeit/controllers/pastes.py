@@ -23,10 +23,13 @@ from lodgeit.lib.captcha import check_hashed_solution, Captcha
 class PasteController(object):
     """Provides all the handler callback for paste related stuff."""
 
-    def new_paste(self, language='text'):
+    def new_paste(self, language=None):
         """The 'create a new paste' view."""
-        code = error = ''
         language = local.request.args.get('language', language)
+        if language is None:
+            language = local.request.session.get('language', 'text')
+
+        code = error = ''
         show_captcha = private = False
         parent = None
         req = local.request
@@ -55,6 +58,7 @@ class PasteController(object):
                 paste = Paste(code, language, parent, req.user_hash,
                               'private' in req.form)
                 session.flush()
+                local.request.session['language'] = language
                 return redirect(paste.url)
 
         else:

@@ -75,14 +75,14 @@ class Request(RequestBase):
         self.session = session
 
         # language is limited to english until translations are ready
-        lang = session.get('language')
+        lang = session.get('locale')
         if lang is None:
             lang = 'en'
             #lang = (self.accept_languages.best or 'en').split('-')[0]
         self.locale = Locale.parse(lang)
 
     def set_language(self, lang):
-        self.session['language'] = lang
+        self.session['locale'] = lang
 
     @property
     def translations(self):
