@@ -10,6 +10,7 @@
 """
 import re
 import pygments
+import csv
 from pygments.util import ClassNotFound
 from pygments.lexers import get_lexer_by_name, get_lexer_for_filename, \
      get_lexer_for_mimetype, PhpLexer
@@ -44,6 +45,7 @@ LANGUAGES = {
     'cpp':              _('C++'),
     'csharp':           _('C#'),
     'css':              _('CSS'),
+    'csv':              _('CSV'),
     'd':                _('D'),
     'minid':            _('MiniD'),
     'smarty':           _('Smarty'),
@@ -105,13 +107,14 @@ _escaped_marker = re.compile(r'^\\(?=###)(?m)')
 
 def highlight(code, language, _preview=False):
     """Highlight a given code to HTML"""
-    if not _preview:
-        if language == 'diff':
-            return highlight_diff(code)
-        elif language == 'creole':
-            return format_creole(code)
-    if language == 'multi':
+    if not _preview and language == 'diff':
+        return highlight_diff(code)
+    if language == 'creole':
+        return format_creole(code)
+    elif language == 'multi':
         return highlight_multifile(code)
+    elif language == 'csv':
+        return format_csv(code)
     elif language == 'php':
         lexer = PhpLexer(startinline=True)
     else:
@@ -125,7 +128,7 @@ def highlight(code, language, _preview=False):
 def preview_highlight(code, language, num=5):
     """Returns a highlight preview."""
     # languages that do not support preview highlighting
-    if language == 'creole':
+    if language == 'creole' or language == 'csv':
         parsed_code = None
     else:
         parsed_code = highlight(code, language, _preview=True)
@@ -156,6 +159,21 @@ def format_creole(code):
     """Format creole syntax."""
     from creoleparser import creole2html
     return u'<div class="wikitext">%s</div>' % creole2html(code)
+
+
+def format_csv(code):
+    """Display CSV code."""
+    class dialect(csv.excel):
+        quoting = csv.QUOTE_ALL
+    result = ['<div class="csv"><table>']
+    lines = code.encode('utf-8').splitlines()
+    for idx, row in enumerate(csv.reader(lines, dialect=dialect)):
+        result.append('<tr class="%s">' % (idx % 2 == 0 and 'even' or 'odd'))
+        for col in row:
+            result.append('<td>%s</td>' % escape(col))
+        result.append('</tr>\n')
+    result.append('</table></div>')
+    return ''.join(result).decode('utf-8')
 
 
 def highlight_multifile(code):

@@ -157,7 +157,7 @@ div.paste_filter,
 div.notification {
     margin: 0 0 10px 0;
     border: 1px solid #A7BEC4;
-    background-color: #E6F1F3;
+    background-color: #E6EFF1;
     color: #103842;
 }
 
@@ -555,4 +555,21 @@ div.wikitext h1 {
 div.wikitext h2 {
     margin: 0;
     padding: 0;
+}
+
+div.csv {
+    overflow: auto;
+    background: #E6EFF1;
+}
+
+div.csv table {
+    border-collapse: separate!important;
+    border-spacing: 1px 1px!important;
+    border-right: 1px solid #A7BEC4;
+    background: white;
+}
+
+div.csv table td {
+    border: 1px solid #DEECF5;
+    padding: 3px 6px;
 }
