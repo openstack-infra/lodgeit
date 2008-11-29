@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
-{% set page_title = _('XMLRPC') %}
+{% set page_title = _('JSON') %}
 {% set active_page = 'about' %}
 {% block body %}
   <div class="text">
-    <h3>{% trans %}XMLRPC Entrypoint{% endtrans %}</h3>
+    <h3>{% trans %}JSON Entrypoint{% endtrans %}</h3>
     <p>{% trans %}
-      This is the entrypoint for the XMLRPC system. If you're interested
+      This is the entrypoint for the JSON API. If you're interested
       in using it head over to the <a href="/help/api/">API documentation</a>.
       {%- endtrans %}
     </p>
     <p>{% trans %}
-      Alternatively you can also use the <a href="/json/">JSON</a> API.
+      Alternatively you can also use the <a href="/xmlrpc/">XMLRPC</a> service.
     {% endtrans %}</p>
   </div>
 {% endblock %}

@@ -170,11 +170,10 @@ class Paste(object):
 
     def to_xmlrpc_dict(self):
         """Convert the paste into a dict for XMLRCP."""
-        from lodgeit.lib.xmlrpc import strip_control_chars
         return {
             'paste_id':         self.paste_id,
-            'code':             strip_control_chars(self.code),
-            'parsed_code':      strip_control_chars(self.parsed_code),
+            'code':             self.code,
+            'parsed_code':      self.parsed_code,
             'pub_date':         int(time.mktime(self.pub_date.timetuple())),
             'language':         self.language,
             'parent_id':        self.parent_id,

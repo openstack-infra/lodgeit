@@ -327,6 +327,7 @@ ul.paste_list pre {
     padding: 4px;
     font-family: 'Bitstream Vera Sans Mono', monospace;
     font-size: 13px;
+    overflow: auto;
 }
 
 ul.paste_list li {

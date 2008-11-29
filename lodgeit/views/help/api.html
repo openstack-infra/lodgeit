@@ -1,0 +1,60 @@
+{% extends "help/layout.html" %}
+{% block help_body %}
+  <h3>{% trans %}Using the LodegeIt API{% endtrans %}</h3>
+  <p>{% trans %}
+    LodgeIt supports currently two APIs: XMLRPC and good old JSON.
+  {% endtrans %}</p>
+  <p>{{ _('API URLs:') }}</p>
+  <ul>
+    <li><strong>XMLRPC:</strong> <tt>{{ pastebin_url }}xmlrpc/</tt></li>
+    <li><strong>JSON:</strong> <tt>{{ pastebin_url }}json/</tt></li>
+  </ul>
+  <p><small>{{ _('Note the trailing slash in both URLs!') }}</small></p>
+  <h3>{% trans %}XMLRPC Quickstart{% endtrans %}</h3>
+  <p>{% trans %}
+    You can connect to the XMLRPC interface with any XMLRPC library. If you're
+    using Python the following piece of code connects you to the XMLRPC service:{% endtrans %}
+  </p>
+  <pre class="sample">{% filter escape %}
+>>> from xmlrpclib import ServerProxy
+>>> s = ServerProxy('{{ pastebin_url|escape }}xmlrpc/')
+{% endfilter %}</pre>  
+  <p>
+    {% trans %}For example if you want to fetch one paste from the server you can do this:{% endtrans %}
+  </p>
+<pre class="sample">{% filter escape %}
+>>> paste = s.pastes.getPaste(23)
+>>> print paste['code']
+'{{ "{% if users %}" }}\n...'
+{% endfilter %}</pre>
+  <h3>{% trans %}JSON Quickstart{% endtrans %}</h3>
+  <p>{% trans %}
+    Alternatively you can use the JSON API.  Basically what you do is sending
+    the function arguments as a serialized JSON object or array to the JSON URL
+    from above with the method name as URL parameter.  You can do this for
+    example by using the curl command line tool:
+  {% endtrans %}</p>
+  <pre class="sample">
+$ curl -d '{"paste_id": 23}' -H 'Content-Type: application/json'
+  'http://localhost:5000/json/?method=pastes.getPaste'
+{
+"data": {
+"code": '{{ '{% if users %}' }}\n...',
+"parsed_code": ...,
+"language": 'html+django',
+"url": "/show/23/",
+"parent_id": null,
+"paste_id": 23
+},
+"error": null
+}</pre>
+  <h3>{% trans %}Methods{% endtrans %}</h3>
+  <p>{% trans %}For a list of all supported methods see the list below.{% endtrans %}</p>
+  <ul class="xmlrpc-method-list">
+  {% for method in xmlrpc_methods %}
+    <li class="{{ loop.cycle('even', 'odd') }}"><p class="signature"><strong>{{
+      method.name|escape }}</strong><em>{{ method.signature|escape }}</em></p>
+        <p class="docstring">{{ method.doc|e }}</p></li>
+  {% endfor %}
+  </ul>
+{% endblock %}

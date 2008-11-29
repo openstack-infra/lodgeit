@@ -10,17 +10,17 @@
 """
 from werkzeug.exceptions import NotFound
 from lodgeit import local
-from lodgeit.i18n import _
+from lodgeit.i18n import lazy_gettext
 from lodgeit.utils import render_to_response
-from lodgeit.lib.xmlrpc import xmlrpc
+from lodgeit.lib.webapi import get_public_methods
 from lodgeit.lib.highlighting import LANGUAGES
 
 
 HELP_PAGES = [
-    ('pasting',         _('Pasting')),
-    ('advanced',        _('Advanced Features')),
-    ('xmlrpc',          _('Using the XMLRPC Interface')),
-    ('integration',     _('Scripts and Editor Integration'))
+    ('pasting',         lazy_gettext('Pasting')),
+    ('advanced',        lazy_gettext('Advanced Features')),
+    ('api',             lazy_gettext('Using the LodgeIt API')),
+    ('integration',     lazy_gettext('Scripts and Editor Integration'))
 ]
 
 known_help_pages = set(x[0] for x in HELP_PAGES)
@@ -45,10 +45,9 @@ class StaticController(object):
             tmpl_name,
             help_topics=HELP_PAGES,
             current_topic=topic,
-            xmlrpc_url='http://%s/xmlrpc/' %
-            local.request.environ['SERVER_NAME'],
+            pastebin_url=local.request.host_url,
             formatters=LANGUAGES,
-            xmlrpc_methods=xmlrpc.get_public_methods()
+            xmlrpc_methods=get_public_methods()
         )
 
 

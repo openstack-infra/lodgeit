@@ -28,8 +28,9 @@ urlmap = Map([
     Rule('/all/', endpoint='pastes/show_all'),
     Rule('/all/<int:page>/', endpoint='pastes/show_all'),
 
-    # xmlrpc
+    # xmlrpc and json
     Rule('/xmlrpc/', endpoint='xmlrpc/handle_request'),
+    Rule('/json/', endpoint='json/handle_request'),
 
     # static pages
     Rule('/about/', endpoint='static/about'),
