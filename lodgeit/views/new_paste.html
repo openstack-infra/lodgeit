@@ -33,7 +33,13 @@
     <input type="button" value="▲" onclick="LodgeIt.resizeTextarea(-100)">
     <input type="button" value="▼" onclick="LodgeIt.resizeTextarea(100)">
     <input type="checkbox" name="private" id="private"{% if private
-      %} checked{% endif %}><label for="private">{% trans %}make this paste private{% endtrans %}</label>
+      %} checked{% endif %}> <label for="private">{% trans
+      %}Paste private{% endtrans %}</label>
+    <span id="insert_tabs">
+      <input type="checkbox" id="insert_tabs_input">
+      <label for="insert_tabs_input">{% trans
+        %}Tab-key inserts tabstops{% endtrans %}</label>
+    </span>
     <div id="multi-file-information">{% trans %}
       You have selected the multi-file highlighter.  This highlighter allows
       you to paste multiple different files that belong together.  For more

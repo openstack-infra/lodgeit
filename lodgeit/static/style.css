@@ -148,6 +148,10 @@ div.text {
     font-size: 13px;
 }
 
+#insert_tabs {
+    display: none;
+}
+
 div.related,
 div.paste_filter,
 div.notification {

@@ -7,6 +7,7 @@
 var LodgeIt = {
 
   _toggleLock : false,
+  insertTabs : false,
   
   init : function() {
     /**
@@ -24,6 +25,35 @@ var LodgeIt = {
     }
     submitform.hide();
     textarea.css('height', '1px');
+
+    $('input', $('#insert_tabs').show())
+      .change(function() {
+        LodgeIt.insertTabs = this.checked;
+      });
+
+    /* tab insertion handling */
+    textarea.keydown(function(e) {
+      if (!LodgeIt.insertTabs)
+        return;
+      if (e.keyCode == 9 && !e.ctrlKey && !e.altKey) {
+        if (this.setSelectionRange) {
+          var
+            start = this.selectionStart,
+            end = this.selectionEnd,
+            top = this.scrollTop;
+          this.value = this.value.slice(0, start) + '\t' +
+                       this.value.slice(end);
+          this.setSelectionRange(start + 1, start + 1);
+          this.scrollTop = top;
+          e.preventDefault();
+        }
+        else if (document.selection.createRange) {
+          this.selection = document.selection.createRange();
+          this.selection.text = '\t';
+          e.returnValue = false;
+        }
+      }
+    });
 
     /* hide all related blocks if in js mode */
     $('div.related div.content').hide();
