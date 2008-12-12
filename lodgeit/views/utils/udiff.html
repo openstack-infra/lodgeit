@@ -9,7 +9,9 @@
           {% for key in 'old', 'new' %}
           <div class="{{ key }}">
             <span class="filename">{{ diff[key ~ '_filename']|e }}</span>
-            <span class="revision">[{{ diff[key ~ '_revision']|e }}]</span>
+            {% if diff[key ~ '_revision'] %}
+              <span class="revision">[{{ diff[key ~ '_revision']|e }}]</span>
+            {% endif %}
           </div>
           {% endfor %}
         </div>

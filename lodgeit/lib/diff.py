@@ -28,11 +28,12 @@ class DiffRenderer(object):
         self.lines = [escape(line) for line in udiff.splitlines()]
 
     def _extract_rev(self, line1, line2):
+        def _extract(line):
+            parts = line.split(None, 1)
+            return parts[0], (len(parts) == 2 and parts[1] or None)
         try:
             if line1.startswith('--- ') and line2.startswith('+++ '):
-                old_filename, old_rev = line1[4:].split(None, 1)
-                new_filename, new_rev = line2[4:].split(None, 1)
-                return (old_filename, old_rev), (new_filename, new_rev)
+                return _extract(line1[4:]), _extract(line2[4:])
         except (ValueError, IndexError):
             pass
         return (None, None), (None, None)
@@ -81,6 +82,10 @@ class DiffRenderer(object):
                     line = lineiter.next()
                     continue
 
+                if header and all(x.strip() for x in header):
+                    files.append({'is_header': True, 'lines': header})
+                    header = []
+
                 in_header = False
                 chunks = []
                 old, new = self._extract_rev(line, lineiter.next())
@@ -97,6 +102,7 @@ class DiffRenderer(object):
                 while line:
                     match = self._chunk_re.match(line)
                     if not match:
+                        in_header = True
                         break
 
                     lines = []
@@ -142,7 +148,9 @@ class DiffRenderer(object):
 
         # highlight inline changes
         for file in files:
-            for chunk in chunks:
+            if file['is_header']:
+                continue
+            for chunk in file['chunks']:
                 lineiter = iter(chunk)
                 first = True
                 try:
@@ -156,10 +164,6 @@ class DiffRenderer(object):
                             self._highlight_line(line, nextline)
                 except StopIteration:
                     pass
-
-        # inject the header if we have one
-        if header and all(x.strip() for x in header):
-            files.insert(0, {'is_header': True, 'lines': header})
 
         return files
 
