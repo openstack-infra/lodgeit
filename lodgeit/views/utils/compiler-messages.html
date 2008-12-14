@@ -1,6 +1,9 @@
-<div class="compiler-messages">
+<div class="compiler-messages compiler-{{ compiler }}">
   <table class="formatted">
-  {% for line in lines %}
+  {%- for line in lines %}
+    {%- if line.is_raw %}
+    <tr class="raw"><td colspan="3"><pre>{{ line.raw|e }}</pre></td></tr>
+    {%- else %}
     <tr class="{{ line.level }}">
       <td class="level">{{ line.level }}</td>
       <td class="location">
@@ -16,6 +19,13 @@
       </td>
       <td class="message">{{ line.message|e }}</td>
     </tr>
-  {% endfor %}
+    {% if line.context %}
+    <tr class="context">
+      <td>&nbsp;</td>
+      <td colspan="2"><pre>{{ line.context|e }}</pre></td>
+    </tr>
+    {% endif %}
+    {%- endif %}
+  {%- endfor %}
   </table>
 </div>

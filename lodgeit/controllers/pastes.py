@@ -15,7 +15,7 @@ from lodgeit.lib import antispam
 from lodgeit.i18n import list_languages, _
 from lodgeit.utils import render_to_response
 from lodgeit.database import session, Paste
-from lodgeit.lib.highlighting import LANGUAGES, STYLES, get_style
+from lodgeit.lib.highlighting import list_languages, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
 
@@ -71,7 +71,7 @@ class PasteController(object):
                     private = parent.private
 
         return render_to_response('new_paste.html',
-            languages=LANGUAGES,
+            languages=list_languages(),
             parent=parent,
             code=code,
             language=language,

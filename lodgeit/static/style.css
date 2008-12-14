@@ -586,6 +586,7 @@ div.compiler-messages table {
 
 div.compiler-messages table td {
     padding: 3px 7px;
+    vertical-align: top;
 }
 
 div.compiler-messages table td.level {
@@ -597,8 +598,30 @@ div.compiler-messages table tr.error td.level {
 }
 
 div.compiler-messages table td.message {
+    line-height: 1.5;
+}
+
+div.compiler-messages table tr.raw pre {
     font-family: 'Bitstream Vera Sans Mono', monospace;
-    font-size: 12px;
+    font-size: 12px!important;
+    padding: 0!important;
+}
+
+div.compiler-messages table td.message {
+    font-family: 'Bitstream Vera Sans Mono', monospace;
+    font-size: 12px!important;
+}
+
+div.compiler-messages table tr.context pre {
+    border: 1px solid #C8DADA;
+    background: #EDF6F7;
+    padding: 2px!important;
+    font-family: 'Bitstream Vera Sans Mono', monospace;
+    font-size: 12px!important;
+}
+
+div.compiler-javac table tr.context pre {
+    padding-top: 7px!important; /* to balance the closing "^" */
 }
 
 div.compiler-messages table td.location span.filename {

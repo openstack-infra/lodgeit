@@ -13,7 +13,7 @@ import pygments
 import csv
 from pygments.util import ClassNotFound
 from pygments.lexers import get_lexer_by_name, get_lexer_for_filename, \
-     get_lexer_for_mimetype, PhpLexer
+     get_lexer_for_mimetype, PhpLexer, TextLexer
 from pygments.styles import get_all_styles
 from pygments.formatters import HtmlFormatter
 
@@ -21,7 +21,8 @@ from lodgeit import local
 from lodgeit.i18n import lazy_gettext as _
 from lodgeit.utils import render_template
 from lodgeit.lib.diff import prepare_udiff
-from lodgeit.lib.compilerparser import parse_gcc_messages
+from lodgeit.lib.compilerparser import parse_gcc_messages, \
+     parse_javac_messages
 
 from werkzeug import escape
 
@@ -55,6 +56,7 @@ LANGUAGES = {
     'html+genshi':      _('Genshi Templates'),
     'js':               _('JavaScript'),
     'java':             _('Java'),
+    'javac-messages':   _('javac Messages'),
     'jsp':              _('JSP'),
     'lua':              _('Lua'),
     'haskell':          _('Haskell'),
@@ -109,20 +111,26 @@ _escaped_marker = re.compile(r'^\\(?=###)(?m)')
 
 def highlight(code, language, _preview=False):
     """Highlight a given code to HTML"""
-    if not _preview and language == 'diff':
-        return highlight_diff(code)
-    if language == 'creole':
-        return format_creole(code)
-    elif language == 'multi':
+    if not _preview:
+        if language == 'diff':
+            return highlight_diff(code)
+        elif language == 'creole':
+            return format_creole(code)
+        elif language == 'csv':
+            return format_csv(code)
+        elif language == 'gcc-messages':
+            return format_compiler_messages(parse_gcc_messages(code), 'gcc')
+        elif language == 'javac-messages':
+            return format_compiler_messages(parse_javac_messages(code), 'javac')
+    if language == 'multi':
         return highlight_multifile(code)
-    elif language == 'csv':
-        return format_csv(code)
-    elif language == 'gcc-messages':
-        return format_compiler_messages(parse_gcc_messages(code))
     elif language == 'php':
         lexer = PhpLexer(startinline=True)
     else:
-        lexer = get_lexer_by_name(language)
+        try:
+            lexer = get_lexer_by_name(language)
+        except ClassNotFound:
+            lexer = TextLexer()
     style = get_style(name_only=True)
     formatter = HtmlFormatter(linenos=True, cssclass='syntax', style=style)
     return u'<div class="code">%s</div>' % \
@@ -180,9 +188,10 @@ def format_csv(code):
     return ''.join(result).decode('utf-8')
 
 
-def format_compiler_messages(lines):
+def format_compiler_messages(lines, compiler):
     """Highlights compiler messages."""
-    return render_template('utils/compiler-messages.html', lines=lines)
+    return render_template('utils/compiler-messages.html',
+                           lines=lines, compiler=compiler)
 
 
 def highlight_multifile(code):
@@ -271,3 +280,10 @@ def get_known_alias(lexer, default='text'):
         if alias in LANGUAGES:
             return alias
     return default
+
+
+def list_languages():
+    """List all languages."""
+    languages = LANGUAGES.items()
+    languages.sort(key=lambda x: x[1].lstrip(' _-.').lower())
+    return languages

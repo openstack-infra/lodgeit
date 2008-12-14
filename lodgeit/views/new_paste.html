@@ -23,7 +23,7 @@
     {%- endif %}
     <textarea name="code" rows="10" cols="80">{{ code|e }}</textarea>
     <select name="language">
-    {%- for key, caption in languages|dictsort(true, 'value') %}
+    {%- for key, caption in languages %}
       <option value="{{ key }}"{% if language == key
         %} selected="selected"{% endif %}>{{ caption|e }}</option>
     {%- endfor %}
