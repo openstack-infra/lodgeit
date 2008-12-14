@@ -1,0 +1,21 @@
+<div class="compiler-messages">
+  <table class="formatted">
+  {% for line in lines %}
+    <tr class="{{ line.level }}">
+      <td class="level">{{ line.level }}</td>
+      <td class="location">
+        <span class="filename">{{ line.filename|e }}</span>:
+        {%- if line.lineno or line.column -%}
+          <span class="position">
+            {{- line.lineno -}}
+            {% if line.column -%}
+              :{{ line.column }}
+            {%- endif -%}
+          </span>
+        {%- endif %}
+      </td>
+      <td class="message">{{ line.message|e }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>

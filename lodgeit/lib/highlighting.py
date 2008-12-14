@@ -21,6 +21,7 @@ from lodgeit import local
 from lodgeit.i18n import lazy_gettext as _
 from lodgeit.utils import render_template
 from lodgeit.lib.diff import prepare_udiff
+from lodgeit.lib.compilerparser import parse_gcc_messages
 
 from werkzeug import escape
 
@@ -42,6 +43,7 @@ LANGUAGES = {
     'bash':             _('Bash'),
     'bat':              _('Batch (.bat)'),
     'c':                _('C'),
+    'gcc-messages':     _('GCC Messages'),
     'cpp':              _('C++'),
     'csharp':           _('C#'),
     'css':              _('CSS'),
@@ -115,6 +117,8 @@ def highlight(code, language, _preview=False):
         return highlight_multifile(code)
     elif language == 'csv':
         return format_csv(code)
+    elif language == 'gcc-messages':
+        return format_compiler_messages(parse_gcc_messages(code))
     elif language == 'php':
         lexer = PhpLexer(startinline=True)
     else:
@@ -174,6 +178,11 @@ def format_csv(code):
         result.append('</tr>\n')
     result.append('</table></div>')
     return ''.join(result).decode('utf-8')
+
+
+def format_compiler_messages(lines):
+    """Highlights compiler messages."""
+    return render_template('utils/compiler-messages.html', lines=lines)
 
 
 def highlight_multifile(code):

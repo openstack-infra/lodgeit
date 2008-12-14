@@ -573,3 +573,35 @@ div.csv table td {
     border: 1px solid #DEECF5;
     padding: 3px 6px;
 }
+
+div.compiler-messages {
+    overflow: auto;
+    background: #E6EFF1;
+}
+
+div.compiler-messages table {
+    border-right: 1px solid #A7BEC4;
+    background: white;
+}
+
+div.compiler-messages table td {
+    padding: 3px 7px;
+}
+
+div.compiler-messages table td.level {
+    font-weight: bold;
+}
+
+div.compiler-messages table tr.error td.level {
+    color: #A30000;
+}
+
+div.compiler-messages table td.message {
+    font-family: 'Bitstream Vera Sans Mono', monospace;
+    font-size: 12px;
+}
+
+div.compiler-messages table td.location span.filename {
+    color: #194B70;
+    text-decoration: underline;
+}
