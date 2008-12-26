@@ -28,7 +28,7 @@ import sys
 
 
 SCRIPT_NAME = os.path.basename(sys.argv[0])
-VERSION = '0.2'
+VERSION = '0.2.1'
 SERVICE_URL = 'http://paste.pocoo.org/'
 SETTING_KEYS = ['author', 'title', 'language', 'private', 'clipboard',
                 'open_browser']
@@ -106,8 +106,8 @@ def get_xmlrpc_service():
         try:
             _xmlrpc_service = xmlrpclib.ServerProxy(SERVICE_URL + 'xmlrpc/',
                                                     allow_none=True)
-        except:
-            fail('Could not connect to Pastebin', -1)
+        except Exception, err:
+            fail('Could not connect to Pastebin: %s' % err, -1)
     return _xmlrpc_service
 
 
@@ -186,7 +186,7 @@ def download_paste(uid):
     xmlrpc = get_xmlrpc_service()
     paste = xmlrpc.pastes.getPaste(uid)
     if not paste:
-        fail('Paste "%s" does not exist' % uid, 5)
+        fail('Paste "%s" does not exist.' % uid, 5)
     print paste['code'].encode('utf-8')
 
 
@@ -195,7 +195,8 @@ def create_paste(code, language, filename, mimetype, private):
     rv = xmlrpc.pastes.newPaste(language, code, None, filename, mimetype,
                                 private)
     if not rv:
-        fail('Could not commit paste. Something went wrong', 4)
+        fail('Could not create paste. Something went wrong '
+             'on the server side.', 4)
     return rv
 
 
@@ -231,7 +232,7 @@ if __name__ == '__main__':
     opts, args = parser.parse_args()
 
     if len(args) > 1:
-        fail('Can only paste one file', 1)
+        fail('Can only paste from stdin or exactly one file.', 1)
 
     # System Version
     if opts.version:
@@ -250,7 +251,7 @@ if __name__ == '__main__':
 
     # check language if given
     if opts.language and not language_exists(opts.language):
-        fail('Language %s is not supported' % opts.language, 3)
+        fail('Language %s is not supported.' % opts.language, 3)
 
     # load file
     try:
@@ -263,7 +264,7 @@ if __name__ == '__main__':
     except Exception, msg:
         fail('Error while reading the file: %s' % msg, 2)
     if not data.strip():
-        fail('Aborted, paste file was empty', 4)
+        fail('Aborted, file to paste was empty.', 4)
 
     # fill with default settings
     mimetype = ''
