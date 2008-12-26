@@ -156,7 +156,7 @@ def language_exists(language):
     """Check if a language alias exists."""
     xmlrpc = get_xmlrpc_service()
     langs = xmlrpc.pastes.getLanguages()
-    return language in [x[0] for x in langs]
+    return language in langs
 
 
 def get_mimetype(data, filename):
@@ -175,7 +175,7 @@ def get_mimetype(data, filename):
 
 def print_languages():
     xmlrpc = get_xmlrpc_service()
-    languages = xmlrpc.pastes.getLanguages()
+    languages = xmlrpc.pastes.getLanguages().items()
     languages.sort(lambda a, b: cmp(a[1].lower(), b[1].lower()))
     print 'Supported Languages:'
     for alias, name in languages:
@@ -208,25 +208,25 @@ if __name__ == '__main__':
 
     parser.add_option('-v', '--version', action='store_true',
                       help='Print script version')
+    parser.add_option('-L', '--languages', action='store_true', default=False,
+                      help='Retrieve a list of supported languages')
     parser.add_option('-l', '--language', default=settings['language'],
                       help='Used syntax highlighter for the file')
     parser.add_option('-e', '--encoding', default=settings['encoding'],
                       help='Specify the encoding of a file (default is '
                            'utf-8 or guessing if available)')
+    parser.add_option('-b', '--open-browser', dest='open_browser',
+                      action='store_true',
+                      default=settings['open_browser'],
+                      help='Open the paste in a web browser')
+    parser.add_option('-p', '--private', action='store_true', default=False,
+                      help='Paste as private')
     parser.add_option('--no-clipboard', dest='clipboard',
                       action='store_false',
                       default=settings['clipboard'],
                       help="Don't copy the url into the clipboard")
-    parser.add_option('--open-browser', dest='open_browser',
-                      action='store_true',
-                      default=settings['open_browser'],
-                      help='Open the paste in a web browser')
-    parser.add_option('--languages', action='store_true', default=False,
-                      help='Retrieve a list of supported languages')
     parser.add_option('--download', metavar='UID',
                       help='Download a given paste')
-    parser.add_option('--private', action='store_true', default=False,
-                      help='Paste as private')
 
     opts, args = parser.parse_args()
 
