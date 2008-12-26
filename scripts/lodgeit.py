@@ -241,8 +241,13 @@ def compile_paste(filenames, langopt):
 
 def main():
     """Main script entry point."""
-    # parse command line
-    parser = OptionParser()
+
+    usage = ('Usage: %%prog [options] [FILE ...]\n\n'
+             'Read the files and paste their contents to %s.\n'
+             'If no file is given, read from standard input.\n'
+             'If multiple files are given, they are put into a single paste.'
+             % SERVICE_URL)
+    parser = OptionParser(usage=usage)
 
     settings = load_default_settings()
 
