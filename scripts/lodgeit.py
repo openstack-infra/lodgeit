@@ -25,16 +25,21 @@
 """
 import os
 import sys
+from optparse import OptionParser
 
 
 SCRIPT_NAME = os.path.basename(sys.argv[0])
-VERSION = '0.2.1'
+VERSION = '0.3'
 SERVICE_URL = 'http://paste.pocoo.org/'
 SETTING_KEYS = ['author', 'title', 'language', 'private', 'clipboard',
                 'open_browser']
 
+# global server proxy
+_xmlrpc_service = None
+
 
 def fail(msg, code):
+    """Bail out with an error message."""
     print >> sys.stderr, 'ERROR: %s' % msg
     sys.exit(code)
 
@@ -76,7 +81,7 @@ def load_default_settings():
 
 
 def make_utf8(text, encoding):
-    """Convert a text to utf-8"""
+    """Convert a text to UTF-8, brute-force."""
     try:
         u = unicode(text, 'utf-8')
         uenc = 'utf-8'
@@ -98,11 +103,10 @@ def make_utf8(text, encoding):
 
 
 def get_xmlrpc_service():
+    """Create the XMLRPC server proxy and cache it."""
     global _xmlrpc_service
     import xmlrpclib
-    try:
-        _xmlrpc_service
-    except NameError:
+    if _xmlrpc_service is None:
         try:
             _xmlrpc_service = xmlrpclib.ServerProxy(SERVICE_URL + 'xmlrpc/',
                                                     allow_none=True)
@@ -116,7 +120,6 @@ def copy_url(url):
     # try windows first
     try:
         import win32clipboard
-        import win32con
     except ImportError:
         # then give pbcopy a try.  do that before gtk because
         # gtk might be installed on os x but nobody is interested
@@ -174,6 +177,7 @@ def get_mimetype(data, filename):
 
 
 def print_languages():
+    """Print a list of all supported languages, with description."""
     xmlrpc = get_xmlrpc_service()
     languages = xmlrpc.pastes.getLanguages().items()
     languages.sort(lambda a, b: cmp(a[1].lower(), b[1].lower()))
@@ -183,6 +187,7 @@ def print_languages():
 
 
 def download_paste(uid):
+    """Download a paste given by ID."""
     xmlrpc = get_xmlrpc_service()
     paste = xmlrpc.pastes.getPaste(uid)
     if not paste:
@@ -191,6 +196,7 @@ def download_paste(uid):
 
 
 def create_paste(code, language, filename, mimetype, private):
+    """Create a new paste."""
     xmlrpc = get_xmlrpc_service()
     rv = xmlrpc.pastes.newPaste(language, code, None, filename, mimetype,
                                 private)
@@ -200,9 +206,42 @@ def create_paste(code, language, filename, mimetype, private):
     return rv
 
 
-if __name__ == '__main__':
+def compile_paste(filenames, langopt):
+    """Create a single paste out of zero, one or multiple files."""
+    def read_file(f):
+        try:
+            return f.read()
+        finally:
+            f.close()
+    mime = ''
+    lang = langopt or ''
+    if not filenames:
+        data = read_file(sys.stdin)
+        if not langopt:
+            mime = get_mimetype(data, '') or ''
+    elif len(filenames) == 1:
+        fname = filenames[0]
+        data = read_file(open(filenames[0], 'rb'))
+        if not langopt:
+            mime = get_mimetype(data, filenames[0]) or ''
+    else:
+        result = []
+        for fname in filenames:
+            data = read_file(open(fname, 'rb'))
+            if langopt:
+                result.append('### %s [%s]\n\n' % (fname, langopt))
+            else:
+                result.append('### %s\n\n' % fname)
+            result.append(data)
+            result.append('\n\n')
+        data = ''.join(result)
+        lang = 'multi'
+    return data, lang, fname, mime
+
+
+def main():
+    """Main script entry point."""
     # parse command line
-    from optparse import OptionParser
     parser = OptionParser()
 
     settings = load_default_settings()
@@ -231,20 +270,16 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
 
-    if len(args) > 1:
-        fail('Can only paste from stdin or exactly one file.', 1)
-
-    # System Version
+    # special modes of operation:
+    # - paste script version
     if opts.version:
         print '%s: version %s' % (SCRIPT_NAME, VERSION)
         sys.exit()
-
-    # Languages
+    # - print list of languages
     elif opts.languages:
         print_languages()
         sys.exit()
-
-    # Download Paste
+    # - download Paste
     elif opts.download:
         download_paste(opts.download)
         sys.exit()
@@ -253,32 +288,24 @@ if __name__ == '__main__':
     if opts.language and not language_exists(opts.language):
         fail('Language %s is not supported.' % opts.language, 3)
 
-    # load file
+    # load file(s)
     try:
-        if args:
-            f = file(args[0], 'r')
-        else:
-            f = sys.stdin
-        data = f.read()
-        f.close()
-    except Exception, msg:
-        fail('Error while reading the file: %s' % msg, 2)
-    if not data.strip():
-        fail('Aborted, file to paste was empty.', 4)
-
-    # fill with default settings
-    mimetype = ''
-    filename = args and args[0] or ''
-    if not opts.language:
-        opts.language = ''
-        mimetype = get_mimetype(data, filename) or ''
+        data, language, filename, mimetype = compile_paste(args, opts.language)
+    except Exception, err:
+        fail('Error while reading the file(s): %s' % err, 2)
+    if not data:
+        fail('Aborted, no content to paste.', 4)
 
     # create paste
     code = make_utf8(data, opts.encoding)
-    id = create_paste(code, opts.language, filename, mimetype, opts.private)
-    url = '%sshow/%s/' % (SERVICE_URL, id)
+    pid = create_paste(code, language, filename, mimetype, opts.private)
+    url = '%sshow/%s/' % (SERVICE_URL, pid)
     print url
     if opts.open_browser:
         open_webbrowser(url)
     if opts.clipboard:
         copy_url(url)
+
+
+if __name__ == '__main__':
+    sys.exit(main())
