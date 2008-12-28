@@ -125,9 +125,17 @@ def copy_url(url):
         # gtk might be installed on os x but nobody is interested
         # in the X11 clipboard there.
         from subprocess import Popen, PIPE
-        try:
-            client = Popen(['pbcopy'], stdin=PIPE)
-        except OSError:
+        for prog in 'pbcopy', 'xclip':
+            try:
+                client = Popen([prog], stdin=PIPE)
+            except OSError:
+                continue
+            else:
+                client.stdin.write(url)
+                client.stdin.close()
+                client.wait()
+                break
+        else:
             try:
                 import pygtk
                 pygtk.require('2.0')
@@ -138,10 +146,6 @@ def copy_url(url):
             gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD).set_text(url)
             gobject.idle_add(gtk.main_quit)
             gtk.main()
-        else:
-            client.stdin.write(url)
-            client.stdin.close()
-            client.wait()
     else:
         win32clipboard.OpenClipboard()
         win32clipboard.EmptyClipboard()
