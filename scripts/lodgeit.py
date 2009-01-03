@@ -221,6 +221,7 @@ def compile_paste(filenames, langopt):
     lang = langopt or ''
     if not filenames:
         data = read_file(sys.stdin)
+        print 'Pasting...'
         if not langopt:
             mime = get_mimetype(data, '') or ''
         fname = ''
