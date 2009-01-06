@@ -110,7 +110,7 @@ _escaped_marker = re.compile(r'^\\(?=###)(?m)')
 
 
 def highlight(code, language, _preview=False):
-    """Highlight a given code to HTML"""
+    """Highlight a given code to HTML."""
     if not _preview:
         if language == 'diff':
             return highlight_diff(code)
@@ -163,8 +163,8 @@ def preview_highlight(code, language, num=5):
 
 def highlight_diff(code):
     """Highlights an unified diff."""
-    diffs = prepare_udiff(code)
-    return render_template('utils/udiff.html', diffs=diffs)
+    diffs, info = prepare_udiff(code)
+    return render_template('utils/udiff.html', diffs=diffs, info=info)
 
 
 def format_creole(code):

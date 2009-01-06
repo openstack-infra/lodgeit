@@ -159,8 +159,8 @@ class Paste(object):
         ))
         if template:
             from lodgeit.lib.diff import prepare_udiff
-            rv = prepare_udiff(udiff)
-            return rv and rv[0] or None
+            diff, info = prepare_udiff(udiff)
+            return diff and diff[0] or None
         return udiff
 
     @cached_property

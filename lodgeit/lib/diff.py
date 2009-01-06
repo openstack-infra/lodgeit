@@ -9,11 +9,12 @@
     :license: BSD
 """
 import re
+import time
 from cgi import escape
 
 
 def prepare_udiff(udiff):
-    """Prepare an udiff for a template"""
+    """Prepare an udiff for a template."""
     return DiffRenderer(udiff).prepare()
 
 
@@ -66,8 +67,50 @@ class DiffRenderer(object):
             do(line)
             do(next)
 
+    def _parse_info(self):
+        """Look for custom information preceding the diff."""
+        nlines = len(self.lines)
+        if not nlines:
+            return
+        firstline = self.lines[0]
+        info = []
+
+        # look for Hg export changeset
+        if firstline.startswith('# HG changeset patch'):
+            info.append(('Type', 'HG export changeset'))
+            i = 0
+            line = firstline
+            while line.startswith('#'):
+                if line.startswith('# User'):
+                    info.append(('User', line[7:].strip()))
+                elif line.startswith('# Date'):
+                    try:
+                        t, tz = map(int, line[7:].split())
+                        info.append(('Date', time.strftime(
+                            '%b %d, %Y %H:%M:%S', time.gmtime(float(t) - tz))))
+                    except Exception:
+                        pass
+                elif line.startswith('# Branch'):
+                    info.append(('Branch', line[9:].strip()))
+                i += 1
+                if i == nlines:
+                    return info
+                line = self.lines[i]
+            commitmsg = ''
+            while not line.startswith('diff'):
+                commitmsg += line + '\n'
+                i += 1
+                if i == nlines:
+                    return info
+                line = self.lines[i]
+            info.append(('Commit message', '\n' + commitmsg.strip()))
+            self.lines = self.lines[i:]
+        return info
+
     def _parse_udiff(self):
         """Parse the diff an return data for the template."""
+        info = self._parse_info()
+
         in_header = True
         header = []
         lineiter = iter(self.lines)
@@ -165,7 +208,7 @@ class DiffRenderer(object):
                 except StopIteration:
                     pass
 
-        return files
+        return files, info
 
     def prepare(self):
         return self._parse_udiff()

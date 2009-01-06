@@ -1,5 +1,13 @@
 {% from 'utils/macros.html' import render_diff_part %}
 <div class="diff-table">
+  {%- if info %}
+  <div class="diffinfo">
+    {%- for (k, v) in info %}
+    {% if k %}<b>{{ k }}:</b> {% endif %}{{ v|replace('\n', '<br>') }}
+    {%- if not loop.last %}<br>{% endif %}
+    {%- endfor %}
+  </div>
+  {%- endif %}
   {% for diff in diffs %}
     <div class="diff">
       {% if diff.is_header %}
