@@ -64,6 +64,7 @@ LANGUAGES = {
     'scheme':           _('Scheme'),
     'ruby':             _('Ruby'),
     'irb':              _('Interactive Ruby'),
+    'ini':              _('INI File'),
     'perl':             _('Perl'),
     'rhtml':            _('eRuby / rhtml'),
     'tex':              _('TeX / LaTeX'),
