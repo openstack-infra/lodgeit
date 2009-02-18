@@ -52,6 +52,7 @@ LANGUAGES = {
     'd':                _('D'),
     'minid':            _('MiniD'),
     'smarty':           _('Smarty'),
+    'glsl':             _('GL Shader language'),
     'html':             _('HTML'),
     'html+genshi':      _('Genshi Templates'),
     'js':               _('JavaScript'),

@@ -4,6 +4,10 @@
 {% block body %}
   <div class="related">
     <h3><a href="javascript:LodgeIt.toggleRelatedBox()">{% trans %}Paste Details{% endtrans %}</a></h3>
+    <div class="quick">
+      <p><a href="/?reply_to={{ paste.identifier }}">{% trans %}reply{% endtrans %}</a> |
+         <a href="/raw/{{ paste.identifier }}/">{% trans %}raw{% endtrans %}</a></p>
+    </div>
     <div class="content">
       <p>{% trans pub_date=paste.pub_date|datetimeformat %}posted on {{ pub_date }}{% endtrans %}</p>
       <ul>
