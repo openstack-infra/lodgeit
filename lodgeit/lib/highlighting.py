@@ -172,7 +172,10 @@ def highlight_diff(code):
 def format_creole(code):
     """Format creole syntax."""
     from creoleparser import creole2html
-    return u'<div class="wikitext">%s</div>' % creole2html(code)
+    rv = creole2html(code)
+    if isinstance(rv, str):
+        rv = rv.decode('utf-8')
+    return u'<div class="wikitext">%s</div>' % rv
 
 
 def format_csv(code):
