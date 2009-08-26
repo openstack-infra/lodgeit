@@ -36,7 +36,7 @@ class PasteController(object):
         getform = req.form.get
 
         if local.request.method == 'POST':
-            code = getform('code')
+            code = getform('code', u'')
             language = getform('language')
 
             parent_id = getform('parent')
