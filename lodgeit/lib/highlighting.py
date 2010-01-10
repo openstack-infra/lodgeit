@@ -100,7 +100,8 @@ LANGUAGES = {
     'lighttpd':         _('Lighttpd'),
     'nginx':            _('Nginx'),
     'yaml':             _('YAML'),
-    'xslt':             _('XSLT')
+    'xslt':             _('XSLT'),
+    'go':               _('Go'),
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
