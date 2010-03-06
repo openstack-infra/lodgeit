@@ -43,6 +43,7 @@ LANGUAGES = {
     'apache':           _('Apache Config (.htaccess)'),
     'bash':             _('Bash'),
     'bat':              _('Batch (.bat)'),
+    'brainfuck':        _('Brainfuck'),
     'c':                _('C'),
     'gcc-messages':     _('GCC Messages'),
     'cpp':              _('C++'),
