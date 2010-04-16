@@ -8,7 +8,7 @@
 
 
     :copyright: Copyright 2007-2008 by Armin Ronacher, Micah Dowty.
-    :license: GNU GPL.
+    :license: BSD
 """
 import random
 import colorsys
