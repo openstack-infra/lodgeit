@@ -9,7 +9,8 @@
     :license: BSD.
 """
 import inspect
-from lodgeit.database import session, Paste
+from lodgeit.models import Paste
+from lodgeit.database import db
 from lodgeit.lib.xmlrpc import XMLRPCRequestHandler
 from lodgeit.lib.json import JSONRequestHandler
 from lodgeit.lib.highlighting import STYLES, LANGUAGES, get_style, \
@@ -77,7 +78,8 @@ def pastes_new_paste(language, code, parent_id=None,
             raise ValueError('parent paste not found')
 
     paste = Paste(code, language, parent, private=private)
-    session.flush()
+    db.session.add(paste)
+    db.session.commit()
     return paste.identifier
 
 

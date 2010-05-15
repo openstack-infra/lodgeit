@@ -16,7 +16,7 @@ def after_install(options, home_dir):
     easy_install('Jinja2', home_dir)
     easy_install('Werkzeug', home_dir)
     easy_install('Pygments', home_dir)
-    easy_install('SQLAlchemy', home_dir)
+    easy_install('SQLAlchemy==0.6', home_dir)
     easy_install('simplejson', home_dir)
     easy_install('Babel', home_dir)
     easy_install('PIL', home_dir)
