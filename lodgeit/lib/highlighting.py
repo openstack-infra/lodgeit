@@ -103,6 +103,7 @@ LANGUAGES = {
     'yaml':             _('YAML'),
     'xslt':             _('XSLT'),
     'go':               _('Go'),
+    'ooc':              _('Ooc'),
 }
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
