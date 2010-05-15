@@ -197,13 +197,13 @@ $(document).ready(function() {
     languages.push($(this).text());
   });
 
-  var new_input = $('<input type="text" name="language">').autocomplete(languages);
+  var new_input = $('<input type="text" name="language" value="Text only">')
+    .autocomplete(languages)
+    .click(function() { $(this).val(''); });
   $('form.submitform select[name="language"]').replaceWith($(new_input));
 
   /* Bind a processable value to the input field on submitting */
   $('form.submitform').submit(function() {
-    alert(new_input.val());
-    alert(ids[$.inArray(new_input.val(), languages)]);
     new_input.val(ids[$.inArray(new_input.val(), languages)]);
   });
  
