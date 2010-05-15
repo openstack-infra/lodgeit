@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 
 from werkzeug import script, run_simple, create_environ, run_wsgi_app
