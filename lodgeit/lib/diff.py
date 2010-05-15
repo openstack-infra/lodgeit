@@ -11,6 +11,14 @@
 import re
 import time
 from cgi import escape
+try:
+    all
+except NameError:
+    def all(iterable):
+        for element in iterable:
+            if not element:
+                return False
+        return True
 
 
 def prepare_udiff(udiff):
