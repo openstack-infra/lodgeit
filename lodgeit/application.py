@@ -45,7 +45,7 @@ class LodgeIt(object):
         self.bind_to_context()
 
         self.cleanup_callbacks = (db.session.close, _local_manager.cleanup,
-                                  self.bind_to_context())
+                                  self.bind_to_context)
 
     def bind_to_context(self):
         ctx.application = application = self

@@ -22,12 +22,11 @@ metadata = MetaData()
 
 
 def session_factory():
-    opts = {
-        'autoflush': True,
-        'transactional': True}
-    return orm.create_session(application.engine, **opts)
-session = orm.scoped_session(
-    session_factory, scopefunc=_local_manager.get_ident)
+    options = {'autoflush': True, 'autocommit': False}
+    return orm.create_session(application.engine, **options)
+
+session = orm.scoped_session(session_factory,
+    scopefunc=_local_manager.get_ident)
 
 
 class ModelBase(object):
