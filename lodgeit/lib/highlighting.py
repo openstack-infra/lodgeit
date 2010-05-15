@@ -113,7 +113,7 @@ _section_marker_re = re.compile(r'^(?<!\\)###\s*(.*?)(?:\[(.+?)\])?\s*$(?m)')
 _escaped_marker = re.compile(r'^\\(?=###)(?m)')
 
 
-def highlight(code, language, _preview=False):
+def highlight(code, language, _preview=False, _linenos=True):
     """Highlight a given code to HTML."""
     if not _preview:
         if language == 'diff':
@@ -136,7 +136,7 @@ def highlight(code, language, _preview=False):
         except ClassNotFound:
             lexer = TextLexer()
     style = get_style(name_only=True)
-    formatter = HtmlFormatter(linenos=True, cssclass='syntax', style=style)
+    formatter = HtmlFormatter(linenos=_linenos, cssclass='syntax', style=style)
     return u'<div class="code">%s</div>' % \
            pygments.highlight(code, lexer, formatter)
 
