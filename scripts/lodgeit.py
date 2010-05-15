@@ -4,8 +4,7 @@
     LodgeIt!
     ~~~~~~~~
 
-    A script that pastes stuff into the lodgeit pastebin on
-    paste.pocoo.org.
+    A script that pastes stuff into the lodgeit pastebin.
 
     .lodgeitrc / _lodgeitrc
     -----------------------
@@ -30,12 +29,12 @@ from optparse import OptionParser
 
 SCRIPT_NAME = os.path.basename(sys.argv[0])
 VERSION = '0.3'
-SERVICE_URL = 'http://paste.pocoo.org/'
 SETTING_KEYS = ['author', 'title', 'language', 'private', 'clipboard',
                 'open_browser']
 
 # global server proxy
 _xmlrpc_service = None
+_server_name = None
 
 
 def fail(msg, code):
@@ -50,7 +49,8 @@ def load_default_settings():
         'language':     None,
         'clipboard':    True,
         'open_browser': False,
-        'encoding':     'iso-8859-15'
+        'encoding':     'iso-8859-15',
+        'server_name':  'http://paste.pocoo.org',
     }
     rcfile = None
     if os.name == 'posix':
@@ -108,7 +108,7 @@ def get_xmlrpc_service():
     import xmlrpclib
     if _xmlrpc_service is None:
         try:
-            _xmlrpc_service = xmlrpclib.ServerProxy(SERVICE_URL + 'xmlrpc/',
+            _xmlrpc_service = xmlrpclib.ServerProxy(_server_name + '/xmlrpc/',
                                                     allow_none=True)
         except Exception, err:
             fail('Could not connect to Pastebin: %s' % err, -1)
@@ -248,12 +248,12 @@ def compile_paste(filenames, langopt):
 
 def main():
     """Main script entry point."""
+    global _server_name
 
     usage = ('Usage: %%prog [options] [FILE ...]\n\n'
-             'Read the files and paste their contents to %s.\n'
+             'Read the files and paste their contents to LodgeIt pastebin.\n'
              'If no file is given, read from standard input.\n'
-             'If multiple files are given, they are put into a single paste.'
-             % SERVICE_URL)
+             'If multiple files are given, they are put into a single paste.')
     parser = OptionParser(usage=usage)
 
     settings = load_default_settings()
@@ -279,8 +279,13 @@ def main():
                       help="Don't copy the url into the clipboard")
     parser.add_option('--download', metavar='UID',
                       help='Download a given paste')
-
+    parser.add_option('-s', '--server', default=settings['server_name'],
+                      dest='server_name',
+                      help="Specify the pastebin to send data")
     opts, args = parser.parse_args()
+
+    # The global available server name
+    _server_name = opts.server_name
 
     # special modes of operation:
     # - paste script version
@@ -311,7 +316,7 @@ def main():
     # create paste
     code = make_utf8(data, opts.encoding)
     pid = create_paste(code, language, filename, mimetype, opts.private)
-    url = '%sshow/%s/' % (SERVICE_URL, pid)
+    url = '%sshow/%s/' % (_server_name, pid)
     print url
     if opts.open_browser:
         open_webbrowser(url)
