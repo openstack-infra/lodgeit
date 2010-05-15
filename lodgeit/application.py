@@ -5,8 +5,7 @@
 
     the WSGI application
 
-    :copyright: 2007 by Armin Ronacher, Christopher Grebs.
-                2008 by Christopher Grebs.
+    :copyright: 2007-2009 by Armin Ronacher, Christopher Grebs.
     :license: BSD
 """
 import os
@@ -15,10 +14,12 @@ from babel import Locale
 from werkzeug import SharedDataMiddleware, ClosingIterator
 from werkzeug.exceptions import HTTPException, NotFound
 from sqlalchemy import create_engine
-from lodgeit import i18n, local
+from lodgeit import i18n
+from lodgeit.local import application, ctx, _local_manager
 from lodgeit.urls import urlmap
 from lodgeit.utils import COOKIE_NAME, Request, jinja_environment
-from lodgeit.database import metadata, session
+from lodgeit.database import db
+from lodgeit.models import Paste
 from lodgeit.controllers import get_controller
 
 
@@ -30,23 +31,24 @@ class LodgeIt(object):
 
         #: bind metadata, create engine and create all tables
         self.engine = engine = create_engine(dburi, convert_unicode=True)
-        metadata.bind = engine
-        metadata.create_all(engine)
+        db.metadata.bind = engine
+        db.metadata.create_all(engine, [Paste.__table__])
 
         #: jinja_environment update
-        jinja_environment.globals.update(
-            i18n_languages=i18n.list_languages()
-        )
-        jinja_environment.filters.update(
-            datetimeformat=i18n.format_datetime
-        )
+        jinja_environment.globals.update({
+            'i18n_languages': i18n.list_languages()})
+        jinja_environment.filters.update({
+            'datetimeformat': i18n.format_datetime})
         jinja_environment.install_null_translations()
 
         #: bind the application to the current context local
         self.bind_to_context()
 
+        self.cleanup_callbacks = (db.session.close, _local_manager.cleanup,
+                                  self.bind_to_context())
+
     def bind_to_context(self):
-        local.application = self
+        ctx.application = application = self
 
     def __call__(self, environ, start_response):
         """Minimal WSGI application for request dispatching."""
@@ -72,7 +74,7 @@ class LodgeIt(object):
                                             expires=expires)
 
         return ClosingIterator(resp(environ, start_response),
-                               [local._local_manager.cleanup, session.remove])
+                               self.cleanup_callbacks)
 
 
 def make_app(dburi, secret_key, debug=False, shell=False):
@@ -81,9 +83,9 @@ def make_app(dburi, secret_key, debug=False, shell=False):
     app = LodgeIt(dburi, secret_key)
     if debug:
         app.engine.echo = True
+    app.bind_to_context()
     if not shell:
         # we don't need access to the shared data middleware in shell mode
         app = SharedDataMiddleware(app, {
-            '/static':      static_path
-        })
+            '/static': static_path})
     return app

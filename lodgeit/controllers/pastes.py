@@ -14,7 +14,8 @@ from lodgeit import local
 from lodgeit.lib import antispam
 from lodgeit.i18n import list_languages, _
 from lodgeit.utils import render_to_response
-from lodgeit.database import session, Paste
+from lodgeit.models import Paste
+from lodgeit.database import db
 from lodgeit.lib.highlighting import list_languages, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
@@ -57,7 +58,8 @@ class PasteController(object):
             if code and language and not error:
                 paste = Paste(code, language, parent, req.user_hash,
                               'private' in req.form)
-                session.flush()
+                db.session.add(paste)
+                db.session.commit()
                 local.request.session['language'] = language
                 return redirect(paste.url)
 
