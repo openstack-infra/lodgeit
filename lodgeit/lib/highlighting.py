@@ -165,10 +165,20 @@ def preview_highlight(code, language, num=5):
     return '<pre class="syntax">%s</pre>' % code
 
 
-def highlight_diff(code):
+def highlight_diff(code, _linenos=True):
     """Highlights an unified diff."""
     diffs, info = prepare_udiff(code)
-    return render_template('utils/udiff.html', diffs=diffs, info=info)
+    if code and not diffs:
+        # the diff was quite very much malformatted.
+        # TODO: we do not yet support diffs made by GNU Diff!
+        lexer = TextLexer()
+        style = get_style(name_only=True)
+        formatter = HtmlFormatter(linenos=_linenos, cssclass='syntax',
+                                  style=style)
+        return u'<div class="code">%s</div>' % \
+               pygments.highlight(code, lexer, formatter)
+    return render_template('utils/udiff.html', diffs=diffs, info=info,
+                           linenos=_linenos)
 
 
 def format_creole(code):
@@ -233,9 +243,10 @@ def highlight_multifile(code):
 
 def get_style(request=None, name_only=False):
     """Style for a given request or style name."""
-    if request is None:
-        request = local.request
-    if isinstance(request, basestring):
+    request = request or local.request
+    if not request:
+        style_name = DEFAULT_STYLE
+    elif isinstance(request, basestring):
         style_name = request
     else:
         style_name = request.cookies.get('style')
