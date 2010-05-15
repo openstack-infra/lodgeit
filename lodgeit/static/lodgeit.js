@@ -124,6 +124,7 @@ var LodgeIt = {
       }).change();
   },
 
+
   /**
    * slide-toggle the related links box
    */
@@ -183,4 +184,27 @@ var LodgeIt = {
   }
 };
 
-$(document).ready(LodgeIt.init);
+$(document).ready(function() {
+  LodgeIt.init;
+
+  /* Autocomplete languages */
+
+  var languages = [];
+  var ids = [];
+
+  $('form.submitform select[name="language"] option').each(function() {
+    ids.push($(this).val());
+    languages.push($(this).text());
+  });
+
+  var new_input = $('<input type="text" name="language">').autocomplete(languages);
+  $('form.submitform select[name="language"]').replaceWith($(new_input));
+
+  /* Bind a processable value to the input field on submitting */
+  $('form.submitform').submit(function() {
+    alert(new_input.val());
+    alert(ids[$.inArray(new_input.val(), languages)]);
+    new_input.val(ids[$.inArray(new_input.val(), languages)]);
+  });
+ 
+});

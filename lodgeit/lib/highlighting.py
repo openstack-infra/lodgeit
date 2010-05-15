@@ -11,9 +11,10 @@
 import re
 import pygments
 import csv
+from operator import itemgetter
 from pygments.util import ClassNotFound
 from pygments.lexers import get_lexer_by_name, get_lexer_for_filename, \
-     get_lexer_for_mimetype, PhpLexer, TextLexer
+     get_lexer_for_mimetype, PhpLexer, TextLexer, get_all_lexers
 from pygments.styles import get_all_styles
 from pygments.formatters import HtmlFormatter
 
@@ -29,82 +30,27 @@ from werkzeug import escape
 
 #: we use a hardcoded list here because we want to keep the interface
 #: simple
-LANGUAGES = {
-    'text':             _('Text'),
-    'multi':            _('Multi-File'),
-    'python':           _('Python'),
-    'pycon':            _('Python Console Sessions'),
-    'pytb':             _('Python Tracebacks'),
-    'html+php':         _('PHP'),
-    'php':              _('PHP (inline)'),
-    'html+django':      _('Django / Jinja Templates'),
-    'html+mako':        _('Mako Templates'),
-    'html+myghty':      _('Myghty Templates'),
-    'apache':           _('Apache Config (.htaccess)'),
-    'bash':             _('Bash'),
-    'bat':              _('Batch (.bat)'),
-    'brainfuck':        _('Brainfuck'),
-    'c':                _('C'),
-    'gcc-messages':     _('GCC Messages'),
-    'cpp':              _('C++'),
-    'csharp':           _('C#'),
-    'css':              _('CSS'),
-    'csv':              _('CSV'),
-    'd':                _('D'),
-    'minid':            _('MiniD'),
-    'smarty':           _('Smarty'),
-    'glsl':             _('GL Shader language'),
-    'html':             _('HTML'),
-    'html+genshi':      _('Genshi Templates'),
-    'js':               _('JavaScript'),
-    'java':             _('Java'),
-    'javac-messages':   _('javac Messages'),
-    'jsp':              _('JSP'),
-    'lua':              _('Lua'),
-    'haskell':          _('Haskell'),
-    'literate-haskell': _('Literate Haskell'),
-    'scheme':           _('Scheme'),
-    'ruby':             _('Ruby'),
-    'irb':              _('Interactive Ruby'),
-    'ini':              _('INI File'),
-    'perl':             _('Perl'),
-    'rhtml':            _('eRuby / rhtml'),
-    'tex':              _('TeX / LaTeX'),
-    'xml':              _('XML'),
-    'rst':              _('reStructuredText'),
-    'irc':              _('IRC Logs'),
-    'diff':             _('Unified Diff'),
-    'vim':              _('Vim Scripts'),
-    'ocaml':            _('OCaml'),
-    'sql':              _('SQL'),
-    'mysql':            _('MySQL'),
-    'squidconf':        _('SquidConf'),
-    'sourceslist':      _('sources.list'),
-    'erlang':           _('Erlang'),
-    'vim':              _('Vim'),
-    'dylan':            _('Dylan'),
-    'gas':              _('GAS'),
-    'nasm':             _('Nasm'),
-    'llvm':             _('LLVM'),
-    'creole':           _('Creole Wiki'),
-    'clojure':          _('Clojure'),
-    'io':               _('IO'),
-    'objectpascal':     _('Object-Pascal'),
-    'scala':            _('Scala'),
-    'boo':              _('Boo'),
-    'matlab':           _('Matlab'),
-    'matlabsession':    _('Matlab Session'),
-    'povray':           _('Povray'),
-    'smalltalk':        _('Smalltalk'),
-    'control':          _('Debian control-files'),
-    'gettext':          _('Gettext catalogs'),
-    'lighttpd':         _('Lighttpd'),
-    'nginx':            _('Nginx'),
-    'yaml':             _('YAML'),
-    'xslt':             _('XSLT'),
-    'go':               _('Go'),
-    'ooc':              _('Ooc'),
-}
+def _get_pygments_lexers(add_empty=True):
+    r = []
+    if add_empty:
+        r.append(('', ''),)
+    for lexer in get_all_lexers():
+        r.append((lexer[1][0], _(lexer[0])),)
+    return r
+
+LANGUAGES = _get_pygments_lexers()
+#: Add LodgeIt's special language lexers
+#: Or at least ensure those exist.
+LANGUAGES.extend([
+    ('csv',              _('CSV')),
+    ('javac-messages',   _('javac Messages')),
+    ('diff',             _('Unified Diff')),
+    ('gcc-messages',     _('GCC Messages')),
+    ('creole',           _('Creole Wiki')),
+    ('multi',            _('Multi-File')),
+])
+LANGUAGES = dict(sorted(LANGUAGES, key=itemgetter(1)))
+
 
 STYLES = dict((x, x.title()) for x in get_all_styles())
 
