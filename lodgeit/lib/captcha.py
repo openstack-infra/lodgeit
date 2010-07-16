@@ -139,7 +139,6 @@ class TextLayer(Layer):
             color = random_color(saturation=0.1, lumination=0.1)
         self.text_color = color
         self.transparency = random.randint(20, 60)
-        f = get_random_resource('fonts')
         self.font = ImageFont.truetype(get_random_resource('fonts'),
                                        random.randrange(min_size, max_size))
 

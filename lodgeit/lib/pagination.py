@@ -59,7 +59,6 @@ def generate_pagination(page, per_page, total, link_builder=None,
            abs(page - num) < math.ceil(threshold / 2.0):
             if result and result[-1] != ellipsis:
                 result.append(commata)
-            was_space = False
             link = link_builder(num)
             template = num == page and active or normal
             result.append(template % {

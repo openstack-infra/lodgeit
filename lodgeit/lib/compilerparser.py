@@ -9,7 +9,6 @@
     :license: BSD
 """
 import re
-from werkzeug import escape
 
 
 _gcc_message_re = re.compile(r'''(?ux)

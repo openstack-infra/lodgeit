@@ -12,7 +12,7 @@ from werkzeug import redirect, Response
 from werkzeug.exceptions import NotFound
 from lodgeit import local
 from lodgeit.lib import antispam
-from lodgeit.i18n import list_languages, _
+from lodgeit.i18n import list_languages as i18n_list_languages, _
 from lodgeit.utils import render_to_response
 from lodgeit.models import Paste
 from lodgeit.database import db
@@ -176,9 +176,9 @@ class PasteController(object):
         return resp
 
     def set_language(self, lang='en'):
-        """Minimal view that set's a different language. Redirects
+        """Minimal view that sets a different language. Redirects
         back to the page the user is coming from."""
-        for key, value in list_languages():
+        for key, value in i18n_list_languages():
             if key == lang:
                 local.request.set_language(lang)
                 break

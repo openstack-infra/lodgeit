@@ -103,7 +103,7 @@ def preview_highlight(code, language, num=5):
             parsed_code.index('<pre>', start) + num:
             parsed_code.index('</pre>', start + 7)
         ].strip('\n').splitlines()
-    except (IndexError, ValueError), e:
+    except (IndexError, ValueError):
         code = code.strip('\n').splitlines()
     lines = code[:num]
     if len(code) > num:

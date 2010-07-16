@@ -203,7 +203,6 @@ class DiffRenderer(object):
                 continue
             for chunk in file['chunks']:
                 lineiter = iter(chunk)
-                first = True
                 try:
                     while True:
                         line = lineiter.next()
