@@ -10,12 +10,11 @@
 """
 import os
 from datetime import datetime, timedelta
-from babel import Locale
 from werkzeug import SharedDataMiddleware, ClosingIterator
 from werkzeug.exceptions import HTTPException, NotFound
 from sqlalchemy import create_engine
 from lodgeit import i18n
-from lodgeit.local import application, ctx, _local_manager
+from lodgeit.local import ctx, _local_manager
 from lodgeit.urls import urlmap
 from lodgeit.utils import COOKIE_NAME, Request, jinja_environment
 from lodgeit.database import db
@@ -48,7 +47,7 @@ class LodgeIt(object):
                                   self.bind_to_context)
 
     def bind_to_context(self):
-        ctx.application = application = self
+        ctx.application = self
 
     def __call__(self, environ, start_response):
         """Minimal WSGI application for request dispatching."""

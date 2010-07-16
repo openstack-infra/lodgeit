@@ -11,9 +11,8 @@
 import sys
 from types import ModuleType
 import sqlalchemy
-from sqlalchemy import MetaData, create_engine
-from sqlalchemy import orm, sql
-from sqlalchemy.orm.session import Session
+from sqlalchemy import MetaData
+from sqlalchemy import orm
 from sqlalchemy.ext.declarative import declarative_base
 from lodgeit.local import application, _local_manager
 
