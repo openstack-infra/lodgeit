@@ -17,7 +17,7 @@
         open_browser=true/false
         encoding=fallback_charset
 
-    :authors: 2007-2008 Georg Brandl <georg@python.org>,
+    :authors: 2007-2010 Georg Brandl <georg@python.org>,
               2006 Armin Ronacher <armin.ronacher@active-4.com>,
               2006 Matt Good <matt@matt-good.net>,
               2005 Raphael Slinckx <raphael@slinckx.net>
@@ -108,7 +108,7 @@ def get_xmlrpc_service():
     import xmlrpclib
     if _xmlrpc_service is None:
         try:
-            _xmlrpc_service = xmlrpclib.ServerProxy(_server_name + '/xmlrpc/',
+            _xmlrpc_service = xmlrpclib.ServerProxy(_server_name + 'xmlrpc/',
                                                     allow_none=True)
         except Exception, err:
             fail('Could not connect to Pastebin: %s' % err, -1)
@@ -286,6 +286,8 @@ def main():
 
     # The global available server name
     _server_name = opts.server_name
+    if not _server_name.endswith('/'):
+        _server_name += '/'
 
     # special modes of operation:
     # - paste script version
