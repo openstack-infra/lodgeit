@@ -4,6 +4,11 @@
  * addes fancy and annoying javascript effects to that page
  * but hey. now it's web2.0!!!!111
  */
+
+String.prototype.startsWith = function(str){
+    return (this.indexOf(str) === 0);
+}
+
 var LodgeIt = {
 
   _toggleLock : false,
@@ -110,18 +115,6 @@ var LodgeIt = {
       // small workaround in order to not slow firefox down
       submitform.css('opacity', 'inherit');
     });
-
-    /**
-     * information about the multifile thing
-     */
-    var multiFileInfo = $('#multi-file-information').hide();
-    $('form.submitform select[name="language"]')
-      .change(function() {
-        if (this.value == 'multi')
-          multiFileInfo.fadeIn();
-        else
-          multiFileInfo.fadeOut('fast');
-      }).change();
   },
 
 
@@ -192,6 +185,8 @@ $(document).ready(function() {
   var languages = [];
   var ids = [];
 
+  var multiFileInfo = $('#multi-file-information').hide();
+
   $('form.submitform select[name="language"] option').each(function() {
     ids.push($(this).val());
     languages.push($(this).text());
@@ -199,6 +194,12 @@ $(document).ready(function() {
 
   var new_input = $('<input type="text" name="language" value="Text only">')
     .autocomplete(languages)
+    .result(function(event, data) {
+      if (data[0].toLowerCase().startsWith('multi'))
+        multiFileInfo.fadeIn();
+      else
+        multiFileInfo.fadeOut('fast');
+    })
     .click(function() { $(this).val(''); });
   $('form.submitform select[name="language"]').replaceWith($(new_input));
 
