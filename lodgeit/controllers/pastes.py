@@ -61,8 +61,12 @@ class PasteController(object):
                 db.session.add(paste)
                 db.session.commit()
                 local.request.session['language'] = language
+                if paste.private:
+                    identifier = paste.private_id
+                else:
+                    identifier = paste.paste_id
                 return redirect(url_for('pastes/show_paste',
-                                        identifier=paste.paste_id))
+                                        identifier=identifier))
 
         else:
             parent_id = req.values.get('reply_to')
