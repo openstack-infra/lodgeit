@@ -13,7 +13,7 @@ from werkzeug.exceptions import NotFound
 from lodgeit import local
 from lodgeit.lib import antispam
 from lodgeit.i18n import list_languages as i18n_list_languages, _
-from lodgeit.utils import render_to_response
+from lodgeit.utils import render_to_response, url_for
 from lodgeit.models import Paste
 from lodgeit.database import db
 from lodgeit.lib.highlighting import list_languages, STYLES, get_style
@@ -61,7 +61,8 @@ class PasteController(object):
                 db.session.add(paste)
                 db.session.commit()
                 local.request.session['language'] = language
-                return redirect(paste.url)
+                return redirect(url_for('pastes/show_paste',
+                                        identifier=paste.paste_id))
 
         else:
             parent_id = req.values.get('reply_to')
@@ -118,8 +119,8 @@ class PasteController(object):
         """Paginated list of pages."""
         def link(page):
             if page == 1:
-                return '/all/'
-            return '/all/%d' % page
+                return url_for('pastes/all')
+            return url_for('pastes/all', page=page)
 
         form_args = local.request.args
         query = Paste.find_all()
@@ -142,7 +143,8 @@ class PasteController(object):
         if old_id is None:
             old_id = getform('old', '-1').lstrip('#')
             new_id = getform('new', '-1').lstrip('#')
-            return redirect('/compare/%s/%s' % (old_id, new_id))
+            return redirect(url_for('pastes/compare_paste',
+                                    old_id=old_id, new_id=new_id))
 
         old = Paste.get(old_id)
         new = Paste.get(new_id)
@@ -182,7 +184,8 @@ class PasteController(object):
             if key == lang:
                 local.request.set_language(lang)
                 break
-        return redirect(local.request.headers.get('referer') or '/')
+        return redirect(local.request.headers.get('referer') or
+                        url_for('pastes/new_paste'))
 
     def show_captcha(self):
         """Show a captcha."""

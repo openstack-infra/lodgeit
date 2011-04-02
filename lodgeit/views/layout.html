@@ -20,20 +20,20 @@
       <div id="header"><h1>Lodge It</h1></div>
       <ul id="navigation">
       {%- for href, id, caption in [
-        ('/', 'new', _('New')),
-        ('/all/', 'all', _('All')),
-        ('/about/', 'about', _('About')),
-        ('/help/', 'help', '?')
+        ('pastes/new_paste', 'new', _('New')),
+        ('pastes/show_all', 'all', _('All')),
+        ('static/about', 'about', _('About')),
+        ('static/help', 'help', '?')
       ] %}
         <li{% if active_page == id %} class="active"{% endif %}>
-          <a href="{{ href|e }}">{{ caption|e }}</a>
+          <a href="{{ url_for(href) | e }}">{{ caption|e }}</a>
         </li>
       {%- endfor %}
       </ul>
       {# <ul id="languages">
       {% for lang, name in i18n_languages %}
         <li{% if request.locale.language == lang %} class="active"{% endif %}>
-          <a href="{{ '/language/%s'|format(lang) }}"><img alt="{{ lang }}" src="{{ '/static/flags/%s.png'|format(lang) }}"></a>
+          <a href="{{ url_for(pastes/new_paste, language='%s') | format(lang) }}"><img alt="{{ lang }}" src="{{ '/static/flags/%s.png'|format(lang) }}"></a>
         </li>
       {% endfor %}
       </ul> #}

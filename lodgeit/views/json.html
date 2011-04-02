@@ -6,11 +6,11 @@
     <h3>{% trans %}JSON Entrypoint{% endtrans %}</h3>
     <p>{% trans %}
       This is the entrypoint for the JSON API. If you're interested
-      in using it head over to the <a href="/help/api/">API documentation</a>.
+      in using it head over to the <a href="{{ url_for('help/api') }}">API documentation</a>.
       {%- endtrans %}
     </p>
     <p>{% trans %}
-      Alternatively you can also use the <a href="/xmlrpc/">XMLRPC</a> service.
+      Alternatively you can also use the <a href="{{ url_for('xmlrpc') }}">XMLRPC</a> service.
     {% endtrans %}</p>
   </div>
 {% endblock %}

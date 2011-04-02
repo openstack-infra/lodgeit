@@ -56,7 +56,7 @@ class LodgeIt(object):
         request = Request(environ)
         request.bind_to_context()
 
-        urls = urlmap.bind_to_environ(environ)
+        ctx.url_adapter = urls = urlmap.bind_to_environ(environ)
         try:
             endpoint, args = urls.match(request.path)
             handler = get_controller(endpoint)

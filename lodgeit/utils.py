@@ -39,6 +39,13 @@ _word_only = partial(re.compile(r'[^a-zA-Z0-9]').sub, '')
 COOKIE_NAME = u'lodgeit_session'
 
 
+def url_for(endpoint, _external=False, **values):
+    builder = local.ctx.url_adapter.build
+    return builder(endpoint, values, force_external=_external)
+
+jinja_environment.globals['url_for'] = url_for
+
+
 def generate_user_hash():
     """Generates an more or less unique SHA1 hash."""
     return sha1('%s|%s' % (random(), time.time())).hexdigest()

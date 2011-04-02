@@ -2,7 +2,7 @@
 {% set page_title = _('New Paste') %}
 {% set active_page = 'new' %}
 {% block body %}
-  <form action="/" method="post" class="submitform">
+  <form action="{{url_for('pastes/new_paste')}}" method="post" class="submitform">
     {%- if error %}
       <div class="notification">
         <h3>{% trans %}Error While Pasting{% endtrans %}</h3>
