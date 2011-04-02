@@ -123,8 +123,8 @@ class PasteController(object):
         """Paginated list of pages."""
         def link(page):
             if page == 1:
-                return url_for('pastes/all')
-            return url_for('pastes/all', page=page)
+                return url_for('pastes/show_all')
+            return url_for('pastes/show_all', page=page)
 
         form_args = local.request.args
         query = Paste.find_all()

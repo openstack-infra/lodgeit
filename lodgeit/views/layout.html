@@ -33,7 +33,7 @@
       {# <ul id="languages">
       {% for lang, name in i18n_languages %}
         <li{% if request.locale.language == lang %} class="active"{% endif %}>
-          <a href="{{ url_for(pastes/new_paste, language='%s') | format(lang) }}"><img alt="{{ lang }}" src="{{ '/static/flags/%s.png'|format(lang) }}"></a>
+          <a href="{{ url_for('pastes/new_paste', language='%s') | format(lang) }}"><img alt="{{ lang }}" src="{{ '/static/flags/%s.png'|format(lang) }}"></a>
         </li>
       {% endfor %}
       </ul> #}
