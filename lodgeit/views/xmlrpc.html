@@ -6,11 +6,12 @@
     <h3>{% trans %}XMLRPC Entrypoint{% endtrans %}</h3>
     <p>{% trans %}
       This is the entrypoint for the XMLRPC system. If you're interested
-      in using it head over to the <a href="{{ url_for('help/api') }}">API documentation</a>.
-      {%- endtrans %}
+      in using it head over to the {% endtrans %}
+      <a href="{{ url_for('static/help', topic='api') }}">API {% trans %}documentation{%- endtrans %}</a>.
     </p>
-    <p>{% trans %}
-      Alternatively you can also use the <a href="{{ url_for('json') }}">JSON</a> API.
-    {% endtrans %}</p>
+    <p>
+      {% trans %}Alternatively you can also use the {% endtrans %}
+      <a href="{{ url_for('json/handle_request') }}">JSON</a>API.
+    </p>
   </div>
 {% endblock %}
