@@ -26,6 +26,7 @@
     If you use the reply feature a link to the parent paste is created
     automatically. This allows you to compare those two pastes with one
     click to find changes easily. For information about the diff view
-    head over to the <a href="/help/advanced/">advanced features</a> page.{% endtrans %}
+    head over to the {% endtrans %}
+    <a href="{{ url_for('static/help', topic='advanced') }}">{% trans %}advanced features{% endtrans %}</a> {% trans %}page.{% endtrans %}
   </p>
 {% endblock %}

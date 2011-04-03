@@ -3,42 +3,39 @@
 {% set active_page = 'new' %}
 {% block body %}
   <form action="{{url_for('pastes/new_paste')}}" method="post" class="submitform">
-    {%- if error %}
+    {% if error %}
       <div class="notification">
         <h3>{% trans %}Error While Pasting{% endtrans %}</h3>
         <p>{% trans error=error|e %}Could not submit your paste because {{ error }}.{% endtrans %}</p>
-        {%- if show_captcha %}
+        {% if show_captcha %}
         <div class="captcha">
           <p>{% trans %}Please fill out the CAPTCHA to proceed:{% endtrans %}</p>
           <img src="/_captcha.png" alt="{% trans %}a captcha you can't see.  Sorry :({% endtrans %}">
-          <input type="text" name="captcha" size="20">
+          <input type="text" name="captcha" size="20" />
         </div>
         {%- else %}
         <p><a href="javascript:LodgeIt.hideNotification()">{% trans %}hide this message{% endtrans %}</a></p>
         {%- endif %}
       </div>
-    {%- endif %}
-    {%- if parent %}
-      <input type="hidden" name="parent" value="{{ parent.identifier }}">
-    {%- endif %}
+    {% endif %}
+    {% if parent %}
+      <input type="hidden" name="parent" value="{{ parent.identifier }}" />
+    {% endif %}
     <textarea name="code" rows="10" cols="80">{{ code|e }}</textarea>
     <select name="language">
-    {%- for key, caption in languages %}
-      <option value="{{ key }}"{% if language == key
-        %} selected="selected"{% endif %}>{{ caption|e }}</option>
-    {%- endfor %}
+    {% for key, caption in languages %}
+      <option value="{{ key }}"{% if language == key %} selected="selected"{% endif %}>{{ caption|e }}</option>
+    {% endfor %}
     </select>
     <input type="text" value="" name="webpage" id="webpage">
     <input type="submit" value="{% trans %}Paste!{% endtrans %}">
     <input type="button" value="▲" onclick="LodgeIt.resizeTextarea(-100)">
     <input type="button" value="▼" onclick="LodgeIt.resizeTextarea(100)">
-    <input type="checkbox" name="private" id="private"{% if private
-      %} checked{% endif %}> <label for="private">{% trans
-      %}Paste private{% endtrans %}</label>
+    <input type="checkbox" name="private" id="private"{% if private %} checked{% endif %}>
+      <label for="private">{% trans %}Paste private{% endtrans %}</label>
     <span id="insert_tabs">
-      <input type="checkbox" id="insert_tabs_input">
-      <label for="insert_tabs_input">{% trans
-        %}Tab-key inserts tabstops{% endtrans %}</label>
+      <input type="checkbox" id="insert_tabs_input" />
+      <label for="insert_tabs_input">{% trans %}Tab-key inserts tabstops{% endtrans %}</label>
     </span>
     <div id="multi-file-information">{% trans %}
       You have selected the multi-file highlighter.  This highlighter allows

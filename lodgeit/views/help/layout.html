@@ -5,7 +5,7 @@
   <ul id="help-navigation">
   {%- for topic, title in help_topics %}
     <li{% if current_topic == topic %} class="active"{% endif
-      %}><a href="/help/{{ topic|e }}/">{{ title|e }}</a></li>
+      %}><a href="{{ url_for('static/help', topic=topic) }}/">{{ title|e }}</a></li>
   {%- endfor %}
   </ul>
   <div class="text">

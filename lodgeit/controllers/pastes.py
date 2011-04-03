@@ -76,7 +76,6 @@ class PasteController(object):
                     code = parent.code
                     language = parent.language
                     private = parent.private
-
         return render_to_response('new_paste.html',
             languages=list_languages(),
             parent=parent,
