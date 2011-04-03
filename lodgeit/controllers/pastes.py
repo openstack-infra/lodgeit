@@ -15,7 +15,7 @@ from lodgeit.lib import antispam
 from lodgeit.i18n import list_languages as i18n_list_languages, _
 from lodgeit.utils import render_to_response, url_for
 from lodgeit.models import Paste
-from lodgeit.database import db
+from lodgeit.database import session
 from lodgeit.lib.highlighting import list_languages, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
@@ -24,6 +24,7 @@ from lodgeit.lib.captcha import check_hashed_solution, Captcha
 class PasteController(object):
     """Provides all the handler callback for paste related stuff."""
 
+    #XXX:dc: using language here clashes with internationalization terms
     def new_paste(self, language=None):
         """The 'create a new paste' view."""
         language = local.request.args.get('language', language)
@@ -32,19 +33,16 @@ class PasteController(object):
 
         code = error = ''
         show_captcha = private = False
-        parent = None
+        parent_id = None
         req = local.request
         getform = req.form.get
 
         if local.request.method == 'POST':
             code = getform('code', u'')
             language = getform('language')
-
             parent_id = getform('parent')
-            if parent_id is not None:
-                parent = Paste.get(parent_id)
-
             spam = getform('webpage') or antispam.is_spam(code)
+
             if spam:
                 error = _('your paste contains spam')
                 captcha = getform('captcha')
@@ -55,11 +53,12 @@ class PasteController(object):
                         error = _('your paste contains spam and the '
                                   'CAPTCHA solution was incorrect')
                 show_captcha = True
+
             if code and language and not error:
-                paste = Paste(code, language, parent, req.user_hash,
+                paste = Paste(code, language, parent_id, req.user_hash,
                               'private' in req.form)
-                db.session.add(paste)
-                db.session.commit()
+                session.add(paste)
+                session.commit()
                 local.request.session['language'] = language
                 if paste.private:
                     identifier = paste.private_id
@@ -78,7 +77,7 @@ class PasteController(object):
                     private = parent.private
         return render_to_response('new_paste.html',
             languages=list_languages(),
-            parent=parent,
+            parent=parent_id,
             code=code,
             language=language,
             error=error,
@@ -165,7 +164,7 @@ class PasteController(object):
         old = Paste.get(old_id)
         new = Paste.get(new_id)
 
-        if old is None or new is None:
+        if not (old or new):
             raise NotFound()
 
         return Response(old.compare_to(new), mimetype='text/plain')
@@ -175,7 +174,9 @@ class PasteController(object):
         back to the page the user is coming from.
         """
         style_name = local.request.form.get('style')
-        resp = redirect(local.request.environ.get('HTTP_REFERER') or '/')
+        resp = redirect(local.request.headers.get('referer') or
+                        url_for('pastes/new_paste'))
+        #XXX:dc: use some sort of form element validation instead
         if style_name in STYLES:
             resp.set_cookie('style', style_name)
         return resp

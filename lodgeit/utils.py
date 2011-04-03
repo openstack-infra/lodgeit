@@ -55,7 +55,7 @@ def generate_paste_hash():
     """Generates a more or less unique-truncated SHA1 hash."""
     while 1:
         digest = sha1('%s|%s' % (random(), time.time())).digest()
-        val = _word_only(digest.encode('base64').strip().splitlines()[0])[:20]
+        val = _word_only(digest.encode('base64').strip())[:20]
         # sanity check.  number only not allowed (though unlikely)
         if not val.isdigit():
             return val

@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+"http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
     <title>{{ page_title|e }} | LodgeIt!</title>
-    <link rel="stylesheet" href="/static/style.css" type="text/css">
-    <link rel="stylesheet" href="/static/print.css" type="text/css" media="print">
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link rel="stylesheet" href="/static/print.css" type="text/css" media="print" />
     <script type="text/javascript" src="/static/jquery.js"></script>
     <script type="text/javascript" src="/static/jquery.autocomplete.js"></script>
     <script type="text/javascript" src="/static/cookie.js"></script>
@@ -17,23 +17,27 @@
   </head>
   <body>
     <div class="page">
-      <div id="header"><h1>Lodge It</h1></div>
+      <div id="header">
+        <h1>Lodge It</h1>
+      </div>
       <ul id="navigation">
       {%- for href, id, caption in [
         ('pastes/new_paste', 'new', _('New')),
         ('pastes/show_all', 'all', _('All')),
         ('static/about', 'about', _('About')),
         ('static/help', 'help', '?')
-      ] %}
-        <li{% if active_page == id %} class="active"{% endif %}>
+        ] %}
+        <li {% if active_page == id %} class="active"{% endif %} >
           <a href="{{ url_for(href) | e }}">{{ caption|e }}</a>
         </li>
       {%- endfor %}
       </ul>
       {# <ul id="languages">
       {% for lang, name in i18n_languages %}
-        <li{% if request.locale.language == lang %} class="active"{% endif %}>
-          <a href="{{ url_for('pastes/new_paste', language='%s') | format(lang) }}"><img alt="{{ lang }}" src="{{ '/static/flags/%s.png'|format(lang) }}"></a>
+        <li {% if request.locale.language == lang %}class="active"{% endif %}>
+          <a href="{{ url_for('pastes/new_paste', language='%s' % lang) }}">
+            <img alt="{{ lang }}" src="{{ '/static/flags/%s.png' % lang }}" />
+          </a>
         </li>
       {% endfor %}
       </ul> #}
@@ -47,9 +51,9 @@
                         paste=paste.paste_id, paste_url=paste.url|e, parent_url=paste.parent.url|e %}
               on {{ date }} someone replied to your paste 
               <a href="{{ parent_url }}">#{{ parent }}</a>,
-              in paste <a href="{{ paste_url }}">#{{ paste }}</a>. Click here to
-              <a href="/compare/{{ paste }}/{{ parent }}/">compare
-              those two pastes</a>.{% endtrans %}
+              in paste <a href="{{ paste_url }}">#{{ paste }}</a>. Click here to {% endtrans %}
+              <a href="{{ url_for('pastes/compare_paste', new_id=paste, old_id=parent) }}">
+                {%- trans %}compare those two pastes{% endtrans %}</a>.
             </p>
             {% endfor %}
             <p><a href="javascript:LodgeIt.hideNotification()">{% trans %}hide this notification{% endtrans %}</a></p>

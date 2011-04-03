@@ -4,3 +4,4 @@
   * Improve i18n support
   * Improve LodgeIt Interface (null-interface + star)
   * use udiff module instead of pygments-diff-highlighter for diff highlighning
+  * use flatland for forms

@@ -37,16 +37,15 @@ class Paste(db.Model):
         primaryjoin=parent_id == paste_id,
         backref=db.backref('parent', remote_side=[paste_id]))
 
-    def __init__(self, code, language, parent=None, user_hash=None,
+    def __init__(self, code, language, parent_id=None, user_hash=None,
                  private=False):
         if language not in LANGUAGES:
             language = 'text'
         self.code = u'\n'.join(code.splitlines())
         self.language = language
-        if isinstance(parent, Paste):
-            self.parent = parent
-        elif parent is not None:
-            self.parent_id = parent
+        #XXX:dc: set these a bit more sanely, allowing two types is bad
+        if parent_id:
+            self.parent_id = parent_id
         self.pub_date = datetime.now()
         self.handled = False
         self.user_hash = user_hash
@@ -58,23 +57,23 @@ class Paste(db.Model):
         with their unique hash and public with the paste id.
         """
         if isinstance(identifier, basestring) and not identifier.isdigit():
-            return Paste.query.filter(Paste.private_id == identifier).first()
-        return Paste.query.filter(db.and_(
-            Paste.paste_id == int(identifier),
-            Paste.private_id == None)).first()
+            query = Paste.query.filter_by(private_id=identifier)
+        else:
+            query = Paste.query.filter_by(paste_id=int(identifier))
+        return query.first()
 
     @staticmethod
     def find_all():
         """Return a query for all public pastes ordered by the id in reverse
         order.
         """
-        return Paste.query.filter(Paste.private_id == None) \
-                          .order_by(Paste.paste_id.desc())
+        return Paste.query.filter_by(
+            private_id=None).order_by(Paste.paste_id.desc())
 
     @staticmethod
     def count():
         """Count all pastes."""
-        return Paste.query(Paste.paste_id).count()
+        return Paste.query.count()
 
     @staticmethod
     def resolve_root(identifier):
@@ -91,18 +90,17 @@ class Paste(db.Model):
         """Get the new replies for the ower of a request and flag them
         as handled.
         """
-        ids = db.session.query(Paste.paste_id) \
-                        .filter(Paste.user_hash == local.request.user_hash)
-
-        paste_list = db.session.query(Paste.paste_id).filter(db.and_(
+        ids = [x.paste_id for x in Paste.query.filter_by(
+                user_hash=local.request.user_hash).all()]
+        paste_list = Paste.query.filter(db.and_(
             Paste.parent_id.in_(ids),
             Paste.handled == False,
             Paste.user_hash != local.request.user_hash,
         )).order_by(Paste.paste_id.desc()).all()
 
         to_mark = [p.paste_id for p in paste_list]
-        Paste.query.filter(Paste.paste_id.in_(to_mark)) \
-                   .update(values={'handled': True})
+        Paste.query.filter(Paste.paste_id.in_(to_mark)
+                           ).update(values={'handled': True})
         db.session.commit()
         return paste_list
 
@@ -112,14 +110,9 @@ class Paste(db.Model):
     def _set_private(self, value):
         if not value:
             self.private_id = None
-            return
-        if self.private_id is None:
-            while 1:
-                self.private_id = generate_paste_hash()
-                paste = Paste.query.filter(Paste.private_id ==
-                                           self.private_id).first()
-                if paste is None:
-                    break
+        elif self.private_id is None:
+            self.private_id = generate_paste_hash()
+
     private = property(_get_private, _set_private, doc='''
         The private status of the paste.  If the paste is private it gets
         a unique hash as identifier, otherwise an integer.
