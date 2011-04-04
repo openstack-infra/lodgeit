@@ -31,12 +31,13 @@ class JSONRequestHandler(object):
                 args = loads(local.request.data)
                 if isinstance(args, dict):
                     kwargs = dict((str(key), value) for
-                                  key, value in args.iteritems())
+                                  key, value in args.items())
                     args = ()
                 elif isinstance(args, list):
                     kwargs = {}
                 else:
                     raise TypeError('arguments as object or list expected')
+            #XXX:dc: use flatland to validate these args before passing onward
             response = {
                 'data':     self.funcs[method_name](*args, **kwargs),
                 'error':    None
