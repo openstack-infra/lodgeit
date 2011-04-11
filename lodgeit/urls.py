@@ -21,9 +21,6 @@ urlmap = Map([
     Rule('/unidiff/<new_id>/<old_id>/', endpoint='pastes/unidiff_paste'),
     Rule('/tree/<identifier>/', endpoint='pastes/show_tree'),
 
-    # captcha for new paste
-    Rule('/_captcha.png', endpoint='pastes/show_captcha'),
-
     # paste list
     Rule('/all/', endpoint='pastes/show_all'),
     Rule('/all/<int:page>/', endpoint='pastes/show_all'),

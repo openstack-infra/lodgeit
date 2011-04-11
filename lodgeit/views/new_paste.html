@@ -7,15 +7,7 @@
       <div class="notification">
         <h3>{% trans %}Error While Pasting{% endtrans %}</h3>
         <p>{% trans error=error|e %}Could not submit your paste because {{ error }}.{% endtrans %}</p>
-        {% if show_captcha %}
-        <div class="captcha">
-          <p>{% trans %}Please fill out the CAPTCHA to proceed:{% endtrans %}</p>
-          <img src="/_captcha.png" alt="{% trans %}a captcha you can't see.  Sorry :({% endtrans %}">
-          <input type="text" name="captcha" size="20" />
-        </div>
-        {%- else %}
         <p><a href="javascript:LodgeIt.hideNotification()">{% trans %}hide this message{% endtrans %}</a></p>
-        {%- endif %}
       </div>
     {% endif %}
     {% if parent %}
