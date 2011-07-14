@@ -96,12 +96,9 @@ class Paste(db.Model):
         paste_list = Paste.query.filter(db.and_(
             Paste.parent_id.in_(ids),
             Paste.handled == False,
-            Paste.user_hash != local.request.user_hash,
         )).order_by(Paste.paste_id.desc()).all()
-
-        to_mark = [p.paste_id for p in paste_list]
-        Paste.query.filter(Paste.paste_id.in_(to_mark)
-                           ).update(values={'handled': True})
+        for paste in paste_list:
+            paste.handled = True
         db.session.commit()
         return paste_list
 

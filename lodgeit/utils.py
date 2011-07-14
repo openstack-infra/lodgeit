@@ -115,9 +115,5 @@ def render_to_response(template_name, mimetype='text/html', **context):
     adds the current request to the context. This is used for the
     welcome message.
     """
-    from lodgeit.models import Paste
-    request = local.request
-    if request.method == 'GET':
-        context['new_replies'] = Paste.fetch_replies()
     return Response(render_template(template_name, **context),
                     mimetype=mimetype)

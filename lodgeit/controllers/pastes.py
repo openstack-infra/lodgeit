@@ -31,7 +31,7 @@ class PasteController(object):
 
         code = error = ''
         private = False
-        parent_id = None
+        parent = None
         req = local.request
         getform = req.form.get
 
@@ -39,7 +39,6 @@ class PasteController(object):
             code = getform('code', u'')
             language = getform('language')
             parent_id = getform('parent')
-
             if code and language and not error:
                 paste = Paste(code, language, parent_id, req.user_hash,
                               'private' in req.form)
@@ -52,7 +51,6 @@ class PasteController(object):
                     identifier = paste.paste_id
                 return redirect(url_for('pastes/show_paste',
                                         identifier=identifier))
-
         else:
             parent_id = req.values.get('reply_to')
             if parent_id is not None:
@@ -63,7 +61,7 @@ class PasteController(object):
                     private = parent.private
         return render_to_response('new_paste.html',
             languages=list_languages(),
-            parent=parent_id,
+            parent=parent,
             code=code,
             language=language,
             error=error,
@@ -81,12 +79,13 @@ class PasteController(object):
 
         style, css = get_style(local.request)
         return render_to_response('show_paste.html',
-            paste=paste,
-            style=style,
-            css=css,
-            styles=STYLES,
-            linenos=linenos,
-        )
+                                  paste=paste,
+                                  style=style,
+                                  css=css,
+                                  styles=STYLES,
+                                  linenos=linenos,
+                                  new_replies=Paste.fetch_replies(),
+                                  )
 
     def raw_paste(self, identifier):
         """Show an existing paste in raw mode."""
