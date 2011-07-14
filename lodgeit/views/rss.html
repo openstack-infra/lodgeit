@@ -6,7 +6,7 @@
     <description>Public pastes</description>
     {%- for item in items %}
     <item>
-      <title>{{ item.paste_id }}</title>
+      <title>Paste #{{ item.paste_id }}</title>
       <link>{{ url_for('pastes/show_paste', identifier=item.paste_id, external=True) }}</link>
       <guid>{{ url_for('pastes/show_paste', identifier=item.paste_id, external=True) }}</guid>
       <description>{{ item.render_preview() }}</description>
