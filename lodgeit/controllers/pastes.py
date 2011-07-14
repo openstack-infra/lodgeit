@@ -11,13 +11,12 @@
 from werkzeug import redirect, Response
 from werkzeug.exceptions import NotFound
 from lodgeit import local
-from lodgeit.i18n import list_languages as i18n_list_languages, _
+from lodgeit.i18n import list_languages as i18n_list_languages
 from lodgeit.utils import render_to_response, url_for
 from lodgeit.models import Paste
 from lodgeit.database import session
 from lodgeit.lib.highlighting import list_languages, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
-
 
 
 class PasteController(object):
@@ -177,5 +176,10 @@ class PasteController(object):
         return redirect(local.request.headers.get('referer') or
                         url_for('pastes/new_paste'))
 
+    def rss(self):
+        query = Paste.find_all()
+        items = query.all()
+        return render_to_response('rss.html', items=items,
+                                  mimetype='application/rss+xml')
 
 controller = PasteController

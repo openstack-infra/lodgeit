@@ -39,4 +39,7 @@ urlmap = Map([
 
     # language
     Rule('/language/<lang>/', endpoint='pastes/set_language'),
+
+    # rss
+    Rule('/rss.xml', endpoint='pastes/rss'),
 ])

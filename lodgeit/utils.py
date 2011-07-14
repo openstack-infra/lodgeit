@@ -39,9 +39,9 @@ _word_only = partial(re.compile(r'[^a-zA-Z0-9]').sub, '')
 COOKIE_NAME = u'lodgeit_session'
 
 
-def url_for(endpoint, _external=False, **values):
+def url_for(endpoint, external=False, **values):
     builder = local.ctx.url_adapter.build
-    return builder(endpoint, values, force_external=_external)
+    return builder(endpoint, values, force_external=external)
 
 jinja_environment.globals['url_for'] = url_for
 
@@ -109,7 +109,7 @@ def render_template(template_name, **context):
     return jinja_environment.get_template(template_name).render(context)
 
 
-def render_to_response(template_name, **context):
+def render_to_response(template_name, mimetype='text/html', **context):
     """Render a template to a response. This automatically fetches
     the list of new replies for the layout template. It also
     adds the current request to the context. This is used for the
@@ -120,4 +120,4 @@ def render_to_response(template_name, **context):
     if request.method == 'GET':
         context['new_replies'] = Paste.fetch_replies()
     return Response(render_template(template_name, **context),
-                    mimetype='text/html')
+                    mimetype=mimetype)
