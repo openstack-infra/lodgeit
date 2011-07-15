@@ -91,6 +91,7 @@ var LodgeIt = {
       var submit = false;
       var self = this;
       this.onsubmit = function() {
+        self.find('input[type=submit]').disable();
         if (submit)
           return true;
         $('div.related div.content').slideUp(300, function() {
