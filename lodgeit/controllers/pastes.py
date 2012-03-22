@@ -11,12 +11,14 @@
 from werkzeug import redirect, Response
 from werkzeug.exceptions import NotFound
 from lodgeit import local
-from lodgeit.i18n import list_languages as i18n_list_languages
+from lodgeit.lib import antispam
+from lodgeit.i18n import list_languages as i18n_list_languages, _
 from lodgeit.utils import render_to_response, url_for
 from lodgeit.models import Paste
 from lodgeit.database import session
 from lodgeit.lib.highlighting import list_languages, STYLES, get_style
 from lodgeit.lib.pagination import generate_pagination
+from lodgeit.lib.captcha import check_hashed_solution, Captcha
 
 
 class PasteController(object):
@@ -30,7 +32,7 @@ class PasteController(object):
             language = local.request.session.get('language', 'text')
 
         code = error = ''
-        private = False
+        show_captcha = private = False
         parent = None
         req = local.request
         getform = req.form.get
@@ -39,6 +41,19 @@ class PasteController(object):
             code = getform('code', u'')
             language = getform('language')
             parent_id = getform('parent')
+            spam = getform('webpage') or antispam.is_spam(code)
+
+            if spam:
+                error = _('your paste contains spam')
+                captcha = getform('captcha')
+                if captcha:
+                    if check_hashed_solution(captcha):
+                        error = None
+                    else:
+                        error = _('your paste contains spam and the '
+                                  'CAPTCHA solution was incorrect')
+                show_captcha = True
+
             if code and language and not error:
                 paste = Paste(code, language, parent_id, req.user_hash,
                               'private' in req.form)
@@ -65,6 +80,7 @@ class PasteController(object):
             code=code,
             language=language,
             error=error,
+            show_captcha=show_captcha,
             private=private
         )
 
@@ -180,5 +196,9 @@ class PasteController(object):
         items = query.all()
         return render_to_response('rss.html', items=items,
                                   mimetype='application/rss+xml')
+
+    def show_captcha(self):
+        """Show a captcha."""
+        return Captcha().get_response(set_cookie=True)
 
 controller = PasteController

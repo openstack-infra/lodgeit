@@ -21,6 +21,9 @@ msgstr ""
 msgid "your paste contains spam"
 msgstr ""
 
+#: lodgeit/controllers/pastes.py:51
+msgid "your paste contains spam and the CAPTCHA solution was incorrect"
+msgstr ""
 
 #: lodgeit/controllers/static.py:20
 msgid "Pasting"
@@ -494,6 +497,14 @@ msgstr ""
 #: lodgeit/views/new_paste.html:9
 #, python-format
 msgid "Could not submit your paste because %(error)s."
+msgstr ""
+
+#: lodgeit/views/new_paste.html:12
+msgid "Please fill out the CAPTCHA to proceed:"
+msgstr ""
+
+#: lodgeit/views/new_paste.html:13
+msgid "a captcha you can't see.  Sorry :("
 msgstr ""
 
 #: lodgeit/views/new_paste.html:17

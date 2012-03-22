@@ -179,6 +179,19 @@ div.related h3 a {
     text-decoration: none;
 }
 
+div.notification div.captcha {
+    margin: 10px;
+}
+
+div.notification div.captcha p {
+    padding: 0;
+}
+
+div.notification div.captcha img {
+    display: block;
+    margin: 8px 0 8px 0;
+}
+
 div.related h3 a:hover,
 div.paste_filter h3 a:hover {
     background-color: #739BA5;
