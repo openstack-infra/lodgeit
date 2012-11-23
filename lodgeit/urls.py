@@ -24,10 +24,6 @@ urlmap = Map([
     # captcha for new paste
     Rule('/_captcha.png', endpoint='pastes/show_captcha'),
 
-    # paste list
-    Rule('/all/', endpoint='pastes/show_all'),
-    Rule('/all/<int:page>/', endpoint='pastes/show_all'),
-
     # xmlrpc and json
     Rule('/xmlrpc/', endpoint='xmlrpc/handle_request'),
     Rule('/json/', endpoint='json/handle_request'),
@@ -42,7 +38,4 @@ urlmap = Map([
 
     # language
     Rule('/language/<lang>/', endpoint='pastes/set_language'),
-
-    # rss
-    Rule('/rss.xml', endpoint='pastes/rss'),
 ])

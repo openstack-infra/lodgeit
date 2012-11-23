@@ -117,27 +117,6 @@ class PasteController(object):
             current=identifier
         )
 
-    def show_all(self, page=1):
-        """Paginated list of pages."""
-        def link(page):
-            if page == 1:
-                return url_for('pastes/show_all')
-            return url_for('pastes/show_all', page=page)
-
-        form_args = local.request.args
-        query = Paste.find_all()
-
-        pastes = query.limit(10).offset(10 * (page - 1)).all()
-        if not pastes and page != 1:
-            raise NotFound()
-
-        return render_to_response('show_all.html',
-            pastes=pastes,
-            pagination=generate_pagination(page, 10, query.count(), link),
-            css=get_style(local.request)[1],
-            show_personal='show_personal' in form_args
-        )
-
     def compare_paste(self, new_id=None, old_id=None):
         """Render a diff view for two pastes."""
         getform = local.request.form.get
