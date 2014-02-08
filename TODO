@@ -5,5 +5,5 @@
   * Improve LodgeIt Interface (null-interface + star)
   * use udiff module instead of pygments-diff-highlighter for diff highlighning
   * use flatland for forms
-  * comparisons are suprising by using the paste being compared to as the
+  * comparisons are surprising by using the paste being compared to as the
     initial
