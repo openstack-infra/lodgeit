@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-06-04 11:14+0900\n"
+"POT-Creation-Date: 2015-06-04 11:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -391,31 +391,15 @@ msgstr ""
 msgid "Sorry, but the page you requested was not found on this server."
 msgstr ""
 
-#: lodgeit/views/not_found.html:7
-msgid ""
-"\n"
-"    We've recently updated this pastebin. While it is out goal for "
-"nothing to get\n"
-"    lost, you may have found a page that was mis-placed. Check your URL "
-"to ensure\n"
-"    you have gone where you intended. If everything looks OK and you "
-"still see\n"
-"    this error page, please consider "
-msgstr ""
-
-#: lodgeit/views/not_found.html:12
-msgid "contacting us"
-msgstr ""
-
-#: lodgeit/views/not_found.html:15
+#: lodgeit/views/not_found.html:8
 msgid "Click "
 msgstr ""
 
-#: lodgeit/views/not_found.html:16
+#: lodgeit/views/not_found.html:9
 msgid "here"
 msgstr ""
 
-#: lodgeit/views/not_found.html:17
+#: lodgeit/views/not_found.html:10
 msgid " to add a new paste."
 msgstr ""
 
