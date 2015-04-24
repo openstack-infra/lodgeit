@@ -1,44 +1,28 @@
 # Translations template for PROJECT.
-# Copyright (C) 2008 ORGANIZATION
+# Copyright (C) 2015 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2008-09-20 17:45+0200\n"
+"POT-Creation-Date: 2015-06-04 11:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 1.0dev-r444\n"
+"Generated-By: Babel 1.3\n"
 
-#: lodgeit/controllers/pastes.py:45
+#: lodgeit/controllers/pastes.py:47
 msgid "your paste contains spam"
 msgstr ""
 
-#: lodgeit/controllers/pastes.py:51
+#: lodgeit/controllers/pastes.py:53
 msgid "your paste contains spam and the CAPTCHA solution was incorrect"
-msgstr ""
-
-#: lodgeit/controllers/static.py:20
-msgid "Pasting"
-msgstr ""
-
-#: lodgeit/controllers/static.py:21 lodgeit/views/help/advanced.html:3
-msgid "Advanced Features"
-msgstr ""
-
-#: lodgeit/controllers/static.py:22 lodgeit/views/help/xmlrpc.html:3
-msgid "Using the XMLRPC Interface"
-msgstr ""
-
-#: lodgeit/controllers/static.py:23 lodgeit/views/help/integration.html:3
-msgid "Scripts and Editor Integration"
 msgstr ""
 
 #: lodgeit/lib/filterable.py:17 lodgeit/lib/filterable.py:22
@@ -74,205 +58,45 @@ msgstr ""
 msgid "earlier"
 msgstr ""
 
-#: lodgeit/lib/highlighting.py:30
-msgid "Text"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:31
-msgid "Multi-File"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:32
-msgid "Python"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:33
-msgid "Python Console Sessions"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:34
-msgid "Python Tracebacks"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:35 lodgeit/lib/highlighting.py:50
-msgid "PHP"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:36
-msgid "Django / Jinja Templates"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:37
-msgid "Mako Templates"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:38
-msgid "Myghty Templates"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:39
-msgid "Apache Config (.htaccess)"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:40
-msgid "Bash"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:41
-msgid "Batch (.bat)"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:42
-msgid "C"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:43
-msgid "C++"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:44
-msgid "C#"
-msgstr ""
-
 #: lodgeit/lib/highlighting.py:45
-msgid "CSS"
+msgid "CSV"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:46
-msgid "D"
+msgid "javac Messages"
 msgstr ""
 
 #: lodgeit/lib/highlighting.py:47
-msgid "MiniD"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:48
-msgid "Smarty"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:49
-msgid "HTML"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:51
-msgid "Genshi Templates"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:52
-msgid "JavaScript"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:53
-msgid "Java"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:54
-msgid "JSP"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:55
-msgid "Lua"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:56
-msgid "Haskell"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:57
-msgid "Scheme"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:58
-msgid "Ruby"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:59
-msgid "Interactive Ruby"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:60
-msgid "Perl"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:61
-msgid "eRuby / rhtml"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:62
-msgid "TeX / LaTeX"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:63
-msgid "XML"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:64
-msgid "reStructuredText"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:65
-msgid "IRC Logs"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:66
 msgid "Unified Diff"
 msgstr ""
 
-#: lodgeit/lib/highlighting.py:67
-msgid "Vim Scripts"
+#: lodgeit/lib/highlighting.py:48
+msgid "GCC Messages"
 msgstr ""
 
-#: lodgeit/lib/highlighting.py:68
-msgid "OCaml"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:69
-msgid "SQL"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:70
-msgid "SquidConf"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:71
-msgid "sources.list"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:72
-msgid "Erlang"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:73
-msgid "Vim"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:74
-msgid "Dylan"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:75
-msgid "GAS"
-msgstr ""
-
-#: lodgeit/lib/highlighting.py:76
+#: lodgeit/lib/highlighting.py:49
 msgid "Creole Wiki"
 msgstr ""
 
-#: lodgeit/lib/pagination.py:75
+#: lodgeit/lib/highlighting.py:50
+msgid "Multi-File"
+msgstr ""
+
+#: lodgeit/lib/pagination.py:74
 #, python-format
 msgid " <a href=\"%s\">Next &raquo;</a>"
 msgstr ""
 
-#: lodgeit/lib/pagination.py:78
+#: lodgeit/lib/pagination.py:77
 msgid " <span class=\"disabled\">Next &raquo;</span>"
 msgstr ""
 
-#: lodgeit/lib/pagination.py:81
+#: lodgeit/lib/pagination.py:80
 #, python-format
 msgid "<a href=\"%s\">&laquo; Prev</a> "
 msgstr ""
 
-#: lodgeit/lib/pagination.py:84
+#: lodgeit/lib/pagination.py:83
 msgid "<span class=\"disabled\">&laquo; Prev</span> "
 msgstr ""
 
@@ -313,7 +137,7 @@ msgid "reply to pastes"
 msgstr ""
 
 #: lodgeit/views/about.html:20
-msgid "diffs of different pastes"
+msgid "diffs of two pastes"
 msgstr ""
 
 #: lodgeit/views/about.html:21
@@ -331,36 +155,26 @@ msgid "XMLRPC support"
 msgstr ""
 
 #: lodgeit/views/about.html:25
-msgid ""
-"command-line <a href=\"http://dev.pocoo.org/hg/lodgeit-main/raw-"
-"file/-1/scripts/lodgeit.py\">client script</a>"
+msgid "command-line and editor integration"
 msgstr ""
 
 #: lodgeit/views/about.html:26
-msgid "vim integration"
-msgstr ""
-
-#: lodgeit/views/about.html:27
-msgid "emacs integration"
-msgstr ""
-
-#: lodgeit/views/about.html:28
 msgid "persistent pastes"
 msgstr ""
 
-#: lodgeit/views/about.html:29
+#: lodgeit/views/about.html:27
 msgid "reply notification"
 msgstr ""
 
-#: lodgeit/views/about.html:30
+#: lodgeit/views/about.html:28
 msgid "valid HTML 4.0"
 msgstr ""
 
-#: lodgeit/views/about.html:32
+#: lodgeit/views/about.html:30
 msgid "Request More Languages"
 msgstr ""
 
-#: lodgeit/views/about.html:33
+#: lodgeit/views/about.html:31
 msgid ""
 "\n"
 "      A language is missing in the list? File a ticket in the\n"
@@ -369,43 +183,43 @@ msgid ""
 "      as possible."
 msgstr ""
 
-#: lodgeit/views/about.html:38
+#: lodgeit/views/about.html:36
 msgid "Software Used"
 msgstr ""
 
-#: lodgeit/views/about.html:40
+#: lodgeit/views/about.html:38
 msgid ""
 "<a href=\"http://pygments.pocoo.org/\">Pygments</a> for syntax "
 "highlighting"
 msgstr ""
 
-#: lodgeit/views/about.html:41
+#: lodgeit/views/about.html:39
 msgid "<a href=\"http://www.python.org/\">Python</a> as scripting language"
 msgstr ""
 
-#: lodgeit/views/about.html:42
+#: lodgeit/views/about.html:40
 msgid "<a href=\"http://jinja.pocoo.org/2\">Jinja 2</a> for templating"
 msgstr ""
 
-#: lodgeit/views/about.html:43
+#: lodgeit/views/about.html:41
 msgid ""
 "<a href=\"http://werkzeug.pocoo.org/\">Werkzeug</a> for the WSGI "
 "implementation"
 msgstr ""
 
-#: lodgeit/views/about.html:44
+#: lodgeit/views/about.html:42
 msgid "<a href=\"http://www.sqlalchemy.org\">SQLAlchemy</a> as database layer"
 msgstr ""
 
-#: lodgeit/views/about.html:45
+#: lodgeit/views/about.html:43
 msgid "<a href=\"http://www.jquery.com/\">jQuery</a> for scripting"
 msgstr ""
 
-#: lodgeit/views/about.html:47
+#: lodgeit/views/about.html:45
 msgid "Who?"
 msgstr ""
 
-#: lodgeit/views/about.html:48
+#: lodgeit/views/about.html:46
 msgid ""
 "\n"
 "      This paste was founded by <a "
@@ -416,16 +230,16 @@ msgid ""
 "      led by Georg Brandl."
 msgstr ""
 
-#: lodgeit/views/about.html:54
+#: lodgeit/views/about.html:52
 msgid "Privacy"
 msgstr ""
 
-#: lodgeit/views/about.html:55
+#: lodgeit/views/about.html:53
 msgid ""
 "\n"
 "      LodgeIt does not use user accounts because it's logging in for "
 "using a\n"
-"      pastebin is useles. However this pastebin creates unique user ids "
+"      pastebin is useless. However this pastebin creates unique user ids "
 "for you\n"
 "      and for 31 days. Whenever you return to the pastebin it will notify"
 " you\n"
@@ -437,43 +251,70 @@ msgid ""
 "      Please note that on the next request you will get a new id."
 msgstr ""
 
-#: lodgeit/views/layout.html:22
+#: lodgeit/views/json.html:2
+msgid "JSON"
+msgstr ""
+
+#: lodgeit/views/json.html:6
+msgid "JSON Entrypoint"
+msgstr ""
+
+#: lodgeit/views/json.html:7
+msgid ""
+"\n"
+"      This is the entrypoint for the JSON API. If you're interested\n"
+"      in using it head over to the"
+msgstr ""
+
+#: lodgeit/views/json.html:10
+msgid "API documentation"
+msgstr ""
+
+#: lodgeit/views/json.html:13 lodgeit/views/xmlrpc.html:13
+msgid "Alternatively you can also use the "
+msgstr ""
+
+#: lodgeit/views/json.html:14
+msgid ""
+"service.\n"
+"      "
+msgstr ""
+
+#: lodgeit/views/layout.html:25
 msgid "New"
 msgstr ""
 
-#: lodgeit/views/layout.html:23
-msgid "All"
-msgstr ""
-
-#: lodgeit/views/layout.html:24
+#: lodgeit/views/layout.html:26
 msgid "About"
 msgstr ""
 
-#: lodgeit/views/layout.html:43
+#: lodgeit/views/layout.html:47
 msgid "Someone Replied To Your Paste"
 msgstr ""
 
-#: lodgeit/views/layout.html:45
+#: lodgeit/views/layout.html:49
 #, python-format
 msgid ""
 "\n"
 "              on %(date)s someone replied to your paste \n"
 "              <a href=\"%(parent_url)s\">#%(parent)s</a>,\n"
 "              in paste <a href=\"%(paste_url)s\">#%(paste)s</a>. Click "
-"here to\n"
-"              <a href=\"/compare/%(paste)s/%(parent)s/\">compare\n"
-"              those two pastes</a>."
+"here to "
 msgstr ""
 
-#: lodgeit/views/layout.html:54 lodgeit/views/layout.html:66
+#: lodgeit/views/layout.html:55
+msgid "compare those two pastes"
+msgstr ""
+
+#: lodgeit/views/layout.html:58 lodgeit/views/layout.html:72
 msgid "hide this notification"
 msgstr ""
 
-#: lodgeit/views/layout.html:58
+#: lodgeit/views/layout.html:62
 msgid "Welcome On LodgeIt"
 msgstr ""
 
-#: lodgeit/views/layout.html:59
+#: lodgeit/views/layout.html:63
 msgid ""
 "Welcome to the LodgeIt pastebin. In order to use the notification feature"
 "\n"
@@ -481,9 +322,15 @@ msgid ""
 "lodgeit database\n"
 "              does not store any information about you, it's just used "
 "for an advanced\n"
-"              pastebin experience :-). Read more on the <a "
-"href=\"/about/#privacy\">about\n"
-"              lodgeit</a> page. Have fun :-)"
+"              pastebin experience :-). Read more on the "
+msgstr ""
+
+#: lodgeit/views/layout.html:68
+msgid "about lodgeit"
+msgstr ""
+
+#: lodgeit/views/layout.html:69
+msgid " page. Have fun :-)"
 msgstr ""
 
 #: lodgeit/views/new_paste.html:2
@@ -511,15 +358,19 @@ msgstr ""
 msgid "hide this message"
 msgstr ""
 
-#: lodgeit/views/new_paste.html:32
+#: lodgeit/views/new_paste.html:31
 msgid "Paste!"
 msgstr ""
 
-#: lodgeit/views/new_paste.html:36
-msgid "make this paste private"
+#: lodgeit/views/new_paste.html:35
+msgid "Paste private"
 msgstr ""
 
-#: lodgeit/views/new_paste.html:37
+#: lodgeit/views/new_paste.html:38
+msgid "Tab-key inserts tabstops"
+msgstr ""
+
+#: lodgeit/views/new_paste.html:40
 msgid ""
 "\n"
 "      You have selected the multi-file highlighter.  This highlighter "
@@ -549,11 +400,23 @@ msgid ""
 "to ensure\n"
 "    you have gone where you intended. If everything looks OK and you "
 "still see\n"
-"    this error page, please consider <a href=\"/about\">contacting us</a>."
+"    this error page, please consider "
 msgstr ""
 
-#: lodgeit/views/not_found.html:14
-msgid "Click <a href=\"/\">here</a> to add a new paste."
+#: lodgeit/views/not_found.html:12
+msgid "contacting us"
+msgstr ""
+
+#: lodgeit/views/not_found.html:15
+msgid "Click "
+msgstr ""
+
+#: lodgeit/views/not_found.html:16
+msgid "here"
+msgstr ""
+
+#: lodgeit/views/not_found.html:17
+msgid " to add a new paste."
 msgstr ""
 
 #: lodgeit/views/paste_tree.html:2
@@ -585,52 +448,60 @@ msgstr ""
 msgid "Paste Details"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:8
+#: lodgeit/views/show_paste.html:10
+msgid "reply"
+msgstr ""
+
+#: lodgeit/views/show_paste.html:14
+msgid "raw"
+msgstr ""
+
+#: lodgeit/views/show_paste.html:19
 #, python-format
 msgid "posted on %(pub_date)s"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:10
+#: lodgeit/views/show_paste.html:24
 msgid "reply to this paste"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:13
+#: lodgeit/views/show_paste.html:31
 msgid "compare it with the parent paste"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:14
+#: lodgeit/views/show_paste.html:37
 msgid "look at the parent paste"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:17
+#: lodgeit/views/show_paste.html:43
 msgid "the following pastes replied to this paste:"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:25
+#: lodgeit/views/show_paste.html:53
 msgid "show paste tree"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:27
+#: lodgeit/views/show_paste.html:59
 msgid "download paste"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:28
+#: lodgeit/views/show_paste.html:63
 msgid "compare with paste"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:31
+#: lodgeit/views/show_paste.html:67
 msgid "compare"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:33
+#: lodgeit/views/show_paste.html:71
 msgid "select different colorscheme"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:40
+#: lodgeit/views/show_paste.html:80
 msgid "change"
 msgstr ""
 
-#: lodgeit/views/show_paste.html:42
+#: lodgeit/views/show_paste.html:86
 msgid "toggle line numbers"
 msgstr ""
 
@@ -646,8 +517,15 @@ msgstr ""
 msgid ""
 "\n"
 "      This is the entrypoint for the XMLRPC system. If you're interested\n"
-"      in using it head over to the <a href=\"/help/xmlrpc/\">XMLRPC "
-"documentation</a>."
+"      in using it head over to the "
+msgstr ""
+
+#: lodgeit/views/xmlrpc.html:10
+msgid "documentation"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:3
+msgid "Advanced Features"
 msgstr ""
 
 #: lodgeit/views/help/advanced.html:4
@@ -768,15 +646,96 @@ msgid ""
 msgstr ""
 
 #: lodgeit/views/help/advanced.html:57
-msgid "List of supported formatters:"
+msgid "The list of formatters is on the bottom of this page."
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:58
+msgid "Formatter Preselection"
 msgstr ""
 
 #: lodgeit/views/help/advanced.html:59
+msgid ""
+"\n"
+"    If you want to use lodgeit on your project's IRC channel you can add\n"
+"    <code>+FORMATTER</code> to the URL where <code>FORMATTER</code> is "
+"the\n"
+"    name of the formatter to select from the list below:\n"
+"  "
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:64
+msgid "Supported Formatters"
+msgstr ""
+
+#: lodgeit/views/help/advanced.html:66
 msgid "Key"
 msgstr ""
 
-#: lodgeit/views/help/advanced.html:59
+#: lodgeit/views/help/advanced.html:66
 msgid "Name"
+msgstr ""
+
+#: lodgeit/views/help/api.html:3
+msgid "Using the LodegeIt API"
+msgstr ""
+
+#: lodgeit/views/help/api.html:4
+msgid ""
+"\n"
+"    LodgeIt supports currently two APIs: XMLRPC and good old JSON.\n"
+"  "
+msgstr ""
+
+#: lodgeit/views/help/api.html:7
+msgid "API URLs:"
+msgstr ""
+
+#: lodgeit/views/help/api.html:12
+msgid "Note the trailing slash in both URLs!"
+msgstr ""
+
+#: lodgeit/views/help/api.html:13
+msgid "XMLRPC Quickstart"
+msgstr ""
+
+#: lodgeit/views/help/api.html:14
+msgid ""
+"\n"
+"    You can connect to the XMLRPC interface with any XMLRPC library. If "
+"you're\n"
+"    using Python the following piece of code connects you to the XMLRPC "
+"service:"
+msgstr ""
+
+#: lodgeit/views/help/api.html:23
+msgid ""
+"For example if you want to fetch one paste from the server you can do "
+"this:"
+msgstr ""
+
+#: lodgeit/views/help/api.html:30
+msgid "JSON Quickstart"
+msgstr ""
+
+#: lodgeit/views/help/api.html:31
+msgid ""
+"\n"
+"    Alternatively you can use the JSON API.  Basically what you do is "
+"sending\n"
+"    the function arguments as a serialized JSON object or array to the "
+"JSON URL\n"
+"    from above with the method name as URL parameter.  You can do this "
+"for\n"
+"    example by using the curl command line tool:\n"
+"  "
+msgstr ""
+
+#: lodgeit/views/help/api.html:51
+msgid "Methods"
+msgstr ""
+
+#: lodgeit/views/help/api.html:52
+msgid "For a list of all supported methods see the list below."
 msgstr ""
 
 #: lodgeit/views/help/index.html:3
@@ -792,6 +751,10 @@ msgstr ""
 
 #: lodgeit/views/help/index.html:9
 msgid "Select the topic you're interested in from the list on the right."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:3
+msgid "Scripts and Editor Integration"
 msgstr ""
 
 #: lodgeit/views/help/integration.html:4
@@ -841,17 +804,23 @@ msgstr ""
 msgid "If no file is given it will read from the standard input stream."
 msgstr ""
 
-#: lodgeit/views/help/integration.html:26
-#: lodgeit/views/help/integration.html:48
-#: lodgeit/views/help/integration.html:65
+#: lodgeit/views/help/integration.html:25
+msgid ""
+"If multiple files are given, they will be put into one paste using the\n"
+"    \"multi-file\" formatter."
+msgstr ""
+
+#: lodgeit/views/help/integration.html:28
+#: lodgeit/views/help/integration.html:50
+#: lodgeit/views/help/integration.html:67
 msgid "Download:"
 msgstr ""
 
-#: lodgeit/views/help/integration.html:29
+#: lodgeit/views/help/integration.html:31
 msgid "Vim Support"
 msgstr ""
 
-#: lodgeit/views/help/integration.html:30
+#: lodgeit/views/help/integration.html:32
 msgid ""
 "\n"
 "    If Vim is your editor you can paste and download pastes directly from"
@@ -859,7 +828,7 @@ msgid ""
 "    within Vim."
 msgstr ""
 
-#: lodgeit/views/help/integration.html:34
+#: lodgeit/views/help/integration.html:36
 msgid ""
 "\n"
 "    All you have to do to paste the current range or whole buffer to "
@@ -869,11 +838,11 @@ msgid ""
 "    a mapping like ctrl+p by adding this to your vimrc:"
 msgstr ""
 
-#: lodgeit/views/help/integration.html:40
+#: lodgeit/views/help/integration.html:42
 msgid "(^P is entered using ctrl + v, ctrl + in vim)"
 msgstr ""
 
-#: lodgeit/views/help/integration.html:41
+#: lodgeit/views/help/integration.html:43
 msgid ""
 "\n"
 "    If you want to reply to a paste from within Vim you can call\n"
@@ -884,11 +853,11 @@ msgid ""
 "    the server using <tt>:Lodgeit</tt>."
 msgstr ""
 
-#: lodgeit/views/help/integration.html:51
+#: lodgeit/views/help/integration.html:53
 msgid "Emacs Support"
 msgstr ""
 
-#: lodgeit/views/help/integration.html:52
+#: lodgeit/views/help/integration.html:54
 msgid ""
 "\n"
 "    You need a working installation of <a href=\"http://pymacs"
@@ -906,7 +875,7 @@ msgid ""
 "    your menu bar, you also need to add the line <tt>(paste-menu)</tt>."
 msgstr ""
 
-#: lodgeit/views/help/integration.html:62
+#: lodgeit/views/help/integration.html:64
 msgid ""
 "Detailed usage instructions are located at <a "
 "href=\"http://lunaryorn.de/projects/paste/\">on the project page"
@@ -967,43 +936,15 @@ msgid ""
 "    If you use the reply feature a link to the parent paste is created\n"
 "    automatically. This allows you to compare those two pastes with one\n"
 "    click to find changes easily. For information about the diff view\n"
-"    head over to the <a href=\"/help/advanced/\">advanced features</a> "
-"page."
+"    head over to the "
 msgstr ""
 
-#: lodgeit/views/help/xmlrpc.html:4
-#, python-format
-msgid ""
-"\n"
-"    The XMLRPC Interface is available at <tt>%(xmlrpc_url)s</tt>.\n"
-"    (Note the trailing slash!)"
+#: lodgeit/views/help/pasting.html:30
+msgid "advanced features"
 msgstr ""
 
-#: lodgeit/views/help/xmlrpc.html:8
-msgid "Quickstart"
-msgstr ""
-
-#: lodgeit/views/help/xmlrpc.html:9
-msgid ""
-"\n"
-"    You can connect to the XMLRPC interface with any XMLRPC library. If "
-"you're\n"
-"    using Python the following piece of code connects you to the XMLRPC "
-"service:"
-msgstr ""
-
-#: lodgeit/views/help/xmlrpc.html:18
-msgid ""
-"For example if you want to fetch one paste from the server you can do "
-"this:"
-msgstr ""
-
-#: lodgeit/views/help/xmlrpc.html:25
-msgid "For a list of all supported methods see the list below."
-msgstr ""
-
-#: lodgeit/views/help/xmlrpc.html:26
-msgid "Methods"
+#: lodgeit/views/help/pasting.html:30
+msgid "page."
 msgstr ""
 
 #: lodgeit/views/utils/macros.html:20
