@@ -19,7 +19,7 @@ def after_install(options, home_dir):
     easy_install('SQLAlchemy==0.6', home_dir)
     easy_install('simplejson', home_dir)
     easy_install('Babel', home_dir)
-    easy_install('PIL', home_dir)
+    easy_install('pillow', home_dir)
 
 
 def easy_install(package, home_dir, optional_args=None):
