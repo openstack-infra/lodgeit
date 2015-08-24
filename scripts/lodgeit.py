@@ -50,7 +50,7 @@ def load_default_settings():
         'clipboard':    True,
         'open_browser': False,
         'encoding':     'iso-8859-15',
-        'server_name':  'http://paste.pocoo.org',
+        'server_name':  'http://paste.openstack.org',
     }
     rcfile = None
     if os.name == 'posix':
