@@ -88,7 +88,8 @@ class PasteController(object):
         """Show an existing paste."""
         linenos = local.request.args.get('linenos') != 'no'
         paste = Paste.get(identifier)
-        if paste is None:
+
+        if (paste is None) or (paste.private and identifier.isdigit()):
             raise NotFound()
         if raw:
             return Response(paste.code, mimetype='text/plain; charset=utf-8')
