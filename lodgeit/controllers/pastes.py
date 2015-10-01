@@ -17,7 +17,6 @@ from lodgeit.utils import render_to_response, url_for
 from lodgeit.models import Paste
 from lodgeit.database import session
 from lodgeit.lib.highlighting import list_languages, STYLES, get_style
-from lodgeit.lib.pagination import generate_pagination
 from lodgeit.lib.captcha import check_hashed_solution, Captcha
 
 
