@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-06-04 11:15+0900\n"
+"POT-Creation-Date: 2015-10-08 17:07+0900\n"
 "PO-Revision-Date: 2008-09-20 17:45+0200\n"
 "Last-Translator: Christopher Grebs <cg@webshox.org>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -368,7 +368,8 @@ msgid "hide this notification"
 msgstr "Benachrichtigung verbergen"
 
 #: lodgeit/views/layout.html:62
-msgid "Welcome On LodgeIt"
+#, fuzzy
+msgid "Welcome To LodgeIt"
 msgstr "Willkommen bei LodgeIt"
 
 #: lodgeit/views/layout.html:63
