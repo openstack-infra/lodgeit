@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-08 17:07+0900\n"
-"PO-Revision-Date: 2008-09-20 17:45+0200\n"
+"POT-Creation-Date: 2015-10-08 17:11+0900\n"
+"PO-Revision-Date: 2015-10-09 19:00+0200\n"
 "Last-Translator: Christopher Grebs <cg@webshox.org>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -808,7 +808,7 @@ msgid "For a list of all supported methods see the list below."
 msgstr ""
 
 #: lodgeit/views/help/index.html:3
-msgid "Welcome in the LodgeIt Help Section"
+msgid "Welcome to the LodgeIt Help Section"
 msgstr ""
 
 #: lodgeit/views/help/index.html:4
@@ -1032,166 +1032,3 @@ msgstr ""
 #: lodgeit/views/utils/macros.html:58
 msgid "update"
 msgstr ""
-
-#~ msgid "pasted on "
-#~ msgstr "Gepastet am"
-
-#~ msgid "Pasting"
-#~ msgstr "Pasting"
-
-#~ msgid "Using the XMLRPC Interface"
-#~ msgstr "Das XMLRPC Interface benutzen"
-
-#~ msgid "Text"
-#~ msgstr ""
-
-#~ msgid "Python"
-#~ msgstr ""
-
-#~ msgid "Python Console Sessions"
-#~ msgstr "Python-Konsole Sitzung"
-
-#~ msgid "Python Tracebacks"
-#~ msgstr ""
-
-#~ msgid "PHP"
-#~ msgstr ""
-
-#~ msgid "Django / Jinja Templates"
-#~ msgstr ""
-
-#~ msgid "Mako Templates"
-#~ msgstr ""
-
-#~ msgid "Myghty Templates"
-#~ msgstr ""
-
-#~ msgid "Apache Config (.htaccess)"
-#~ msgstr "Apache Konfiguration (.htaccess)"
-
-#~ msgid "Bash"
-#~ msgstr ""
-
-#~ msgid "Batch (.bat)"
-#~ msgstr ""
-
-#~ msgid "C"
-#~ msgstr ""
-
-#~ msgid "C++"
-#~ msgstr ""
-
-#~ msgid "C#"
-#~ msgstr ""
-
-#~ msgid "CSS"
-#~ msgstr ""
-
-#~ msgid "D"
-#~ msgstr ""
-
-#~ msgid "MiniD"
-#~ msgstr ""
-
-#~ msgid "Smarty"
-#~ msgstr ""
-
-#~ msgid "HTML"
-#~ msgstr ""
-
-#~ msgid "Genshi Templates"
-#~ msgstr ""
-
-#~ msgid "JavaScript"
-#~ msgstr ""
-
-#~ msgid "Java"
-#~ msgstr ""
-
-#~ msgid "JSP"
-#~ msgstr ""
-
-#~ msgid "Lua"
-#~ msgstr ""
-
-#~ msgid "Haskell"
-#~ msgstr ""
-
-#~ msgid "Scheme"
-#~ msgstr ""
-
-#~ msgid "Ruby"
-#~ msgstr ""
-
-#~ msgid "Interactive Ruby"
-#~ msgstr ""
-
-#~ msgid "Perl"
-#~ msgstr ""
-
-#~ msgid "eRuby / rhtml"
-#~ msgstr ""
-
-#~ msgid "TeX / LaTeX"
-#~ msgstr ""
-
-#~ msgid "XML"
-#~ msgstr ""
-
-#~ msgid "reStructuredText"
-#~ msgstr ""
-
-#~ msgid "IRC Logs"
-#~ msgstr ""
-
-#~ msgid "Vim Scripts"
-#~ msgstr ""
-
-#~ msgid "OCaml"
-#~ msgstr ""
-
-#~ msgid "SQL"
-#~ msgstr ""
-
-#~ msgid "SquidConf"
-#~ msgstr ""
-
-#~ msgid "sources.list"
-#~ msgstr ""
-
-#~ msgid "Erlang"
-#~ msgstr ""
-
-#~ msgid "Vim"
-#~ msgstr ""
-
-#~ msgid "Dylan"
-#~ msgstr ""
-
-#~ msgid "GAS"
-#~ msgstr ""
-
-#~ msgid ""
-#~ msgstr ""
-
-#~ msgid "vim integration"
-#~ msgstr "Vim Integration"
-
-#~ msgid "emacs integration"
-#~ msgstr "Emacs Integration"
-
-#~ msgid "All"
-#~ msgstr "Alle"
-
-#~ msgid "Click <a href=\"/\">here</a> to add a new paste."
-#~ msgstr "Klicke <a href=\"/\">hier</a> um einen neuen Paste zu erstellen."
-
-#~ msgid "List of supported formatters:"
-#~ msgstr ""
-
-#~ msgid "Quickstart"
-#~ msgstr ""
-
-#~ msgid "contacting us"
-#~ msgstr ""
-

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-08 17:07+0900\n"
+"POT-Creation-Date: 2015-10-08 17:11+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -723,7 +723,7 @@ msgid "For a list of all supported methods see the list below."
 msgstr ""
 
 #: lodgeit/views/help/index.html:3
-msgid "Welcome in the LodgeIt Help Section"
+msgid "Welcome to the LodgeIt Help Section"
 msgstr ""
 
 #: lodgeit/views/help/index.html:4
