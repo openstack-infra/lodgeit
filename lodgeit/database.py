@@ -25,7 +25,7 @@ def session_factory():
     return orm.create_session(application.engine, **options)
 
 session = orm.scoped_session(session_factory,
-    scopefunc=_local_manager.get_ident)
+                             scopefunc=_local_manager.get_ident)
 
 
 class ModelBase(object):
@@ -38,7 +38,7 @@ class ModelBase(object):
 
 # configure the declarative base
 Model = declarative_base(name='Model', cls=ModelBase,
-    mapper=orm.mapper, metadata=metadata)
+                         mapper=orm.mapper, metadata=metadata)
 ModelBase.query = session.query_property()
 
 

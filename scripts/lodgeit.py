@@ -69,7 +69,7 @@ def load_default_settings():
                     if key in settings:
                         if key in ('clipboard', 'open_browser'):
                             settings[key] = p[1].strip().lower() in \
-                                            ('true', '1', 'on', 'yes')
+                                ('true', '1', 'on', 'yes')
                         else:
                             settings[key] = p[1].strip()
             f.close()

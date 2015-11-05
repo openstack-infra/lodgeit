@@ -85,7 +85,6 @@ class Request(RequestBase):
         lang = session.get('locale')
         if lang is None:
             lang = 'en'
-            #lang = (self.accept_languages.best or 'en').split('-')[0]
         self.locale = Locale.parse(lang)
 
     def set_language(self, lang):

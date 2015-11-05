@@ -34,8 +34,8 @@ class Paste(db.Model):
     private_id = db.Column(db.String(40), unique=True, nullable=True)
 
     children = db.relation('Paste', cascade='all',
-        primaryjoin=parent_id == paste_id,
-        backref=db.backref('parent', remote_side=[paste_id]))
+                           primaryjoin=parent_id == paste_id,
+                           backref=db.backref('parent', remote_side=[paste_id]))
 
     def __init__(self, code, language, parent_id=None, user_hash=None,
                  private=False):
@@ -43,7 +43,7 @@ class Paste(db.Model):
             language = 'text'
         self.code = u'\n'.join(code.splitlines())
         self.language = language
-        #XXX:dc: set these a bit more sanely, allowing two types is bad
+        # XXX:dc: set these a bit more sanely, allowing two types is bad
         if parent_id:
             self.parent_id = parent_id
         self.pub_date = datetime.now()
@@ -90,12 +90,12 @@ class Paste(db.Model):
         """Get the new replies for the ower of a request and flag them
         as handled.
         """
-        #XXX:dc:clean this query up to just return the ids
+        # XXX:dc:clean this query up to just return the ids
         ids = [x.paste_id for x in Paste.query.filter_by(
-                user_hash=local.request.user_hash).all()]
+               user_hash=local.request.user_hash).all()]
         paste_list = Paste.query.filter(db.and_(
             Paste.parent_id.in_(ids),
-            Paste.handled == False,
+            Paste.handled is False,
         )).order_by(Paste.paste_id.desc()).all()
         for paste in paste_list:
             paste.handled = True

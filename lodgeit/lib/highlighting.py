@@ -14,7 +14,7 @@ import csv
 from operator import itemgetter
 from pygments.util import ClassNotFound
 from pygments.lexers import get_lexer_by_name, get_lexer_for_filename, \
-     get_lexer_for_mimetype, PhpLexer, TextLexer, get_all_lexers
+    get_lexer_for_mimetype, PhpLexer, TextLexer, get_all_lexers
 from pygments.styles import get_all_styles
 from pygments.formatters import HtmlFormatter
 
@@ -23,7 +23,7 @@ from lodgeit.i18n import lazy_gettext as _
 from lodgeit.utils import render_template
 from lodgeit.lib.diff import prepare_udiff
 from lodgeit.lib.compilerparser import parse_gcc_messages, \
-     parse_javac_messages
+    parse_javac_messages
 
 from werkzeug import escape
 
@@ -167,11 +167,12 @@ def highlight_multifile(code):
         start, filename, lang = last
         section_code = _escaped_marker.sub('', code[start:pos])
         if section_code:
+            if filename:
+                filename_html = u'<p class="filename">%s</p>' % escape(filename)
+            else:
+                filename_html = u''
             result.append(u'<div class="section">%s%s</div>' % (
-                filename and u'<p class="filename">%s</p>'
-                    % escape(filename) or u'',
-                highlight(section_code, lang)
-            ))
+                filename_html, highlight(section_code, lang)))
 
     for match in _section_marker_re.finditer(code):
         start = match.start()

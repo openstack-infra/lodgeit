@@ -40,7 +40,7 @@ def check_for_link_spam(code):
     if len(spans) > MAX_LINK_PERCENTAGE:
         return True
     return (sum(starmap(sub, spans)) * -100) / (len(code) or 1) \
-           > MAX_LINK_PERCENTAGE
+        > MAX_LINK_PERCENTAGE
 
 
 def is_spam(code):

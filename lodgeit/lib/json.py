@@ -37,7 +37,7 @@ class JSONRequestHandler(object):
                     kwargs = {}
                 else:
                     raise TypeError('arguments as object or list expected')
-            #XXX:dc: use flatland to validate these args before passing onward
+            # XXX:dc: use flatland to validate these args before passing onward
             response = {
                 'data':     self.funcs[method_name](*args, **kwargs),
                 'error':    None

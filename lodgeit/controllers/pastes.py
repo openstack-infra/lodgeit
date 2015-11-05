@@ -23,7 +23,7 @@ from lodgeit.lib.captcha import check_hashed_solution, Captcha
 class PasteController(object):
     """Provides all the handler callback for paste related stuff."""
 
-    #XXX:dc: using language here clashes with internationalization terms
+    # XXX:dc: using language here clashes with internationalization terms
     def new_paste(self, language=None):
         """The 'create a new paste' view."""
         language = local.request.args.get('language', language)
@@ -74,14 +74,14 @@ class PasteController(object):
                     language = parent.language
                     private = parent.private
         return render_to_response('new_paste.html',
-            languages=list_languages(),
-            parent=parent,
-            code=code,
-            language=language,
-            error=error,
-            show_captcha=show_captcha,
-            private=private
-        )
+                                  languages=list_languages(),
+                                  parent=parent,
+                                  code=code,
+                                  language=language,
+                                  error=error,
+                                  show_captcha=show_captcha,
+                                  private=private
+                                  )
 
     def show_paste(self, identifier, raw=False):
         """Show an existing paste."""
@@ -113,9 +113,9 @@ class PasteController(object):
         if paste is None:
             raise NotFound()
         return render_to_response('paste_tree.html',
-            paste=paste,
-            current=identifier
-        )
+                                  paste=paste,
+                                  current=identifier
+                                  )
 
     def compare_paste(self, new_id=None, old_id=None):
         """Render a diff view for two pastes."""
@@ -133,10 +133,10 @@ class PasteController(object):
             raise NotFound()
 
         return render_to_response('compare_paste.html',
-            old=old,
-            new=new,
-            diff=old.compare_to(new, template=True)
-        )
+                                  old=old,
+                                  new=new,
+                                  diff=old.compare_to(new, template=True)
+                                  )
 
     def unidiff_paste(self, new_id=None, old_id=None):
         """Render an udiff for the two pastes."""
@@ -155,7 +155,7 @@ class PasteController(object):
         style_name = local.request.form.get('style')
         resp = redirect(local.request.headers.get('referer') or
                         url_for('pastes/new_paste'))
-        #XXX:dc: use some sort of form element validation instead
+        # XXX:dc: use some sort of form element validation instead
         if style_name in STYLES:
             resp.set_cookie('style', style_name)
         return resp

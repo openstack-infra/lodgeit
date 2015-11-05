@@ -8,4 +8,3 @@
     :copyright: 2007 by Armin Ronacher.
     :license: BSD
 """
-from lodgeit.application import make_app

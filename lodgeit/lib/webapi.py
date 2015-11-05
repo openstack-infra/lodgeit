@@ -14,7 +14,7 @@ from lodgeit.database import db
 from lodgeit.lib.xmlrpc import XMLRPCRequestHandler
 from lodgeit.lib.json import JSONRequestHandler
 from lodgeit.lib.highlighting import STYLES, LANGUAGES, get_style, \
-     get_language_for
+    get_language_for
 
 
 xmlrpc = XMLRPCRequestHandler()
@@ -32,6 +32,8 @@ def exported(name, hidden=False):
 
 
 _public_methods = None
+
+
 def get_public_methods():
     """Returns the public methods."""
     global _public_methods

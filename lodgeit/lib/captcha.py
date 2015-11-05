@@ -287,7 +287,7 @@ class GridBackground(Layer):
         for i in xrange(image.size[0] / self.size + 1):
             draw.line((0, i * self.size + self.offset[1],
                        image.size[0], i * self.size+self.offset[1]),
-                       fill=self.color)
+                      fill=self.color)
         return image
 
 
@@ -408,5 +408,5 @@ class SineWarp(WarpBase):
 
     def get_transform(self, image):
         return (lambda x, y, a=self.amplitude, p=self.period,
-                       o=self.offset: (math.sin((y + o[0]) * p) * a + x,
-                                       math.sin((x + o[1]) * p) * a + y))
+                o=self.offset: (math.sin((y + o[0]) * p) * a + x,
+                                math.sin((x + o[1]) * p) * a + y))

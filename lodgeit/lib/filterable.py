@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
     lodgeit.libs.filterable
     ~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,12 +30,12 @@ ACTIONS = {
     }
 }
 ACTIONS_MAP = {
-    'is':         lambda f, v: f == v,
-    'contains':   lambda f, v: f.contains(v),
+    'is': lambda f, v: f == v,
+    'contains': lambda f, v: f.contains(v),
     'startswith': lambda f, v: f.startswith(v),
-    'greater':    lambda f, v: f > v,
-    'lower':      lambda f, v: f < v,
-    'bool':       lambda f, v: f == (v == 'true'),
+    'greater': lambda f, v: f > v,
+    'lower': lambda f, v: f < v,
+    'bool': lambda f, v: f == (v == 'true'),
 }
 
 
