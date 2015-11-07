@@ -43,7 +43,7 @@ class Paste(db.Model):
             language = 'text'
         self.code = u'\n'.join(code.splitlines())
         self.language = language
-        # XXX:dc: set these a bit more sanely, allowing two types is bad
+        # TODO(dc): set these a bit more sanely, allowing two types is bad
         if parent_id:
             self.parent_id = parent_id
         self.pub_date = datetime.now()
@@ -90,7 +90,7 @@ class Paste(db.Model):
         """Get the new replies for the ower of a request and flag them
         as handled.
         """
-        # XXX:dc:clean this query up to just return the ids
+        # TODO(dc): clean this query up to just return the ids
         ids = [x.paste_id for x in Paste.query.filter_by(
                user_hash=local.request.user_hash).all()]
         paste_list = Paste.query.filter(db.and_(
