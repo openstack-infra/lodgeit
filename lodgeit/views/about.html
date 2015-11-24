@@ -2,6 +2,11 @@
 {% set page_title = _('About LodgeIt') %}
 {% set active_page = 'about' %}
 {% block body %}
+  {% if lodgeit_version %}
+    <div class="text">
+      {% trans %}LodgeIt version:{% endtrans %} {{ lodgeit_version }}
+    </div>
+  {% endif %}
   <div class="text">
     <h3 id="why-the-hell-another-pastebin">{% trans %} Why the hell another pastebin?{% endtrans %}</h3>
     <p>{% trans %}

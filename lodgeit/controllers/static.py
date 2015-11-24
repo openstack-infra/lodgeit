@@ -9,7 +9,7 @@
     :license: BSD
 """
 from werkzeug.exceptions import NotFound
-from lodgeit import local
+from lodgeit import local, lodgeit_version
 from lodgeit.i18n import lazy_gettext
 from lodgeit.utils import render_to_response
 from lodgeit.lib.webapi import get_public_methods
@@ -32,7 +32,7 @@ class StaticController(object):
         return render_to_response('not_found.html')
 
     def about(self):
-        return render_to_response('about.html')
+        return render_to_response('about.html', lodgeit_version=lodgeit_version)
 
     def help(self, topic=None):
         if topic is None:

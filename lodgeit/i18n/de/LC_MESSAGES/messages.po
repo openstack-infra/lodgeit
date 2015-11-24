@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-12-17 16:33+0900\n"
+"POT-Creation-Date: 2016-04-19 17:01+0900\n"
 "PO-Revision-Date: 2015-10-09 19:00+0200\n"
 "Last-Translator: Christopher Grebs <cg@webshox.org>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -86,11 +86,15 @@ msgstr "Mehrere-Dateien"
 msgid "About LodgeIt"
 msgstr "Über Lodgeit"
 
-#: lodgeit/views/about.html:6
+#: lodgeit/views/about.html:7
+msgid "LodgeIt version:"
+msgstr ""
+
+#: lodgeit/views/about.html:11
 msgid " Why the hell another pastebin?"
 msgstr "Warum zum Teufel ein weiterer Pastebin?"
 
-#: lodgeit/views/about.html:7
+#: lodgeit/views/about.html:12
 msgid ""
 "\n"
 "      Good question. Basically the world doesn't need another pastebin.\n"
@@ -110,32 +114,32 @@ msgstr ""
 "    ein intuitives Interface haben.\n"
 "    Dennoch gibt es einige Funktionen die LodgeIt einzigartig machen."
 
-#: lodgeit/views/about.html:15
+#: lodgeit/views/about.html:20
 msgid "Features"
 msgstr "Funktionen"
 
-#: lodgeit/views/about.html:17
+#: lodgeit/views/about.html:22
 msgid "clean user interface"
 msgstr "sauberes Benutzer-Interface"
 
-#: lodgeit/views/about.html:18
+#: lodgeit/views/about.html:23
 msgid "different color schemes for the sourcecode"
 msgstr "verschiedene Farb-Schemata für den Quellcode"
 
-#: lodgeit/views/about.html:19
+#: lodgeit/views/about.html:24
 msgid "reply to pastes"
 msgstr "Man kann auf einen Paste antworten"
 
-#: lodgeit/views/about.html:20
+#: lodgeit/views/about.html:25
 #, fuzzy
 msgid "diffs of two pastes"
 msgstr "Man kann Pastes vergleichen"
 
-#: lodgeit/views/about.html:21
+#: lodgeit/views/about.html:26
 msgid "support for many python template languages"
 msgstr "Unterstützung für viele Python-Template-Engines"
 
-#: lodgeit/views/about.html:22
+#: lodgeit/views/about.html:27
 msgid ""
 "support for many scripting languages like Python and Ruby, even with\n"
 "           weird syntax (ruby *cough*)"
@@ -143,32 +147,32 @@ msgstr ""
 "Unterstützung für viele Scriptsprachen wie Python oder Ruby, auch mit\n"
 "           schräger Syntax (ruby *würg*)"
 
-#: lodgeit/views/about.html:24
+#: lodgeit/views/about.html:29
 msgid "XMLRPC support"
 msgstr "XMLRPC Support"
 
-#: lodgeit/views/about.html:25
+#: lodgeit/views/about.html:30
 #, fuzzy
 msgid "command-line and editor integration"
 msgstr "Scripte und Editor-Integration"
 
-#: lodgeit/views/about.html:26
+#: lodgeit/views/about.html:31
 msgid "persistent pastes"
 msgstr "dauerhaft gespeicherte Pastes"
 
-#: lodgeit/views/about.html:27
+#: lodgeit/views/about.html:32
 msgid "reply notification"
 msgstr "Antwort-Benachrichtigungen"
 
-#: lodgeit/views/about.html:28
+#: lodgeit/views/about.html:33
 msgid "valid HTML 4.0"
 msgstr "Valides HTML 4.0"
 
-#: lodgeit/views/about.html:30
+#: lodgeit/views/about.html:35
 msgid "Request More Languages"
 msgstr "Mehr Sprachen"
 
-#: lodgeit/views/about.html:31
+#: lodgeit/views/about.html:36
 msgid ""
 "\n"
 "      A language is missing in the list? File a ticket in the\n"
@@ -182,11 +186,11 @@ msgstr ""
 "      <a href=\"http://dev.pocoo.org/projects/pygments\">Pygments "
 "Trac</a> und wir fügen sie so schnell wie möglich hinzu.\n"
 
-#: lodgeit/views/about.html:36
+#: lodgeit/views/about.html:41
 msgid "Software Used"
 msgstr "Benutzte Software"
 
-#: lodgeit/views/about.html:38
+#: lodgeit/views/about.html:43
 msgid ""
 "<a href=\"http://pygments.pocoo.org/\">Pygments</a> for syntax "
 "highlighting"
@@ -194,15 +198,15 @@ msgstr ""
 "<a href=\"http://pygments.pocoo.org/\">Pygments</a> für das Syntax "
 "Highlighting"
 
-#: lodgeit/views/about.html:39
+#: lodgeit/views/about.html:44
 msgid "<a href=\"http://www.python.org/\">Python</a> as scripting language"
 msgstr "<a href=\"http://www.python.org/\">Python</a> als Programmiersprache"
 
-#: lodgeit/views/about.html:40
+#: lodgeit/views/about.html:45
 msgid "<a href=\"http://jinja.pocoo.org/2\">Jinja 2</a> for templating"
 msgstr "<a href=\"http://jinja.pocoo.org/2\">Jinja 2</a> als Template-Engine"
 
-#: lodgeit/views/about.html:41
+#: lodgeit/views/about.html:46
 msgid ""
 "<a href=\"http://werkzeug.pocoo.org/\">Werkzeug</a> for the WSGI "
 "implementation"
@@ -210,21 +214,21 @@ msgstr ""
 "<a href=\"http://werkzeug.pocoo.org/\">Werkzeug</a> für die WSGI-"
 "Implementation"
 
-#: lodgeit/views/about.html:42
+#: lodgeit/views/about.html:47
 msgid "<a href=\"http://www.sqlalchemy.org\">SQLAlchemy</a> as database layer"
 msgstr ""
 "<a href=\"http://www.sqlalchemy.org\">SQLAlchemy</a> als Datenbank-"
 "Schnittstelle"
 
-#: lodgeit/views/about.html:43
+#: lodgeit/views/about.html:48
 msgid "<a href=\"http://www.jquery.com/\">jQuery</a> for scripting"
 msgstr "<a href=\"http://www.jquery.com/\">jQuery</a> fürs Scripting"
 
-#: lodgeit/views/about.html:45
+#: lodgeit/views/about.html:50
 msgid "Who?"
 msgstr "Autoren"
 
-#: lodgeit/views/about.html:46
+#: lodgeit/views/about.html:51
 msgid ""
 "\n"
 "      This paste was founded by <a "
@@ -241,11 +245,11 @@ msgstr ""
 "      <a href=\"http://webshox.org\">Christopher Grebs</a> verwaltet.\n"
 "      Pygments ist ein Pocoo Projekt geleitet von Georg Brandl."
 
-#: lodgeit/views/about.html:52
+#: lodgeit/views/about.html:57
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: lodgeit/views/about.html:53
+#: lodgeit/views/about.html:58
 #, fuzzy
 msgid ""
 "\n"
@@ -1014,3 +1018,4 @@ msgstr ""
 #: lodgeit/views/utils/macros.html:58
 msgid "update"
 msgstr ""
+

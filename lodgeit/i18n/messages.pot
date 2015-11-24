@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2015 ORGANIZATION
+# Copyright (C) 2016 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-12-17 16:33+0900\n"
+"POT-Creation-Date: 2016-04-19 17:01+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,11 +86,15 @@ msgstr ""
 msgid "About LodgeIt"
 msgstr ""
 
-#: lodgeit/views/about.html:6
+#: lodgeit/views/about.html:7
+msgid "LodgeIt version:"
+msgstr ""
+
+#: lodgeit/views/about.html:11
 msgid " Why the hell another pastebin?"
 msgstr ""
 
-#: lodgeit/views/about.html:7
+#: lodgeit/views/about.html:12
 msgid ""
 "\n"
 "      Good question. Basically the world doesn't need another pastebin.\n"
@@ -102,61 +106,61 @@ msgid ""
 "      are some features which are unique to LodgeIt."
 msgstr ""
 
-#: lodgeit/views/about.html:15
+#: lodgeit/views/about.html:20
 msgid "Features"
 msgstr ""
 
-#: lodgeit/views/about.html:17
+#: lodgeit/views/about.html:22
 msgid "clean user interface"
 msgstr ""
 
-#: lodgeit/views/about.html:18
+#: lodgeit/views/about.html:23
 msgid "different color schemes for the sourcecode"
 msgstr ""
 
-#: lodgeit/views/about.html:19
+#: lodgeit/views/about.html:24
 msgid "reply to pastes"
 msgstr ""
 
-#: lodgeit/views/about.html:20
+#: lodgeit/views/about.html:25
 msgid "diffs of two pastes"
 msgstr ""
 
-#: lodgeit/views/about.html:21
+#: lodgeit/views/about.html:26
 msgid "support for many python template languages"
 msgstr ""
 
-#: lodgeit/views/about.html:22
+#: lodgeit/views/about.html:27
 msgid ""
 "support for many scripting languages like Python and Ruby, even with\n"
 "           weird syntax (ruby *cough*)"
 msgstr ""
 
-#: lodgeit/views/about.html:24
+#: lodgeit/views/about.html:29
 msgid "XMLRPC support"
 msgstr ""
 
-#: lodgeit/views/about.html:25
+#: lodgeit/views/about.html:30
 msgid "command-line and editor integration"
 msgstr ""
 
-#: lodgeit/views/about.html:26
+#: lodgeit/views/about.html:31
 msgid "persistent pastes"
 msgstr ""
 
-#: lodgeit/views/about.html:27
+#: lodgeit/views/about.html:32
 msgid "reply notification"
 msgstr ""
 
-#: lodgeit/views/about.html:28
+#: lodgeit/views/about.html:33
 msgid "valid HTML 4.0"
 msgstr ""
 
-#: lodgeit/views/about.html:30
+#: lodgeit/views/about.html:35
 msgid "Request More Languages"
 msgstr ""
 
-#: lodgeit/views/about.html:31
+#: lodgeit/views/about.html:36
 msgid ""
 "\n"
 "      A language is missing in the list? File a ticket in the\n"
@@ -165,43 +169,43 @@ msgid ""
 "      as possible."
 msgstr ""
 
-#: lodgeit/views/about.html:36
+#: lodgeit/views/about.html:41
 msgid "Software Used"
 msgstr ""
 
-#: lodgeit/views/about.html:38
+#: lodgeit/views/about.html:43
 msgid ""
 "<a href=\"http://pygments.pocoo.org/\">Pygments</a> for syntax "
 "highlighting"
 msgstr ""
 
-#: lodgeit/views/about.html:39
+#: lodgeit/views/about.html:44
 msgid "<a href=\"http://www.python.org/\">Python</a> as scripting language"
 msgstr ""
 
-#: lodgeit/views/about.html:40
+#: lodgeit/views/about.html:45
 msgid "<a href=\"http://jinja.pocoo.org/2\">Jinja 2</a> for templating"
 msgstr ""
 
-#: lodgeit/views/about.html:41
+#: lodgeit/views/about.html:46
 msgid ""
 "<a href=\"http://werkzeug.pocoo.org/\">Werkzeug</a> for the WSGI "
 "implementation"
 msgstr ""
 
-#: lodgeit/views/about.html:42
+#: lodgeit/views/about.html:47
 msgid "<a href=\"http://www.sqlalchemy.org\">SQLAlchemy</a> as database layer"
 msgstr ""
 
-#: lodgeit/views/about.html:43
+#: lodgeit/views/about.html:48
 msgid "<a href=\"http://www.jquery.com/\">jQuery</a> for scripting"
 msgstr ""
 
-#: lodgeit/views/about.html:45
+#: lodgeit/views/about.html:50
 msgid "Who?"
 msgstr ""
 
-#: lodgeit/views/about.html:46
+#: lodgeit/views/about.html:51
 msgid ""
 "\n"
 "      This paste was founded by <a "
@@ -212,11 +216,11 @@ msgid ""
 "      led by Georg Brandl."
 msgstr ""
 
-#: lodgeit/views/about.html:52
+#: lodgeit/views/about.html:57
 msgid "Privacy"
 msgstr ""
 
-#: lodgeit/views/about.html:53
+#: lodgeit/views/about.html:58
 msgid ""
 "\n"
 "      LodgeIt does not use user accounts because it's logging in for "
