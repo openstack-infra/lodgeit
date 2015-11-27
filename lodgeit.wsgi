@@ -1,5 +1,5 @@
 # Example lodgeit file
-from lodgeit import make_app
+from lodgeit.application import make_app
 
 application = make_app(
     # the path to the database
