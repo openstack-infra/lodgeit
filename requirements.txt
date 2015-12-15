@@ -5,3 +5,5 @@ SQLAlchemy==0.9.7
 simplejson
 Babel
 pillow
+pytz
+MarkupSafe
