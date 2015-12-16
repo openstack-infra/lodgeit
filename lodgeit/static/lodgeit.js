@@ -173,7 +173,7 @@ var LodgeIt = {
   removeCookie : function() {
     if (confirm('Do really want to remove your cookie?')) {
       $.cookie('lodgeit_session', '');
-      alert('Your cookie was resetted!');
+      alert('Your cookie was removed!');
     }
   }
 };
