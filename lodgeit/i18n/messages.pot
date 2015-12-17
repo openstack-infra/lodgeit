@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-08 17:11+0900\n"
+"POT-Creation-Date: 2015-12-17 16:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: lodgeit/controllers/pastes.py:47
+#: lodgeit/controllers/pastes.py:46
 msgid "your paste contains spam"
 msgstr ""
 
-#: lodgeit/controllers/pastes.py:53
+#: lodgeit/controllers/pastes.py:52
 msgid "your paste contains spam and the CAPTCHA solution was incorrect"
 msgstr ""
 
@@ -80,24 +80,6 @@ msgstr ""
 
 #: lodgeit/lib/highlighting.py:50
 msgid "Multi-File"
-msgstr ""
-
-#: lodgeit/lib/pagination.py:74
-#, python-format
-msgid " <a href=\"%s\">Next &raquo;</a>"
-msgstr ""
-
-#: lodgeit/lib/pagination.py:77
-msgid " <span class=\"disabled\">Next &raquo;</span>"
-msgstr ""
-
-#: lodgeit/lib/pagination.py:80
-#, python-format
-msgid "<a href=\"%s\">&laquo; Prev</a> "
-msgstr ""
-
-#: lodgeit/lib/pagination.py:83
-msgid "<span class=\"disabled\">&laquo; Prev</span> "
 msgstr ""
 
 #: lodgeit/views/about.html:2
