@@ -6,7 +6,7 @@
   <p>
     Differences between the pastes
     <a href="{{ old.url|e }}">#{{ old.identifier }}</a> ({{ old.pub_date|datetimeformat }})
-    and <a href="{{ new.url|e }}">#{{ new.identifier }}</a> ({{ new.pub_date|datetimeformat }}). Download as <a href="/unidiff/{{ old.identifier }}/{{ new.identifier }}/">unified diff</a>.
+    and <a href="{{ new.url|e }}">#{{ new.identifier }}</a> ({{ new.pub_date|datetimeformat }}). Download as <a href="{{ url_for('pastes/unidiff_paste', new_id=new.identifier, old_id=old.identifier ) }}">unified diff</a>.
   </p>
   {% if diff.chunks %}
     {{ render_diff_part(diff) }}
