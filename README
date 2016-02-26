@@ -57,7 +57,7 @@ We are now ready to enter the virtual environment (assumed you are located in
     . ../bin/activate
 
 LodgeIt initializes it's database per default on /tmp/lodgeit.db, you can change
-that path in the manage.py by modifiing ``dburi``.
+that path in the manage.py by modifying ``dburi``.
 
 Now start the development server::
 
