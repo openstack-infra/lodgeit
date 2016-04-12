@@ -27,7 +27,7 @@
         {% if paste.parent %}
           <li>
             <a class="autoclose"
-               href="{{ url_for('pastes/compare_paste', new_id=paste.identifier, old_id=paste.parent.identifier ) }}/">
+               href="{{ url_for('pastes/compare_paste', new_id=paste.identifier, old_id=paste.parent.identifier ) }}">
               {% trans %}compare it with the parent paste{% endtrans %}
             </a>
           </li>
@@ -49,13 +49,13 @@
         {% endif %}
         {% if paste.parent or paste.children %}
         <li>
-          <a href="{{ url_for('pastes/show_tree', identifier=paste.identifier) }}/">
+          <a href="{{ url_for('pastes/show_tree', identifier=paste.identifier) }}">
             {% trans %}show paste tree{% endtrans %}
           </a>
         </li>
         {% endif %}
         <li>
-          <a href="{{ url_for('pastes/raw_paste', identifier=paste.identifier) }}/">
+          <a href="{{ url_for('pastes/raw_paste', identifier=paste.identifier) }}">
             {% trans %}download paste{% endtrans %}
           </a>
         </li>
