@@ -15,9 +15,11 @@ def run_app(app, path='/'):
     env = create_environ(path, SECRET_KEY)
     return run_wsgi_app(app, env)
 
+
 action_runserver = script.make_runserver(
     lambda: make_app(dburi, SECRET_KEY, debug=True),
     use_reloader=True)
+
 
 action_shell = script.make_shell(
     lambda: {

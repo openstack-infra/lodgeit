@@ -180,4 +180,5 @@ class PasteController(object):
         """Show a captcha."""
         return Captcha().get_response(set_cookie=True)
 
+
 controller = PasteController

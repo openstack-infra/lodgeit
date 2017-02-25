@@ -38,6 +38,7 @@ def _get_pygments_lexers(add_empty=True):
         r.append((lexer[1][0], _(lexer[0])),)
     return r
 
+
 LANGUAGES = _get_pygments_lexers()
 #: Add LodgeIt's special language lexers
 #: Or at least ensure those exist.
