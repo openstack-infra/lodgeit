@@ -1,9 +1,0 @@
-Jinja2
-Werkzeug
-Pygments
-SQLAlchemy==0.9.7
-simplejson
-Babel
-pillow
-pytz
-MarkupSafe
